@@ -7,15 +7,19 @@
     <artifactId>escalade</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+
   <groupId>com.gg.proj</groupId>
   <artifactId>escalade-technical</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>escalade-technical</name>
   <url>http://maven.apache.org</url>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <dependencies>
+    <!-- bibliotheque tierce -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
