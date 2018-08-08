@@ -1,4 +1,4 @@
-package org.exemple.demo.consumer;
+package com.gg.proj.consumer;
 
 /**
  * Hello world!

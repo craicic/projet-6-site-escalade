@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- info du projet -->
+    <!-- info du topo -->
     <groupId>com.gg.proj</groupId>
     <artifactId>escalade</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -18,11 +18,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jersey.version>2.26</jersey.version>
+        <spring.version>4.3.11.RELEASE</spring.version>
     </properties>
 
     <!-- dépendances-->
     <dependencyManagement>
         <dependencies>
+            <!-- modules -->
             <dependency>
                 <groupId>com.gg.proj</groupId>
                 <artifactId>escalade-webapp</artifactId>
@@ -48,7 +50,31 @@
                 <artifactId>escalade-consumer</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+
+            <!-- springs -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- bibliotheques tierces -->
+
+            <!-- JSR-250 -->
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <!-- JSR-330 -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -179,7 +205,7 @@
 
     <reporting>
         <plugins>
-            <!-- ===== Rapport d'information général sur le projet ===== -->
+            <!-- ===== Rapport d'information général sur le topo ===== -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>

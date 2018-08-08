@@ -1,4 +1,4 @@
-package org.exemple.demo.business;
+package com.gg.proj.business;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
