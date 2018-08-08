@@ -1,0 +1,51 @@
+﻿Contexte  : 
+		Vous vous lancez dans la création d’une application web permettant :
+	de partager des informations sur les sites, leurs secteurs et les voies de chaque secteur (hauteur, cotation, nombre de points…)
+	de faire une recherche multi-critères pour trouver votre prochain site de grimpe
+	de laisser des commentaires
+	de présenter les topo qui existent et les sites/secteurs qu’ils couvrent
+	d’avoir un espace de prêt de topo (les propriétaires de topo peuvent proposer le prêt de leur topo et les gens intéressés peuvent voir les topo disponibles et les réserver pour une période)
+
+Packaging de l'application :
+
+	Projet multi-modules mvc (webapp-business-consumer-model-technical)
+
+Acteurs :
+
+	Utilisateurs
+	Admin
+
+Liste des cas d'utilisation :
+Les cas d'utilisation listés s'appliquent directement aux deux acteurs du projet. Il sera  précisé lorsqu'un cas est reservé a l'un ou l'autre des acteurs.
+Les cas d'utilisation suivis de * peuvent être effectués sans la pré-condition "authentifier".
+
+
+
+
+		S'authentifier * 
+
+		S'inscrire *
+
+		Consulter les informations sur un site *
+				-> Consulter les informations sur un secteur *
+					-> Consulter les informations sur une voie *	
+			-> Mettre en ligne les informations sur site, secteurs, voix.
+			-> Editer les informations sur site, secteurs, voix.
+
+		Faire une recherche multi-critères. *
+
+		Poster un commentaire
+			-> Editer un commentaire
+			
+		Poster / éditer une présentation de topo
+			-> Lier un topo à un ou plusieurs site/secteur
+			-> Annoncer si le topo est partageable
+			
+		Consulter une présentation de topo *
+		
+		Créer une fiche de prêt de topo
+			-> Lier une fiche à sa présentation
+		
+		Consulter une fiche de prêt de topo *
+			-> Sélectionner une période d'empreint
+				-> Réserver un topo
