@@ -1,7 +1,9 @@
 package com.gg.proj.model.bean.topo;
 
-public class Topo {
-    
+import com.gg.proj.model.bean.Model;
+
+public class Topo implements Model {
+
     private Integer id;
     private String auteur;
     private String nom;
@@ -36,4 +38,5 @@ public class Topo {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
 }
