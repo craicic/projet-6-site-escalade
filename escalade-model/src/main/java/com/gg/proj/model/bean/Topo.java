@@ -1,4 +1,4 @@
-package com.gg.proj.model.bean.topo;
+package com.gg.proj.model.bean;
 
 import com.gg.proj.model.bean.Model;
 
@@ -8,7 +8,7 @@ public class Topo implements Model {
     private String auteur;
     private String nom;
     private String description;
-    //TODO Site[] et Commentaire[]
+    //TODO Sites[] et Commentaires[]
 
     public Topo(){}
 
