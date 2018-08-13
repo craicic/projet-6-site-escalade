@@ -5,7 +5,7 @@ import com.gg.proj.model.bean.Model;
 import java.util.List;
 
 /**
- * CRUDManager impose les methodes communes a tout les manager du projets (CRUD)
+ * CRUDManager impose les méthodes communes a tout les manager du projets (CRUD)
  * @param <T> Avec T un objet en base de donnée
  */
 public interface CRUDManager<T extends Model> {
