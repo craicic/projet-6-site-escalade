@@ -6,7 +6,7 @@ public class Topo implements Model {
 
     private Integer id;
     private String auteur;
-    private String nom;
+    private String titre;
     private String description;
     //TODO Sites[] et Commentaires[]
 
@@ -32,11 +32,9 @@ public class Topo implements Model {
     public void setAuteur(String auteur) {
         this.auteur = auteur;
     }
-    public String getNom() {
-        return nom;
+    public String getTitre() {
+        return titre;
     }
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+    public void setTitre(String titre) { this.titre = titre; }
 
 }

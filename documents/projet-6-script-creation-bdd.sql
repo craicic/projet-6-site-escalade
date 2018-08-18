@@ -3,7 +3,7 @@ CREATE TABLE public.site (
                 id INTEGER NOT NULL,
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
-                coordonnees_gps OTHER NOT NULL,
+                coordonnees_gps POINT NOT NULL,
                 CONSTRAINT site_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.site.coordonnees_gps IS 'Type : Point';
@@ -13,7 +13,7 @@ CREATE TABLE public.secteur (
                 id INTEGER NOT NULL,
                 nom VARCHAR NOT NULL,
                 decription VARCHAR,
-                coordonnees_gps OTHER NOT NULL,
+                coordonnees_gps POINT NOT NULL,
                 site_id INTEGER NOT NULL,
                 CONSTRAINT secteur_pk PRIMARY KEY (id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE public.voie (
                 id INTEGER NOT NULL,
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
-                coordonnees_gps OTHER NOT NULL,
+                coordonnees_gps POINT NOT NULL,
                 nombre_points INTEGER NOT NULL,
                 cotation VARCHAR(10) NOT NULL,
                 hauteur VARCHAR NOT NULL,
@@ -83,7 +83,7 @@ ALTER SEQUENCE public.empreint_id_seq OWNED BY public.empreint.id;
 CREATE TABLE public.empreint_de_topos (
                 topo_id INTEGER NOT NULL,
                 empreint_id INTEGER NOT NULL,
-                CONSTRAINT empreint_de_topos_pk PRIMARY KEY (topo_id)
+                CONSTRAINT empreint_de_topos_pk PRIMARY KEY (topo_id, empreint_id)
 );
 
 
