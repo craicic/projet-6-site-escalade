@@ -1,3 +1,10 @@
+# Target folders
+projet-6-site-escalade/escalade-business/target/
+projet-6-site-escalade/escalade-model/target/
+projet-6-site-escalade/escalade-webapp/target/
+projet-6-site-escalade/escalade-tecnhical/target/
+projet-6-site-escalade/escalade-consumer/target/
+
 # Compiled class file
 *.class
 
