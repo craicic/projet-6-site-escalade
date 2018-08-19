@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.gg.proj</groupId>
     <artifactId>escalade-consumer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>escalade-consumer</name>

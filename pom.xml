@@ -19,6 +19,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <jersey.version>2.26</jersey.version>
         <spring.version>4.3.11.RELEASE</spring.version>
+        <struts.version>2.5.14.1</struts.version>
     </properties>
 
     <!-- dépendances-->
@@ -56,6 +57,15 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
                 <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Framework Apache Struts -->
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-bom</artifactId>
+                <version>${struts.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

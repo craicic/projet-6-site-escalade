@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.gg.proj</groupId>
     <artifactId>escalade-webapp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -24,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-        <struts.version>2.5.14.1</struts.version>
+
     </properties>
 
     <dependencies>
@@ -66,24 +65,27 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
+
+        <!-- Pour que spring devienne la fabrique d'objet strus-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.struts</groupId>-->
+            <!--<artifactId>struts2-spring-plugin</artifactId>-->
+        <!--</dependency>-->
 
         <!-- Framework Apache Struts -->
         <dependency>
             <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-bom</artifactId>
-            <version>${struts.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
+            <artifactId>struts2-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-core</artifactId>
-            <version>2.5.14.1</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
+
 
     </dependencies>
 

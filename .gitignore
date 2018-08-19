@@ -1,6 +1,9 @@
 # Target folders
 */target/**
 
+# iml files
+*.iml
+
 # Compiled class file
 *.class
 
