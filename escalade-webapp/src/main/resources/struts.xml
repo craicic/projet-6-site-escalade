@@ -7,9 +7,12 @@
 
     <package name="default" namespace="/" extends="struts-default">
 
+        <default-action-ref name="GestionTopoAction"/>
+
         <action name="GestionTopoAction"
-                class="com.gg.proj.webapp.action.GestionTopoAction" >
-            <result name="success">/jsp/index.jsp</result>
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doList">
+            <result>/jsp/index.jsp</result>
         </action>
 
     </package>

@@ -70,12 +70,12 @@
         </dependency>
 
         <!-- Pour que spring devienne la fabrique d'objet strus-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.struts</groupId>-->
-            <!--<artifactId>struts2-spring-plugin</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+        </dependency>
 
-        <!-- Framework Apache Struts -->
+         <!--Framework Apache Struts-->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>

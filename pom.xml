@@ -134,7 +134,7 @@
                 <scope>import</scope>
             </dependency>
 
-
+            <!-- Log4j2 -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
