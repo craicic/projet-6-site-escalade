@@ -8,11 +8,17 @@
 
 <body>
 <h2>Hello World!</h2>
+
 <ul>
     <s:iterator value="listTopo">
-        <li><s:property/></li>
+        <li>
+            <s:a action="list_topo">
+                <s:property/>
+            </s:a>
+        </li>
     </s:iterator>
 </ul>
+
 </body>
 
 </html>

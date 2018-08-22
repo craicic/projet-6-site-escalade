@@ -14,5 +14,4 @@ public class ManagerFactoryImpl implements ManagerFactory {
     public TopoManager getTopoManager(){
         return topoManager;
     }
-    public void setTopoManager(TopoManager pTopoManager){}
 }

@@ -9,11 +9,12 @@
     <packaging>pom</packaging>
 
     <!-- info générales -->
-    <name>escalade</name>
+    <name>${projectName}</name>
     <url>http://maven.apache.org</url>
 
     <!-- properties -->
     <properties>
+        <projectName>Escalade</projectName>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

@@ -5,11 +5,14 @@ import com.gg.proj.model.bean.Topo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
+
+
+
 
     @Override
     public void create(Object model) {
@@ -23,23 +26,83 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public List list() {
-        String vSQL = "SELECT * FROM topo";
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        RowMapper<Topo> vRowMapper = new RowMapper<Topo>() {
-            public Topo mapRow(ResultSet pRS, int pRowNum) throws SQLException {
-                Topo vTopo = new Topo(pRS.getInt("id"));
-                return vTopo;
+//        String vSQL = "SELECT * FROM topo";
+//        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+//        RowMapper<Topo> vRowMapper = new RowMapper<Topo>() {
+//            public Topo mapRow(ResultSet pRS, int pRowNum) throws SQLException {
+//                Topo vTopo = new Topo(pRS.getInt("id"));
+//                return vTopo;
+//            }
+//        };
+//
+//        List<Topo> vListStatut = jdbcTemplate.query(vSQL, vRowMapper);
+//
+//        return vListStatut;
+
+        List<Topo> topos = new ArrayList<Topo>();
+
+        Connection connexion = this.getConnexion();
+        Statement statement = null;
+        ResultSet resultat = null;
+
+        loadDatabase();
+
+        try {
+            statement = connexion.createStatement();
+
+            // Exécution de la requête
+            resultat = statement.executeQuery("SELECT * FROM topo;");
+
+            // Récupération des données
+            while (resultat.next()) {
+                String id = resultat.getString("id");
+                String auteur = resultat.getString("auteur");
+                String titre = resultat.getString("titre");
+                String description = resultat.getString("descritpion");
+
+                Topo topo = new Topo();
+                // Todo verif sur le parseInt
+                topo.setId(Integer.parseInt(id));
+                topo.setAuteur(auteur);
+                topo.setTitre(titre);
+                topo.setDescription(description);
+
+                topos.add(topo);
             }
-        };
+        } catch (SQLException e) {
+        } finally {
+            // Fermeture de la connexion
+            try {
+                if (resultat != null)
+                    resultat.close();
+                if (statement != null)
+                    statement.close();
+                if (connexion != null)
+                    connexion.close();
+            } catch (SQLException ignore) {
+            }
+        }
 
-        List<Topo> vListStatut = jdbcTemplate.query(vSQL, vRowMapper);
-
-        return vListStatut;
+        return topos;
     }
 
     @Override
     public void update(Object model) {
 
+        loadDatabase();
+        Topo topo = (Topo)model;
+
+        try {
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(id, auteur, titre, description) VALUES(?, ?, ?, ?);");
+            preparedStatement.setString(1, topo.getId().toString());
+            preparedStatement.setString(2, topo.getAuteur());
+            preparedStatement.setString(3, topo.getTitre());
+            preparedStatement.setString(4, topo.getDescription());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.gg.proj.model.bean;
 
-import com.gg.proj.model.bean.Model;
-
 public class Topo implements Model {
 
     private Integer id;
@@ -20,6 +18,8 @@ public class Topo implements Model {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
     public Integer getId() {
         return id;
     }

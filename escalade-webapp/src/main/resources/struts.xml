@@ -7,9 +7,9 @@
 
     <package name="default" namespace="/" extends="struts-default">
 
-        <default-action-ref name="GestionTopoAction"/>
+        <default-action-ref name="list_topo"/>
 
-        <action name="GestionTopoAction"
+        <action name="list_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doList">
             <result>/jsp/index.jsp</result>

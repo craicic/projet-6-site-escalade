@@ -38,11 +38,19 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.glassfish.hk2.external</groupId>-->
+            <!--<artifactId>javax.inject</artifactId>-->
+            <!--<version>2.5.0-b61</version>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
+        <!-- Spring tx -->
         <dependency>
-            <groupId>org.glassfish.hk2.external</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>2.5.0-b61</version>
-            <scope>compile</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
         </dependency>
+
     </dependencies>
 </project>

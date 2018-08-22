@@ -1,11 +1,19 @@
 package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.TopoManager;
+import com.gg.proj.consumer.contract.DaoFactory;
+import com.gg.proj.consumer.impl.dao.TopoDaoImpl;
 import com.gg.proj.model.bean.Topo;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class TopoManagerImpl implements TopoManager {
+
+
+    @Inject
+    DaoFactory daoFactory;
+
     @Override
     public void create(Topo model) {
     }
@@ -17,7 +25,7 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public List<Topo> list() {
-        return null;
+        return daoFactory.getTopoDao().list();
     }
 
     @Override
