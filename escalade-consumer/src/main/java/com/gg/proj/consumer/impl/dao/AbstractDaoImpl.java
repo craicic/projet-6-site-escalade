@@ -1,7 +1,12 @@
 package com.gg.proj.consumer.impl.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.inject.Inject;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+import javax.management.remote.rmi.RMIConnectionImpl;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,10 +16,9 @@ public abstract class AbstractDaoImpl {
 
 
 
-    @Inject
     private Connection connexion;
 
-    @Inject
+    //@Inject
     private DataSource dataSource;
 
     protected DataSource getDataSource(){
@@ -28,12 +32,12 @@ public abstract class AbstractDaoImpl {
     protected void loadDatabase() {
         // Chargement du driver
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
         }
 
         try {
-            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaee", "root", "");
+            connexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "test123");
         } catch (SQLException e) {
             e.printStackTrace();
         }

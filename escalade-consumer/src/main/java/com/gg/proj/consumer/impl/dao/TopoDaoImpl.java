@@ -4,11 +4,16 @@ import com.gg.proj.consumer.contract.dao.TopoDao;
 import com.gg.proj.model.bean.Topo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Named
+//@Singleton
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
 
@@ -41,11 +46,17 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         List<Topo> topos = new ArrayList<Topo>();
 
-        Connection connexion = this.getConnexion();
+
+
         Statement statement = null;
         ResultSet resultat = null;
 
+        System.out.println("Début chargement DB...");
         loadDatabase();
+        System.out.println("Fin chargement DB");
+
+        Connection connexion = this.getConnexion();
+        System.out.println("Connexion établie");
 
         try {
             statement = connexion.createStatement();
@@ -58,7 +69,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 String id = resultat.getString("id");
                 String auteur = resultat.getString("auteur");
                 String titre = resultat.getString("titre");
-                String description = resultat.getString("descritpion");
+                String description = resultat.getString("description");
 
                 Topo topo = new Topo();
                 // Todo verif sur le parseInt
