@@ -15,16 +15,15 @@ public class GestionTopoAction extends ActionSupport {
     @Inject
     private ManagerFactory managerFactory;
 
-
-
     private List<Topo> listTopo;
 
     public void setListTopo(List<Topo> listTopo) {this.listTopo = listTopo;}
     public List<Topo> getListTopo() {return listTopo;}
 
     public String doList(){
-        System.out.println("Hey from doList");
+
         listTopo = managerFactory.getTopoManager().list();
+
         System.out.println("listTopo.size() = " + listTopo.size());
         for (Topo instanceDeTopo : listTopo) {
             System.out.println( "id = " + instanceDeTopo.getId() + "\n"

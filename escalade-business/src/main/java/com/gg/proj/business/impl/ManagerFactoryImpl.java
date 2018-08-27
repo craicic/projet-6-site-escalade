@@ -16,7 +16,6 @@ public class ManagerFactoryImpl implements ManagerFactory {
 
     @Override
     public TopoManager getTopoManager(){
-        System.out.println("Hey from TopoManagerImpl");
         return topoManager;
     }
 }

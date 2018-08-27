@@ -2,7 +2,7 @@ package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.TopoManager;
 //import com.gg.proj.consumer.contract.DaoFactory;
-import com.gg.proj.consumer.contract.DaoFactory;
+
 import com.gg.proj.consumer.contract.dao.TopoDao;
 import com.gg.proj.consumer.impl.dao.TopoDaoImpl;
 import com.gg.proj.model.bean.Topo;
@@ -23,17 +23,15 @@ public class TopoManagerImpl implements TopoManager {
     * Je liste toutes les classes injectable
     *
      **/
+
     @Inject
-    DaoFactory daoFactory;
+    TopoDao TopoDao;
 
 //    @Inject
 //    private Connection connexion;
 
 //    @Inject
 //    private DataSource dataSource;
-
-//    @Inject
-//    private TopoDao topoDao;
 
 
     @Override
@@ -47,7 +45,7 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public List<Topo> list() {
-        return daoFactory.getTopoDao().list();
+        return TopoDao.list();
     }
 
     @Override

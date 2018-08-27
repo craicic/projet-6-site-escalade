@@ -19,11 +19,11 @@ public abstract class AbstractDaoImpl {
     private Connection connexion;
 
     //@Inject
-    private DataSource dataSource;
-
-    protected DataSource getDataSource(){
-        return dataSource;
-    }
+//    private DataSource dataSource;
+//
+//    protected DataSource getDataSource(){
+//        return dataSource;
+//    }
 
     protected Connection getConnexion() {
         return connexion;

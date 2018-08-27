@@ -16,12 +16,8 @@ import java.util.List;
 //@Singleton
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
-
-
-
     @Override
     public void create(Object model) {
-
     }
 
     @Override
@@ -51,12 +47,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         Statement statement = null;
         ResultSet resultat = null;
 
-        System.out.println("Début chargement DB...");
         loadDatabase();
-        System.out.println("Fin chargement DB");
 
         Connection connexion = this.getConnexion();
-        System.out.println("Connexion établie");
+        System.out.println("Connexion DB établie");
 
         try {
             statement = connexion.createStatement();
@@ -104,11 +98,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         Topo topo = (Topo)model;
 
         try {
-            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(id, auteur, titre, description) VALUES(?, ?, ?, ?);");
-            preparedStatement.setString(1, topo.getId().toString());
-            preparedStatement.setString(2, topo.getAuteur());
-            preparedStatement.setString(3, topo.getTitre());
-            preparedStatement.setString(4, topo.getDescription());
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(auteur, titre, description) VALUES(?, ?, ?);");
+            preparedStatement.setString(1, topo.getAuteur());
+            preparedStatement.setString(2, topo.getTitre());
+            preparedStatement.setString(3, topo.getDescription());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

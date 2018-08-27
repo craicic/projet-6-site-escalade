@@ -7,7 +7,7 @@
 <html>
 
 <body>
-<h2>Hello World!</h2>
+<h2>Liste des topos</h2>
 
 <ul>
     <s:iterator value="listTopo">
