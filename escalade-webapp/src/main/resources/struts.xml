@@ -15,5 +15,11 @@
             <result name="success">/jsp/index.jsp</result>
         </action>
 
+        <action name="get_by_id_topo"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doGetById">
+            <result name="success">/jsp/topo/detail.jsp</result>
+        </action>
+
     </package>
 </struts>

@@ -20,6 +20,10 @@
     </s:iterator>
 </ul>
 
+<s:a action="get_by_id_topo">
+    Détail
+</s:a>
+
 </body>
 
 </html>

@@ -34,4 +34,7 @@ public class GestionTopoAction extends ActionSupport {
         }
         return ActionSupport.SUCCESS;
     }
+    public String doGetById(){
+        return ActionSupport.SUCCESS;
+    }
 }
