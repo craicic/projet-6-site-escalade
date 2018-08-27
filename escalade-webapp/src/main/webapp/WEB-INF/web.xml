@@ -18,6 +18,9 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+   <!--Je n'ai pas utilisé la balise <context-param> pour configurer applicationContext.xml dans "main/resources"
+ car ça mettait la web-app en erreur.
+ A la place j'ai mis le applicationContext.xml dans WEB-INF (qui semble être le répertoire par défaut)-->
 
 </web-app>
 

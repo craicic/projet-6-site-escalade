@@ -7,21 +7,15 @@
 <html>
 
 <body>
-<h2>Liste des topos</h2>
+<h2>Index</h2>
 
-<ul>
-    <s:iterator value="listTopo">
-        <li>
-            <div><s:property value="id"/></div>
-            <div><s:property value="titre"/></div>
-            <div><s:property value="auteur"/></div>
-            <div><s:property value="description"/></div>
-        </li>
-    </s:iterator>
-</ul>
+
+<s:a action="list_topo">
+    Liste des topos
+</s:a>
 
 <s:a action="get_by_id_topo">
-    Détail
+    Topo par ID
 </s:a>
 
 </body>

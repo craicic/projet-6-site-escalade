@@ -7,6 +7,6 @@
 <html>
 
 <body>
-<h2>Detail d'un topo</h2>
+<h2>Détail d'un topo</h2>
 </body>
 </html>

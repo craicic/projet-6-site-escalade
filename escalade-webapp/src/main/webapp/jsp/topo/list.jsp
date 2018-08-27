@@ -7,6 +7,18 @@
 <html>
 
 <body>
+<h2>Liste des topos</h2>
+
+<ul>
+    <s:iterator value="listTopo">
+        <li>
+            <div><s:property value="id"/></div>
+            <div><s:property value="titre"/></div>
+            <div><s:property value="auteur"/></div>
+            <div><s:property value="description"/></div>
+        </li>
+    </s:iterator>
+</ul>
 
 </body>
 </html>

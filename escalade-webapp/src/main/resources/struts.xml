@@ -7,12 +7,16 @@
 
     <package name="default" namespace="/" extends="struts-default">
 
-        <default-action-ref name="list_topo"/>
+        <default-action-ref name="index"/>
+
+        <action name="index">
+            <result>/jsp/index.jsp</result>
+        </action>
 
         <action name="list_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doList">
-            <result name="success">/jsp/index.jsp</result>
+            <result name="success">/jsp/topo/list.jsp</result>
         </action>
 
         <action name="get_by_id_topo"
