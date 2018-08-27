@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.sql.*;
@@ -21,8 +22,58 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     @Override
-    public Object get(int id) {
-        return null;
+    public Object get(int pId) {
+
+        // Question : faut-il une injection?
+        Topo topo = new Topo();
+
+        Statement statement = null;
+        ResultSet resultat = null;
+
+        loadDatabase();
+
+        Connection connexion = this.getConnexion();
+        System.out.println("Connexion DB établie");
+
+        String rSQL;
+
+        try {
+            rSQL = "SELECT * FROM topo WHERE id ='" + pId +"' ;";
+            statement = connexion.createStatement();
+
+            // Exécution de la requête
+            resultat = statement.executeQuery(rSQL);
+
+            // Récupération des données
+            if (!resultat.next()){
+                System.out.println("Pas de données");
+            } else {
+                String id = resultat.getString("id");
+                String auteur = resultat.getString("auteur");
+                String titre = resultat.getString("titre");
+                String description = resultat.getString("description");
+
+                topo.setId(Integer.parseInt(id));
+                topo.setAuteur(auteur);
+                topo.setTitre(titre);
+                topo.setDescription(description);
+
+            }
+        } catch (SQLException e){
+        } finally {
+            // Fermeture de la connexion
+            try {
+                if (resultat != null)
+                    resultat.close();
+                if (statement != null)
+                    statement.close();
+                if (connexion != null)
+                    connexion.close();
+            } catch (SQLException ignore) {
+            }
+        }
+
+        return topo;
     }
 
     @Override
@@ -41,7 +92,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 //        return vListStatut;
 
         List<Topo> topos = new ArrayList<Topo>();
-
 
 
         Statement statement = null;
@@ -111,6 +161,5 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void delete(Object model) {
-
     }
 }

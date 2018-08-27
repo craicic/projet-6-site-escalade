@@ -40,7 +40,8 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public Topo get(int id) {
-        return null;
+        // Je compute pas le (topo)
+        return (Topo)TopoDao.get(id);
     }
 
     @Override

@@ -8,5 +8,12 @@
 
 <body>
 <h2>Détail d'un topo</h2>
+
+<ul>
+    <li>ID : <s:property value="topo.id"/></li>
+    <li>Titre : <s:property value="topo.titre" /></li>
+    <li>Auteur : <s:property value="topo.auteur" /></li>
+    <li>Description : <s:property value="topo.description" /></li>
+</ul>
 </body>
 </html>

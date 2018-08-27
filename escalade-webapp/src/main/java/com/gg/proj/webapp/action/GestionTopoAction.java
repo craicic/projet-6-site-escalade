@@ -16,9 +16,17 @@ public class GestionTopoAction extends ActionSupport {
     private ManagerFactory managerFactory;
 
     private List<Topo> listTopo;
+    private Topo topo;
 
-    public void setListTopo(List<Topo> listTopo) {this.listTopo = listTopo;}
     public List<Topo> getListTopo() {return listTopo;}
+    public void setListTopo(List<Topo> listTopo) {this.listTopo = listTopo;}
+
+    public Topo getTopo() {
+        return topo;
+    }
+    public void setTopo(Topo topo) {
+        this.topo = topo;
+    }
 
     public String doList(){
 
@@ -35,6 +43,16 @@ public class GestionTopoAction extends ActionSupport {
         return ActionSupport.SUCCESS;
     }
     public String doGetById(){
+
+        //Spécifier un id
+        int id = 1;
+
+        topo = managerFactory.getTopoManager().get(id);
+        System.out.println( "id = " + topo.getId() + "\n"
+                +   "titre = " + topo.getTitre() + "\n"
+                +   "description = " + topo.getDescription() + "\n"
+                +   "auteur = " + topo.getAuteur());
+
         return ActionSupport.SUCCESS;
     }
 }

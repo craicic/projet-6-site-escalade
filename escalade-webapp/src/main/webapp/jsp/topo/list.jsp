@@ -12,10 +12,10 @@
 <ul>
     <s:iterator value="listTopo">
         <li>
-            <div><s:property value="id"/></div>
-            <div><s:property value="titre"/></div>
-            <div><s:property value="auteur"/></div>
-            <div><s:property value="description"/></div>
+            <div>ID : <s:property value="id"/></div>
+            <div>Titre : <s:property value="titre"/></div>
+            <div>Auteur : <s:property value="auteur"/></div>
+            <div>Description : <s:property value="description"/></div>
         </li>
     </s:iterator>
 </ul>
