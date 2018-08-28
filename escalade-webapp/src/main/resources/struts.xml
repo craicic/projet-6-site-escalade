@@ -13,17 +13,44 @@
             <result>/jsp/index.jsp</result>
         </action>
 
+        <!-- Affichage de la liste des topo -->
         <action name="list_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doList">
             <result name="success">/jsp/topo/list.jsp</result>
         </action>
 
-        <action name="get_by_id_topo"
+        <!-- Affichage des détails d'un topo -->
+        <action name="detail_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
-                method="doGetById">
+                method="doDetail">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
             <result name="success">/jsp/topo/detail.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
         </action>
 
+        <!-- Ajout d'un nouveau topo -->
+        <action name="topo_new"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+
+
+            <result name="input">/jsp/topo/new.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">topo_detail</param>
+                <param name="id">${topo.id}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
     </package>
 </struts>

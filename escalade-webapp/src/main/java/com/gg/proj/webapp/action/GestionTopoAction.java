@@ -5,6 +5,7 @@ import com.gg.proj.business.impl.ManagerFactoryImpl;
 import com.gg.proj.business.impl.manager.TopoManagerImpl;
 import com.gg.proj.model.bean.Topo;
 import com.opensymphony.xwork2.ActionSupport;
+import javassist.NotFoundException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -12,11 +13,22 @@ import java.util.List;
 public class GestionTopoAction extends ActionSupport {
 
 
+
     @Inject
     private ManagerFactory managerFactory;
 
+
+
+    private Integer id;
     private List<Topo> listTopo;
     private Topo topo;
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public List<Topo> getListTopo() {return listTopo;}
     public void setListTopo(List<Topo> listTopo) {this.listTopo = listTopo;}
@@ -42,17 +54,49 @@ public class GestionTopoAction extends ActionSupport {
         }
         return ActionSupport.SUCCESS;
     }
-    public String doGetById(){
 
-        //Spécifier un id
-        int id = 1;
+    public String doDetail(){
 
-        topo = managerFactory.getTopoManager().get(id);
+        // initialisation de l'id
+
+        id = 1;
+
+        // Todo générer les exceptions
+
+        if (id == null){
+            this.addActionError("Vous devez indiquer un id de projet");
+        } else {
+            try{
+                topo = managerFactory.getTopoManager().get(id);
+            } catch (Exception e){
+                this.addActionError("Projet non trouvé. ID = " + id);
+            }
+        }
+
         System.out.println( "id = " + topo.getId() + "\n"
                 +   "titre = " + topo.getTitre() + "\n"
                 +   "description = " + topo.getDescription() + "\n"
                 +   "auteur = " + topo.getAuteur());
 
-        return ActionSupport.SUCCESS;
+        return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    }
+
+    public String doCreate(){
+        // Si (this.topo == null) c'est que l'on entre dans l'ajout de projet
+        // Sinon, c'est que l'on vient de valider le formulaire d'ajout
+
+        // Par défaut, le result est "input"
+        String vResult = ActionSupport.INPUT;
+
+        if (this.topo !=null) {
+            try {
+                managerFactory.getTopoManager().create(this.topo);
+                vResult = ActionSupport.SUCCESS;
+            } catch (Exception e) {
+                this.addActionError(e.getMessage());
+                vResult = ActionSupport.ERROR;
+            }
+        }
+        return vResult;
     }
 }

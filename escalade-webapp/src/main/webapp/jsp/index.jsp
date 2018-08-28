@@ -7,6 +7,7 @@
 <html>
 
 <body>
+
 <h2>Index</h2>
 
 
@@ -14,8 +15,12 @@
     Liste des topos
 </s:a>
 
-<s:a action="get_by_id_topo">
+<s:a action="detail_topo">
     Topo par ID
+</s:a>
+
+<s:a action="topo_new">
+    Ajouter un topo
 </s:a>
 
 </body>

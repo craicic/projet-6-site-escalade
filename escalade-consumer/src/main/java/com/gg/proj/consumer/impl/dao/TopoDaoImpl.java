@@ -19,12 +19,32 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void create(Object model) {
+
+        loadDatabase();
+        Topo topo = (Topo)model;
+
+        System.out.println("Hey from TopoDaoImpl.create");
+        System.out.println( "id = " + topo.getId() + "\n"
+                +   "titre = " + topo.getTitre() + "\n"
+                +   "description = " + topo.getDescription() + "\n"
+                +   "auteur = " + topo.getAuteur());
+
+        try {
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(auteur, titre, description) VALUES(?, ?, ?);");
+            preparedStatement.setString(1, topo.getAuteur());
+            preparedStatement.setString(2, topo.getTitre());
+            preparedStatement.setString(3, topo.getDescription());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Object get(int pId) {
 
-        // Question : faut-il une injection?
         Topo topo = new Topo();
 
         Statement statement = null;
@@ -47,6 +67,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             // Récupération des données
             if (!resultat.next()){
                 System.out.println("Pas de données");
+//                throw new Exception();
             } else {
                 String id = resultat.getString("id");
                 String auteur = resultat.getString("auteur");
@@ -143,20 +164,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void update(Object model) {
-
-        loadDatabase();
-        Topo topo = (Topo)model;
-
-        try {
-            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(auteur, titre, description) VALUES(?, ?, ?);");
-            preparedStatement.setString(1, topo.getAuteur());
-            preparedStatement.setString(2, topo.getTitre());
-            preparedStatement.setString(3, topo.getDescription());
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

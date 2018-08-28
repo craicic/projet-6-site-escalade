@@ -36,11 +36,11 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public void create(Topo model) {
+        TopoDao.create(model);
     }
 
     @Override
     public Topo get(int id) {
-        // Je compute pas le (topo)
         return (Topo)TopoDao.get(id);
     }
 
