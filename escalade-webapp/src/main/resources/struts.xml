@@ -9,6 +9,12 @@
 
         <default-action-ref name="index"/>
 
+        <!-- Resultat globaux-->
+        <global-results>
+            <result name="error">/jsp/error.jsp</result>
+        </global-results>
+
+        <!-- index -->
         <action name="index">
             <result>/jsp/index.jsp</result>
         </action>
@@ -30,8 +36,11 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
 
-            <result name="success">/jsp/topo/detail.jsp</result>
-            <result name="error">/jsp/error.jsp</result>
+            <result name="success">/jsp/topo/detail.jsp
+                <!--<param name="id">${topo.id}</param>-->
+            </result>
+
+            <!-- les erreurs sont mappées en globale -->
         </action>
 
         <!-- Ajout d'un nouveau topo -->
@@ -44,13 +53,20 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
 
-
             <result name="input">/jsp/topo/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">topo_detail</param>
-                <param name="id">${topo.id}</param>
+                <param name="actionName">topo_new</param>
             </result>
-            <result name="error">/jsp/error.jsp</result>
+                <!--<param name="id">${topo.id}</param>-->
+
+            <!-- les erreurs sont mappées en globale -->
+        </action>
+
+        <!-- Suppression d'un topo -->
+        <action name="delete_topo"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">list_topo</result>
         </action>
     </package>
 </struts>

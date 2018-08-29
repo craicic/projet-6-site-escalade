@@ -27,7 +27,7 @@ public class CrudDaoImpl implements CrudDao {
     }
 
     @Override
-    public void delete(Object model) {
+    public void delete(Integer id) {
 
     }
 }

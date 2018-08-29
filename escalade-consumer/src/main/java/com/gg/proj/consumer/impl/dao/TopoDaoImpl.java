@@ -5,6 +5,7 @@ import com.gg.proj.model.bean.Topo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +13,7 @@ import javax.inject.Singleton;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Named
 //@Singleton
@@ -22,12 +24,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         loadDatabase();
         Topo topo = (Topo)model;
-
-        System.out.println("Hey from TopoDaoImpl.create");
-        System.out.println( "id = " + topo.getId() + "\n"
-                +   "titre = " + topo.getTitre() + "\n"
-                +   "description = " + topo.getDescription() + "\n"
-                +   "auteur = " + topo.getAuteur());
 
         try {
             PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(auteur, titre, description) VALUES(?, ?, ?);");
@@ -58,6 +54,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         String rSQL;
 
         try {
+            //todo utiliser preparedStatement
             rSQL = "SELECT * FROM topo WHERE id ='" + pId +"' ;";
             statement = connexion.createStatement();
 
@@ -166,7 +163,24 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void update(Object model) {
     }
 
+    @Transactional
     @Override
-    public void delete(Object model) {
+    public void delete(Integer id) {
+
+        loadDatabase();
+
+        Connection connexion = this.getConnexion();
+        System.out.println("Connexion DB établie");
+
+        try {
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("DELETE FROM topo WHERE id = ?;");
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new NoSuchElementException();
+        }
+
     }
 }

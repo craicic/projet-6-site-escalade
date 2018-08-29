@@ -6,9 +6,12 @@ import com.gg.proj.business.impl.manager.TopoManagerImpl;
 import com.gg.proj.model.bean.Topo;
 import com.opensymphony.xwork2.ActionSupport;
 import javassist.NotFoundException;
+import org.apache.struts2.ServletActionContext;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class GestionTopoAction extends ActionSupport {
 
@@ -57,9 +60,10 @@ public class GestionTopoAction extends ActionSupport {
 
     public String doDetail(){
 
-        // initialisation de l'id
+        System.out.println("hey from doDetail");
+        // todo a enlever : initialisation de l'id
 
-        id = 1;
+//        id = 1;
 
         // Todo générer les exceptions
 
@@ -72,12 +76,12 @@ public class GestionTopoAction extends ActionSupport {
                 this.addActionError("Projet non trouvé. ID = " + id);
             }
         }
-
-        System.out.println( "id = " + topo.getId() + "\n"
-                +   "titre = " + topo.getTitre() + "\n"
-                +   "description = " + topo.getDescription() + "\n"
-                +   "auteur = " + topo.getAuteur());
-
+//        if(topo != null) {
+//            System.out.println("id = " + topo.getId() + "\n"
+//                    + "titre = " + topo.getTitre() + "\n"
+//                    + "description = " + topo.getDescription() + "\n"
+//                    + "auteur = " + topo.getAuteur());
+//        }
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }
 
@@ -91,6 +95,7 @@ public class GestionTopoAction extends ActionSupport {
         if (this.topo !=null) {
             try {
                 managerFactory.getTopoManager().create(this.topo);
+                this.addActionMessage("Topo ajouté.");
                 vResult = ActionSupport.SUCCESS;
             } catch (Exception e) {
                 this.addActionError(e.getMessage());
@@ -98,5 +103,15 @@ public class GestionTopoAction extends ActionSupport {
             }
         }
         return vResult;
+    }
+
+    public String doDelete(){
+        try {
+            managerFactory.getTopoManager().delete(this.id);
+            this.addActionMessage("Topo supprimé.");
+        } catch (NoSuchElementException e){
+            ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        return ActionSupport.SUCCESS;
     }
 }

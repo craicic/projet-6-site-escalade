@@ -55,7 +55,7 @@ public class TopoManagerImpl implements TopoManager {
     }
 
     @Override
-    public void delete(Topo model) {
-
+    public void delete(Integer id) {
+        TopoDao.delete(id);
     }
 }

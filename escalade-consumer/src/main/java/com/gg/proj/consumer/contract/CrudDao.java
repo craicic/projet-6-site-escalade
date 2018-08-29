@@ -7,5 +7,5 @@ public interface CrudDao<T > {
     T get(int id);
     List<T> list();
     void update(T model);
-    void delete(T model);
+    void delete(Integer id);
 }

@@ -7,6 +7,7 @@
 <html>
 
 <body>
+
 <h2>Liste des topos</h2>
 
 <ul>
@@ -16,9 +17,18 @@
             <div>Titre : <s:property value="titre"/></div>
             <div>Auteur : <s:property value="auteur"/></div>
             <div>Description : <s:property value="description"/></div>
+            <div><s:a action="detail_topo">
+                <s:param name="id" value="id"/>
+                détail du topo
+            </s:a></div>
+            <div><s:a action="delete_topo">
+                <s:param name="id" value="id"/>
+                supprimer
+            </s:a></div>
         </li>
     </s:iterator>
 </ul>
+
 
 </body>
 </html>
