@@ -6,6 +6,10 @@
 
 <html>
 
+<head>
+    <%@include file="_include/head.jsp" %>
+</head>
+
 <body>
 
 <h2>Erreur</h2>

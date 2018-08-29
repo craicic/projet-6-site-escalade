@@ -6,6 +6,11 @@
 
 <html>
 
+<head>
+    <%@include file="_include/head.jsp" %>
+</head>
+
+
 <body>
 
 <h2>Index</h2>

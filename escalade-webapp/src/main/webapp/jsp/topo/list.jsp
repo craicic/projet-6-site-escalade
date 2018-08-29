@@ -6,8 +6,11 @@
 
 <html>
 
-<body>
+<head>
+    <%@include file="../_include/head.jsp" %>
+</head>
 
+<body>
 <h2>Liste des topos</h2>
 
 <ul>
@@ -28,7 +31,5 @@
         </li>
     </s:iterator>
 </ul>
-
-
 </body>
 </html>

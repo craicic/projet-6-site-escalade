@@ -6,8 +6,11 @@
 
 <html>
 
-<body>
+<head>
+    <%@include file="../_include/head.jsp" %>
+</head>
 
+<body>
 <s:actionmessage/>
 
 <h2>Détail d'un topo</h2>
