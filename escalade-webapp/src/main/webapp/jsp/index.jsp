@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <%@include file="_include/head.jsp" %>
+    <%@include file="./_include/head.jsp" %>
 </head>
 
 
@@ -15,19 +15,16 @@
 
 <h2>Index</h2>
 
-
-<s:a action="list_topo">
-    Liste des topos
-</s:a>
-
-<s:a action="detail_topo">
-    Topo par ID
-</s:a>
-
-<s:a action="topo_new">
-    Ajouter un topo
-</s:a>
-
+<div>
+    <s:a action="list_topo">
+        Liste des topos
+    </s:a>
+</div>
+<div>
+    <s:a action="topo_new">
+        Ajouter un topo
+    </s:a>
+</div>
 </body>
 
 </html>

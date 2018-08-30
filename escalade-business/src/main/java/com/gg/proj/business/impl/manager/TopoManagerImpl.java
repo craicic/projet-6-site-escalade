@@ -33,7 +33,6 @@ public class TopoManagerImpl implements TopoManager {
 //    @Inject
 //    private DataSource dataSource;
 
-
     @Override
     public void create(Topo model) {
         TopoDao.create(model);
@@ -51,7 +50,7 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public void update(Topo model) {
-
+        TopoDao.update(model);
     }
 
     @Override

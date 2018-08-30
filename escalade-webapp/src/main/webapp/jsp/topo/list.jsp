@@ -24,6 +24,10 @@
                 <s:param name="id" value="id"/>
                 détail du topo
             </s:a></div>
+            <div><s:a action="update_topo">
+                <s:param name="id" value="id"/>
+                modifier
+            </s:a></div>
             <div><s:a action="delete_topo">
                 <s:param name="id" value="id"/>
                 supprimer

@@ -23,10 +23,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void create(Object model) {
 
         loadDatabase();
-        Topo topo = (Topo)model;
+        Topo topo = (Topo) model;
 
         try {
-            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo(auteur, titre, description) VALUES(?, ?, ?);");
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("INSERT INTO topo (auteur, titre, description) VALUES(?, ?, ?);");
             preparedStatement.setString(1, topo.getAuteur());
             preparedStatement.setString(2, topo.getTitre());
             preparedStatement.setString(3, topo.getDescription());
@@ -55,14 +55,14 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         try {
             //todo utiliser preparedStatement
-            rSQL = "SELECT * FROM topo WHERE id ='" + pId +"' ;";
+            rSQL = "SELECT * FROM topo WHERE id ='" + pId + "' ;";
             statement = connexion.createStatement();
 
             // Exécution de la requête
             resultat = statement.executeQuery(rSQL);
 
             // Récupération des données
-            if (!resultat.next()){
+            if (!resultat.next()) {
                 System.out.println("Pas de données");
 //                throw new Exception();
             } else {
@@ -77,7 +77,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 topo.setDescription(description);
 
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
         } finally {
             // Fermeture de la connexion
             try {
@@ -161,6 +161,29 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void update(Object model) {
+        System.out.println("hey");
+        loadDatabase();
+        Topo topo = (Topo) model;
+
+        System.out.println("id = " + topo.getId() + "\n"
+                + "titre = " + topo.getTitre() + "\n"
+                + "description = " + topo.getDescription() + "\n"
+                + "auteur = " + topo.getAuteur());
+
+        System.out.println("------------------------------------------------------------------");
+        try {
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;");
+            preparedStatement.setString(1, topo.getAuteur());
+            preparedStatement.setString(2, topo.getTitre());
+            preparedStatement.setString(3, topo.getDescription());
+            preparedStatement.setInt(4, topo.getId());
+
+            System.out.println("hey");
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+            throw new NoSuchElementException();
+        }
     }
 
     @Transactional
@@ -174,7 +197,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         try {
             PreparedStatement preparedStatement = getConnexion().prepareStatement("DELETE FROM topo WHERE id = ?;");
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

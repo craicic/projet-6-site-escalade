@@ -36,11 +36,7 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
 
-            <result name="success">/jsp/topo/detail.jsp
-                <!--<param name="id">${topo.id}</param>-->
-            </result>
-
-            <!-- les erreurs sont mappées en globale -->
+            <result name="success">/jsp/topo/detail.jsp</result>
         </action>
 
         <!-- Ajout d'un nouveau topo -->
@@ -55,17 +51,23 @@
 
             <result name="input">/jsp/topo/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">topo_new</param>
+                <param name="actionName">list_topo</param>
             </result>
-                <!--<param name="id">${topo.id}</param>-->
-
-            <!-- les erreurs sont mappées en globale -->
         </action>
 
         <!-- Suppression d'un topo -->
         <action name="delete_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doDelete">
+            <result name="success" type="redirectAction">list_topo</result>
+        </action>
+
+        <!-- Mise à jour d'un topo -->
+        <action name="update_topo"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doUpdate">
+
+            <result name="input">/jsp/topo/update.jsp</result>
             <result name="success" type="redirectAction">list_topo</result>
         </action>
     </package>
