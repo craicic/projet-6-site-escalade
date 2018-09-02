@@ -18,6 +18,7 @@ import java.util.NoSuchElementException;
 @Named
 //@Singleton
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
+    //todo utiliser spring jdbc
 
     @Override
     public void create(Object model) {
@@ -34,6 +35,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
+            //todo remplacer les printStackTrace par affichage log4j
             e.printStackTrace();
         }
         closeConnexion();
@@ -101,21 +103,14 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         List<Topo> topos = new ArrayList<Topo>();
 
-
-//        Statement statement = null;
         ResultSet resultat = null;
 
         loadDatabase();
 
-//        Connection connexion = this.getConnexion();
-//        System.out.println("Connexion DB établie");
-
         try {
-//            statement = connexion.createStatement();
             PreparedStatement preparedStatement = getConnexion().prepareStatement("SELECT * FROM topo;");
             // Exécution de la requête
             resultat = preparedStatement.executeQuery();
-//            resultat = statement.executeQuery("SELECT * FROM topo;");
 
             // Récupération des données
             while (resultat.next()) {
@@ -150,7 +145,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void update(Object model) {
-        System.out.println("hey");
         loadDatabase();
         Topo topo = (Topo) model;
 
@@ -173,6 +167,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             e.getMessage();
             throw new NoSuchElementException();
         }
+
+        closeConnexion();
     }
 
     @Transactional
@@ -190,6 +186,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             e.printStackTrace();
             throw new NoSuchElementException();
         }
+
+        closeConnexion();
 
     }
 }

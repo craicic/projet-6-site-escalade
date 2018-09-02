@@ -10,7 +10,7 @@
     <%@include file="./_include/head.jsp" %>
 </head>
 
-
+<!-- todo factorisation header avec menu navigation -->
 <body>
 
 <h2>Index</h2>
