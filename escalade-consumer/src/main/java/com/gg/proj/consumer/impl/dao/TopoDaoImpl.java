@@ -36,42 +36,34 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnexion();
     }
 
     @Override
     public Object get(int pId) {
 
         Topo topo = new Topo();
-
-        Statement statement = null;
         ResultSet resultat = null;
 
         loadDatabase();
 
-        Connection connexion = this.getConnexion();
-        System.out.println("Connexion DB établie");
-
-        String rSQL;
-
         try {
-            //todo utiliser preparedStatement
-            rSQL = "SELECT * FROM topo WHERE id ='" + pId + "' ;";
-            statement = connexion.createStatement();
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("SELECT * FROM topo WHERE id = ?;");
+            preparedStatement.setInt(1,pId);
+            resultat = preparedStatement.executeQuery();
 
-            // Exécution de la requête
-            resultat = statement.executeQuery(rSQL);
 
             // Récupération des données
             if (!resultat.next()) {
                 System.out.println("Pas de données");
-//                throw new Exception();
+                throw new SQLException("Pas de données");
             } else {
-                String id = resultat.getString("id");
+                int id = resultat.getInt("id");
                 String auteur = resultat.getString("auteur");
                 String titre = resultat.getString("titre");
                 String description = resultat.getString("description");
 
-                topo.setId(Integer.parseInt(id));
+                topo.setId(id);
                 topo.setAuteur(auteur);
                 topo.setTitre(titre);
                 topo.setDescription(description);
@@ -83,14 +75,12 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             try {
                 if (resultat != null)
                     resultat.close();
-                if (statement != null)
-                    statement.close();
-                if (connexion != null)
-                    connexion.close();
+
             } catch (SQLException ignore) {
+            } finally{
+                closeConnexion();
             }
         }
-
         return topo;
     }
 
@@ -112,30 +102,31 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         List<Topo> topos = new ArrayList<Topo>();
 
 
-        Statement statement = null;
+//        Statement statement = null;
         ResultSet resultat = null;
 
         loadDatabase();
 
-        Connection connexion = this.getConnexion();
-        System.out.println("Connexion DB établie");
+//        Connection connexion = this.getConnexion();
+//        System.out.println("Connexion DB établie");
 
         try {
-            statement = connexion.createStatement();
-
+//            statement = connexion.createStatement();
+            PreparedStatement preparedStatement = getConnexion().prepareStatement("SELECT * FROM topo;");
             // Exécution de la requête
-            resultat = statement.executeQuery("SELECT * FROM topo;");
+            resultat = preparedStatement.executeQuery();
+//            resultat = statement.executeQuery("SELECT * FROM topo;");
 
             // Récupération des données
             while (resultat.next()) {
-                String id = resultat.getString("id");
+                int id = resultat.getInt("id");
                 String auteur = resultat.getString("auteur");
                 String titre = resultat.getString("titre");
                 String description = resultat.getString("description");
 
                 Topo topo = new Topo();
-                // Todo verif sur le parseInt
-                topo.setId(Integer.parseInt(id));
+
+                topo.setId(id);
                 topo.setAuteur(auteur);
                 topo.setTitre(titre);
                 topo.setDescription(description);
@@ -148,11 +139,9 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             try {
                 if (resultat != null)
                     resultat.close();
-                if (statement != null)
-                    statement.close();
-                if (connexion != null)
-                    connexion.close();
             } catch (SQLException ignore) {
+            } finally {
+                closeConnexion();
             }
         }
 
@@ -191,9 +180,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void delete(Integer id) {
 
         loadDatabase();
-
-        Connection connexion = this.getConnexion();
-        System.out.println("Connexion DB établie");
 
         try {
             PreparedStatement preparedStatement = getConnexion().prepareStatement("DELETE FROM topo WHERE id = ?;");

@@ -24,23 +24,18 @@ public class GestionTopoAction extends ActionSupport {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public List<Topo> getListTopo() {
         return listTopo;
     }
-
     public void setListTopo(List<Topo> listTopo) {
         this.listTopo = listTopo;
     }
-
     public Topo getTopo() {
         return topo;
     }
-
     public void setTopo(Topo topo) {
         this.topo = topo;
     }
@@ -62,10 +57,6 @@ public class GestionTopoAction extends ActionSupport {
     public String doDetail() {
 
         System.out.println("hey from doDetail");
-        // todo a enlever : initialisation de l'id
-
-//        id = 1;
-
         // Todo générer les exceptions
 
         if (id == null) {

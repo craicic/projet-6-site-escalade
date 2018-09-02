@@ -37,7 +37,14 @@ public abstract class AbstractDaoImpl {
         }
 
         try {
-            connexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "test123");
+            connexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/db-escalade", "postgres", "test123");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    protected void closeConnexion(){
+        try {
+            if(connexion != null) connexion.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
