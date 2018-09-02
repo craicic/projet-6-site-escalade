@@ -51,7 +51,8 @@
 
             <result name="input">/jsp/topo/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">list_topo</param>
+                <param name="actionName">detail_topo</param>
+                <!--<param name="id">${topo.id}</param>-->
             </result>
         </action>
 

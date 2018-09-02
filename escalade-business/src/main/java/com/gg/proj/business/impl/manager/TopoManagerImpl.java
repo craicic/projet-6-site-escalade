@@ -18,12 +18,6 @@ import java.util.List;
 @Named
 public class TopoManagerImpl implements TopoManager {
 
-    /*
-    *
-    * Je liste toutes les classes injectable
-    *
-     **/
-
     @Inject
     TopoDao TopoDao;
 
