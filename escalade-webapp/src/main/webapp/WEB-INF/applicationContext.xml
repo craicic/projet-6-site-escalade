@@ -10,4 +10,33 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.gg.proj"/>
 
+    <!-- Création d'un bean DataSource en utilisant les propriétés ci dessous
+    (on peut faire le choix d'externaliser les propriétés)-->
+    <bean id="basicDataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
+
+        <property name="driverClassName" value="com.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/db-escalade" />
+        <property name="username" value="postgres" />
+        <!-- todo ohh le beau password en clair -->
+        <property name="password" value="test123" />
+        <property name="defaultAutoCommit" value="false"/>
+        <!-- todo voir pourquoi defaultTransactionIsolation ne marche pas -->
+        <!--<property name="defaultTransactionIsolation" value="READ_COMMITTED"/>-->
+
+        <property name="initialSize" value="3" />
+        <property name="maxTotal" value="10" />
+        <property name="maxIdle" value="30"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxWaitMillis" value="60000"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="removeAbandonedOnBorrow" value="true"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="minEvictableIdleTimeMillis" value="10000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <property name="validationQuery" value="SELECT 1"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="true"/>
+
+    </bean>
+
 </beans>

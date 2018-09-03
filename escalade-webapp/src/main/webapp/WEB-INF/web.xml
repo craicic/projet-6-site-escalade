@@ -6,7 +6,7 @@
          version="3.1">
 
     <display-name>Escalade</display-name>
-    <!-- Listener Spring-->
+    <!-- Listener Spring -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -14,7 +14,7 @@
   car ça mettait la web-app en erreur.
   A la place j'ai mis le applicationContext.xml dans WEB-INF (qui semble être le répertoire par défaut)-->
 
-    <!--Filter Struts -->
+    <!-- Filter Struts -->
     <filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -23,7 +23,6 @@
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
 
 </web-app>
 

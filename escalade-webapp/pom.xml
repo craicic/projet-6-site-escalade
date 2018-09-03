@@ -79,7 +79,7 @@
             <artifactId>struts2-spring-plugin</artifactId>
         </dependency>
 
-         <!--Framework Apache Struts-->
+         <!--Framework Apache Struts -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
@@ -90,6 +90,17 @@
             <artifactId>junit</artifactId>
         </dependency>
 
+        <!-- Ajout de la dépendance au bdd et dbcp2 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.2.0</version>
+        </dependency>
 
     </dependencies>
 

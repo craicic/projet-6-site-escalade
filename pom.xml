@@ -145,7 +145,14 @@
                 <version>2.9.1</version>
                 <scope>runtime</scope>
             </dependency>
+            <!-- Dependance Postgres -->
 
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.2.4.jre7</version>
+                <scope>runtime</scope>
+            </dependency>
             <!--<dependency>-->
                 <!--<groupId>javax.ws.rs</groupId>-->
                 <!--<artifactId>javax.ws.rs-api</artifactId>-->
