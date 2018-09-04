@@ -11,17 +11,16 @@
     <context:component-scan base-package="com.gg.proj"/>
 
     <!-- Création d'un bean DataSource en utilisant les propriétés ci dessous
-    (on peut faire le choix d'externaliser les propriétés)-->
+    (on peut faire le choix d'externaliser les propriétés) -->
     <bean id="basicDataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
-
-        <property name="driverClassName" value="com.postgresql.Driver" />
+        <property name="driverClassName" value="org.postgresql.Driver" />
         <property name="url" value="jdbc:postgresql://localhost:5432/db-escalade" />
         <property name="username" value="postgres" />
         <!-- todo ohh le beau password en clair -->
         <property name="password" value="test123" />
-        <property name="defaultAutoCommit" value="false"/>
-        <!-- todo voir pourquoi defaultTransactionIsolation ne marche pas -->
-        <!--<property name="defaultTransactionIsolation" value="READ_COMMITTED"/>-->
+        <property name="defaultAutoCommit" value="true"/>
+        <!-- todo voir pourquoi defaultTransactionIsolation ne marche pas, en attendant j'ai passé defaultAutoCommit à true pour régler le probleème de (non)commit -->
+        <!--<property name="defaultTransactionIsolation" value="1" />-->
 
         <property name="initialSize" value="3" />
         <property name="maxTotal" value="10" />

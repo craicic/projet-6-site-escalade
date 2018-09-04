@@ -42,6 +42,7 @@ public abstract class AbstractDaoImpl {
             e.printStackTrace();
         }
     }
+
     protected void closeConnexion(){
         try {
             if(connexion != null) connexion.close();

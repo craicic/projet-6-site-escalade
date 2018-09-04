@@ -56,7 +56,6 @@ public class GestionTopoAction extends ActionSupport {
 
     public String doDetail() {
 
-        System.out.println("hey from doDetail");
         // Todo générer les exceptions
 
         if (id == null) {
