@@ -9,10 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Named;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 //@Singleton
@@ -20,6 +18,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     //todo utiliser spring jdbc dans create, get, list, update, delete
 
     private static final Logger logger = LogManager.getLogger();
+
+    @Transactional
     @Override
     public void create(Object model) {
 
@@ -59,8 +59,11 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     }
 
+    // todo : question faut-il utiliser Object ou Topo
     @Override
     public Object get(int id) {
+
+        logger.debug("Entrée dans TopoDaoImpl.get avec l'id " + id);
 
         Topo topo = new Topo();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
@@ -80,7 +83,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         } catch (DataAccessException e) {
             logger.error(e.getMessage());
         }
-
         return topo;
 
         //        Ancienne méthode, avec PreparedStatement
@@ -190,6 +192,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     }
 
+    @Transactional
     @Override
     public void update(Object model) {
 
