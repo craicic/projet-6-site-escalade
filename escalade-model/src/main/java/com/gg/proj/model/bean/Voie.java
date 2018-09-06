@@ -5,9 +5,10 @@ public class Voie implements Model {
     // propriétés
     private Integer id;
     private String nom;
+    private String description;
     private Integer nombreDePoints;
+    private Integer nombreDeLongueurs;
     private String cotation;
-    // todo passer hauteur en integer ici et dans la bd
     private String hauteur;
 
     // constructeurs
@@ -35,12 +36,28 @@ public class Voie implements Model {
         this.nom = nom;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getNombreDePoints() {
         return nombreDePoints;
     }
 
     public void setNombreDePoints(Integer nombreDePoints) {
         this.nombreDePoints = nombreDePoints;
+    }
+
+    public Integer getNombreDeLongueurs() {
+        return nombreDeLongueurs;
+    }
+
+    public void setNombreDeLongueurs(Integer nombreDeLongueurs) {
+        this.nombreDeLongueurs = nombreDeLongueurs;
     }
 
     public String getCotation() {

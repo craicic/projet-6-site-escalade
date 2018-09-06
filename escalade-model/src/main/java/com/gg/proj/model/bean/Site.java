@@ -8,6 +8,9 @@ public class Site implements Model {
     private Integer id;
     private String nom;
     private String description;
+    private String profils;
+    private String roche;
+    private String type;
     private Point coordonneesGPS;
     // constructeurs
 

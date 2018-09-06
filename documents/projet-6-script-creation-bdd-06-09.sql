@@ -1,16 +1,25 @@
 
+CREATE SEQUENCE public.site_id_seq;
+
 CREATE TABLE public.site (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.site_id_seq'),
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
+                profils VARCHAR NOT NULL,
+                roche VARCHAR NOT NULL,
+                type VARCHAR NOT NULL,
                 coordonnees_gps POINT NOT NULL,
                 CONSTRAINT site_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.site.coordonnees_gps IS 'Type : Point';
 
 
+ALTER SEQUENCE public.site_id_seq OWNED BY public.site.id;
+
+CREATE SEQUENCE public.secteur_id_seq;
+
 CREATE TABLE public.secteur (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.secteur_id_seq'),
                 nom VARCHAR NOT NULL,
                 decription VARCHAR,
                 coordonnees_gps POINT NOT NULL,
@@ -20,17 +29,24 @@ CREATE TABLE public.secteur (
 COMMENT ON COLUMN public.secteur.coordonnees_gps IS 'type : point';
 
 
+ALTER SEQUENCE public.secteur_id_seq OWNED BY public.secteur.id;
+
+CREATE SEQUENCE public.voie_id_seq;
+
 CREATE TABLE public.voie (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.voie_id_seq'),
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
                 nombre_points INTEGER NOT NULL,
+                nombre_longueurs INTEGER NOT NULL,
                 cotation VARCHAR(10) NOT NULL,
                 hauteur VARCHAR NOT NULL,
                 secteur_id INTEGER NOT NULL,
                 CONSTRAINT voie_pk PRIMARY KEY (id)
 );
 
+
+ALTER SEQUENCE public.voie_id_seq OWNED BY public.voie.id;
 
 CREATE SEQUENCE public.topo_id_seq;
 
@@ -71,14 +87,25 @@ CREATE TABLE public.utilisateur (
 
 ALTER SEQUENCE public.utilisateur_id_seq OWNED BY public.utilisateur.id;
 
+CREATE TABLE public.propriete_topo (
+                topo_id INTEGER NOT NULL,
+                utilisateur_id INTEGER NOT NULL,
+                CONSTRAINT propriete_topo_pk PRIMARY KEY (topo_id, utilisateur_id)
+);
+
+
+CREATE SEQUENCE public.empreint_id_seq;
+
 CREATE TABLE public.empreint (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.empreint_id_seq'),
                 date_empreint DATE NOT NULL,
                 date_retour DATE NOT NULL,
                 utilisateur_id INTEGER NOT NULL,
                 CONSTRAINT empreint_pk PRIMARY KEY (id)
 );
 
+
+ALTER SEQUENCE public.empreint_id_seq OWNED BY public.empreint.id;
 
 CREATE TABLE public.empreint_de_topos (
                 topo_id INTEGER NOT NULL,
@@ -87,14 +114,18 @@ CREATE TABLE public.empreint_de_topos (
 );
 
 
+CREATE SEQUENCE public.commentaire_id_seq;
+
 CREATE TABLE public.commentaire (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.commentaire_id_seq'),
                 date_de_creation TIMESTAMP NOT NULL,
                 contenu_texte VARCHAR NOT NULL,
                 utilisateur_id INTEGER NOT NULL,
                 CONSTRAINT commentaire_pk PRIMARY KEY (id)
 );
 
+
+ALTER SEQUENCE public.commentaire_id_seq OWNED BY public.commentaire.id;
 
 CREATE TABLE public.commentaire_sur_voie (
                 voie_id INTEGER NOT NULL,
@@ -173,6 +204,13 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+ALTER TABLE public.propriete_topo ADD CONSTRAINT topo_propriete_topo_fk
+FOREIGN KEY (topo_id)
+REFERENCES public.topo (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 ALTER TABLE public.commentaire ADD CONSTRAINT utilisateur_commentaire_fk
 FOREIGN KEY (utilisateur_id)
 REFERENCES public.utilisateur (id)
@@ -181,6 +219,13 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.empreint ADD CONSTRAINT utilisateur_empreint_fk
+FOREIGN KEY (utilisateur_id)
+REFERENCES public.utilisateur (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.propriete_topo ADD CONSTRAINT utilisateur_propriete_topo_fk
 FOREIGN KEY (utilisateur_id)
 REFERENCES public.utilisateur (id)
 ON DELETE NO ACTION

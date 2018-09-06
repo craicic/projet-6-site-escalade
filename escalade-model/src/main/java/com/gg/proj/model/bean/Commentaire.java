@@ -41,5 +41,4 @@ public class Commentaire implements Model {
     public void setContenuTexte(String contenuTexte) {
         this.contenuTexte = contenuTexte;
     }
-
 }
