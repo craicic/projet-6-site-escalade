@@ -19,7 +19,6 @@ public class GestionTopoAction extends ActionSupport {
     @Inject
     private ManagerFactory managerFactory;
 
-
     private Integer id;
     private List<Topo> listTopo;
     private Topo topo;
@@ -30,12 +29,14 @@ public class GestionTopoAction extends ActionSupport {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public List<Topo> getListTopo() {
         return listTopo;
     }
     public void setListTopo(List<Topo> listTopo) {
         this.listTopo = listTopo;
     }
+
     public Topo getTopo() {
         return topo;
     }
@@ -56,6 +57,7 @@ public class GestionTopoAction extends ActionSupport {
                 this.addActionMessage("Topo ajouté.");
                 vResult = ActionSupport.SUCCESS;
             } catch (Exception e) {
+                logger.error(e.getMessage());
                 this.addActionError(e.getMessage());
                 vResult = ActionSupport.ERROR;
             }
@@ -64,31 +66,23 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doList() {
-
         listTopo = managerFactory.getTopoManager().list();
-
-        logger.info("listTopo.size() = " + listTopo.size());
-//        for (Topo instanceDeTopo : listTopo) {
-//            System.out.println("id = " + instanceDeTopo.getId() + "\n"
-//                    + "titre = " + instanceDeTopo.getTitre() + "\n"
-//                    + "description = " + instanceDeTopo.getDescription() + "\n"
-//                    + "auteur = " + instanceDeTopo.getAuteur());
-//        }
         return ActionSupport.SUCCESS;
     }
 
     public String doDetail() {
 
-        // Todo générer les exceptions
+        // todo générer les exceptions
 
         if (id == null) {
             this.addActionError("Vous devez indiquer un id de topo");
         } else {
             try {
                 topo = managerFactory.getTopoManager().get(id);
-            } catch (Exception e) {
+            } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Topo non trouvé. ID = " + id);
+                ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         }
         return (this.hasErrors()) ? ActionSupport.ERROR : ActionSupport.SUCCESS;
@@ -98,19 +92,27 @@ public class GestionTopoAction extends ActionSupport {
         String vResult = ActionSupport.INPUT;
 
         if (this.topo != null) {
-//            if (topo.getId() != null) {
-            try {
-                managerFactory.getTopoManager().update(this.topo);
-            } catch (NoSuchElementException e) {
-                ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+            if (topo.getId() != null) {
+                try {
+                    // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Topo temporaire
+                    // Ainsi l'id est non modifiable.
+                    Topo tmpTopo = managerFactory.getTopoManager().get(topo.getId());
+                    tmpTopo.setTitre(topo.getTitre());
+                    tmpTopo.setAuteur(topo.getAuteur());
+                    tmpTopo.setDescription(topo.getDescription());
+                    managerFactory.getTopoManager().update(tmpTopo);
+                } catch (NoSuchElementException e) {
+                    ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+                }
+                vResult = ActionSupport.SUCCESS;
+            } else {
+                addActionError("Id doit être défini");
+                vResult = ActionSupport.ERROR;
             }
-            vResult = ActionSupport.SUCCESS;
-            }
-//            else {
-//                addActionError("id doit être défini");
-//                vResult = ActionSupport.ERROR;
-//            }
-//        }
+        } else {
+            // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur topo afin de pré-rempir les champs de la page web
+            topo = managerFactory.getTopoManager().get(id);
+        }
         return vResult;
     }
 
@@ -119,6 +121,7 @@ public class GestionTopoAction extends ActionSupport {
             managerFactory.getTopoManager().delete(this.id);
             this.addActionMessage("Topo supprimé.");
         } catch (NoSuchElementException e) {
+            logger.error(e.getMessage());
             ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         return ActionSupport.SUCCESS;

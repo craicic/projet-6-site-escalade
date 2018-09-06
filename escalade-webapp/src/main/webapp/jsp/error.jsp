@@ -8,13 +8,9 @@
 
 <head>
     <%@include file="_include/head.jsp" %>
+
 </head>
 
-<body>
+<%@ include file="./_include/header.jsp"%>
 
-<h2>Erreur</h2>
-
-<s:actionerror/>
-
-</body>
 </html>

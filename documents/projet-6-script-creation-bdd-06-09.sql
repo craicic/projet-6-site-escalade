@@ -24,14 +24,12 @@ CREATE TABLE public.voie (
                 id INTEGER NOT NULL,
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
-                coordonnees_gps POINT NOT NULL,
                 nombre_points INTEGER NOT NULL,
                 cotation VARCHAR(10) NOT NULL,
                 hauteur VARCHAR NOT NULL,
                 secteur_id INTEGER NOT NULL,
                 CONSTRAINT voie_pk PRIMARY KEY (id)
 );
-COMMENT ON COLUMN public.voie.coordonnees_gps IS 'type : point';
 
 
 CREATE SEQUENCE public.topo_id_seq;
@@ -54,31 +52,33 @@ CREATE TABLE public.composition_site_topo (
 );
 
 
+CREATE SEQUENCE public.utilisateur_id_seq;
+
 CREATE TABLE public.utilisateur (
-                uuid VARCHAR(32) NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.utilisateur_id_seq'),
                 nom VARCHAR NOT NULL,
                 prenom VARCHAR NOT NULL,
                 pseudo VARCHAR NOT NULL,
-                date_inscription DATE NOT NULL,
+                adresse VARCHAR NOT NULL,
                 description VARCHAR,
                 adresse_mail VARCHAR NOT NULL,
+                date_inscription DATE NOT NULL,
+                uuid VARCHAR NOT NULL,
                 hash_du_mot_de_passe VARCHAR(60) NOT NULL,
-                CONSTRAINT utilisateur_id_pk PRIMARY KEY (uuid)
+                CONSTRAINT utilisateur_id_pk PRIMARY KEY (id)
 );
 
 
-CREATE SEQUENCE public.empreint_id_seq;
+ALTER SEQUENCE public.utilisateur_id_seq OWNED BY public.utilisateur.id;
 
 CREATE TABLE public.empreint (
-                id INTEGER NOT NULL DEFAULT nextval('public.empreint_id_seq'),
+                id INTEGER NOT NULL,
                 date_empreint DATE NOT NULL,
                 date_retour DATE NOT NULL,
-                utilisateur_uuid VARCHAR(32) NOT NULL,
+                utilisateur_id INTEGER NOT NULL,
                 CONSTRAINT empreint_pk PRIMARY KEY (id)
 );
 
-
-ALTER SEQUENCE public.empreint_id_seq OWNED BY public.empreint.id;
 
 CREATE TABLE public.empreint_de_topos (
                 topo_id INTEGER NOT NULL,
@@ -87,18 +87,14 @@ CREATE TABLE public.empreint_de_topos (
 );
 
 
-CREATE SEQUENCE public.commentaire_id_seq;
-
 CREATE TABLE public.commentaire (
-                id INTEGER NOT NULL DEFAULT nextval('public.commentaire_id_seq'),
+                id INTEGER NOT NULL,
                 date_de_creation TIMESTAMP NOT NULL,
-                utilisateur_uuid VARCHAR(32) NOT NULL,
                 contenu_texte VARCHAR NOT NULL,
+                utilisateur_id INTEGER NOT NULL,
                 CONSTRAINT commentaire_pk PRIMARY KEY (id)
 );
 
-
-ALTER SEQUENCE public.commentaire_id_seq OWNED BY public.commentaire.id;
 
 CREATE TABLE public.commentaire_sur_voie (
                 voie_id INTEGER NOT NULL,
@@ -178,15 +174,15 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.commentaire ADD CONSTRAINT utilisateur_commentaire_fk
-FOREIGN KEY (utilisateur_uuid)
-REFERENCES public.utilisateur (uuid)
+FOREIGN KEY (utilisateur_id)
+REFERENCES public.utilisateur (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
 ALTER TABLE public.empreint ADD CONSTRAINT utilisateur_empreint_fk
-FOREIGN KEY (utilisateur_uuid)
-REFERENCES public.utilisateur (uuid)
+FOREIGN KEY (utilisateur_id)
+REFERENCES public.utilisateur (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

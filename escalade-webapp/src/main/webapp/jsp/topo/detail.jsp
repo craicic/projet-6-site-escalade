@@ -10,8 +10,9 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
+<%@ include file="../_include/header.jsp"%>
+
 <body>
-<s:actionmessage/>
 
 <h2>Détail d'un topo</h2>
 

@@ -10,6 +10,8 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
+<%@ include file="../_include/header.jsp"%>
+
 <body>
 
 <h2>Modifier un topo</h2>
@@ -18,9 +20,8 @@
 <s:form action="update_topo">
     <s:textfield name="topo.titre" label="Titre" requiredLabel="true"/>
     <s:textfield name="topo.auteur" label="Auteur" requiredLabel="false"/>
-    <s:textfield name="topo.description" label="Description" requiredLabel="false"/>
-    <s:textfield name="topo.id" label="Id" requiredLabel="true"/>
-    <div>Id : <s:property value="id"/></div>
+    <s:textarea name="topo.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
+    <s:hidden name="topo.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
 

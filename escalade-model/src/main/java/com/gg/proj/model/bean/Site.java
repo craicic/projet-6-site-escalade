@@ -1,18 +1,19 @@
 package com.gg.proj.model.bean;
 
-public class Topo implements Model {
+import java.awt.*;
+
+public class Site implements Model {
 
     // propriétés
     private Integer id;
-    private String auteur;
-    private String titre;
+    private String nom;
     private String description;
-
+    private Point coordonneesGPS;
     // constructeurs
-    public Topo() {
-    }
 
-    public Topo(Integer id) {
+    public Site(){}
+
+    public Site(Integer id) {
         this.id = id;
     }
 
@@ -26,20 +27,12 @@ public class Topo implements Model {
         this.id = id;
     }
 
-    public String getAuteur() {
-        return auteur;
+    public String getNom() {
+        return nom;
     }
 
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getDescription() {
@@ -48,5 +41,13 @@ public class Topo implements Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Point getCoordonneesGPS() {
+        return coordonneesGPS;
+    }
+
+    public void setCoordonneesGPS(Point coordonneesGPS) {
+        this.coordonneesGPS = coordonneesGPS;
     }
 }

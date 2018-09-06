@@ -34,12 +34,12 @@ public class TopoManagerImpl implements TopoManager {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 // Si le titre à été rempli, la transaction est effectuée
 //                Topo topo = (Topo)model;
-                if (!model.getTitre().isEmpty()) {
+//                if (!model.getTitre().isEmpty()) {
                     TopoDao.create(model);
-                } else {
-                    logger.warn("Le titre doit être non null.");
-                    status.setRollbackOnly();
-                }
+//                } else {
+//                    logger.warn("Le titre doit être non null.");
+//                    status.setRollbackOnly();
+//                }
             }
         });
     }

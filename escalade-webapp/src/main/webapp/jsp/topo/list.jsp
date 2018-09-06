@@ -10,6 +10,8 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
+<%@ include file="../_include/header.jsp"%>
+
 <body>
 <h2>Liste des topos</h2>
 

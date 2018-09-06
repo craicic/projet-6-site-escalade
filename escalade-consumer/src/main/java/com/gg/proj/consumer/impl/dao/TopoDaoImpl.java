@@ -15,7 +15,6 @@ import java.util.List;
 @Named
 //@Singleton
 public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
-    //todo utiliser spring jdbc dans create, get, list, update, delete
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -49,7 +48,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 //            preparedStatement.executeUpdate();
 //
 //        } catch (SQLException e) {
-//            //todo remplacer les printStackTrace par affichage log4j
 //            e.printStackTrace();
 //        }
 //        closeConnexion();
@@ -197,9 +195,9 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void update(Object model) {
 
         Topo topo = (Topo) model;
-        JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         try {
-            jdbcTempplate.update("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;",
+            jdbcTemplate.update("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;",
                     topo.getAuteur(),
                     topo.getTitre(),
                     topo.getDescription(),
@@ -207,18 +205,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                     );
         } catch (DataAccessException e) {
             logger.error(e.getMessage());
+//            throw new SQLException(e.getMessage());
         }
 //                Ancienne méthode, avec PreparedStatement
 //
-//        loadDatabase();
-//        Topo topo = (Topo) model;
-//
-//        System.out.println("id = " + topo.getId() + "\n"
-//                + "titre = " + topo.getTitre() + "\n"
-//                + "description = " + topo.getDescription() + "\n"
-//                + "auteur = " + topo.getAuteur());
-//
-//        System.out.println("------------------------------------------------------------------");
 //        try {
 //            PreparedStatement preparedStatement = getConnexion().prepareStatement("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;");
 //            preparedStatement.setString(1, topo.getAuteur());

@@ -10,17 +10,16 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<body>
+<%@ include file="../_include/header.jsp"%>
 
-<s:actionerror/>
-<s:actionmessage/>
+<body>
 
 <h2>Saisie d'un nouveau topo</h2>
 
 <s:form action="topo_new">
-    <s:textfield name="topo.titre" label="Titre" requiredLabel="true"/>
+    <s:textfield  name="topo.titre" label="Titre" requiredLabel="true"/>
     <s:textfield name="topo.auteur" label="Auteur" requiredLabel="false"/>
-    <s:textfield name="topo.description" label="Description" requiredLabel="false"/>
+    <s:textarea name="topo.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
     <s:submit value="Ok"/>
 </s:form>
 
