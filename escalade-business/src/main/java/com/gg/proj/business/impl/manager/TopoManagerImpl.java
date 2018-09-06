@@ -6,9 +6,7 @@ import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,60 +19,51 @@ public class TopoManagerImpl implements TopoManager {
 
 
     @Inject
-    TopoDao TopoDao;
+    TopoDao topoDao;
 
     @Inject
     private PlatformTransactionManager platformTransactionManager;
 
     @Override
+    @Transactional
     public void create(Topo model) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                // Si le titre à été rempli, la transaction est effectuée
-//                Topo topo = (Topo)model;
-//                if (!model.getTitre().isEmpty()) {
-                    TopoDao.create(model);
-//                } else {
-//                    logger.warn("Le titre doit être non null.");
-//                    status.setRollbackOnly();
-//                }
-            }
-        });
+//                 Si le titre à été rempli, la transaction est effectuée
+        logger.debug("Entrée dans la méthode create");
+        Topo topo = (Topo) model;
+        logger.debug("Création d'un bean model de classe : " + model.getClass());
+        if (!model.getTitre().isEmpty()) {
+            topoDao.create(model);
+        } else {
+            logger.warn("Le titre doit être non null.");
+        }
+
     }
 
     @Override
     public Topo get(int id) {
-        logger.debug("Entrée dans TopoManagerImpl.get avec l'id " + id);
-        return (Topo) TopoDao.get(id);
+        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        return (Topo) topoDao.get(id);
     }
 
     @Override
     public List<Topo> list() {
-        return TopoDao.list();
+        logger.debug("Entrée dans la méthode list");
+        return topoDao.list();
     }
 
     @Override
+    @Transactional
     public void update(Topo model) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                TopoDao.update(model);
-            }
-        });
+        logger.debug("Entrée dans la méthode update");
+        topoDao.update(model);
+
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                TopoDao.delete(id);
-            }
-        });
+        logger.info("Entrée dans la méthode delete avec l'id " + id);
+        topoDao.delete(id);
 
     }
 }

@@ -18,7 +18,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     private static final Logger logger = LogManager.getLogger();
 
-    @Transactional
     @Override
     public void create(Object model) {
 
@@ -61,7 +60,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     @Override
     public Object get(int id) {
 
-        logger.debug("Entrée dans TopoDaoImpl.get avec l'id " + id);
+        logger.debug("Entrée dans la méthode get avec l'id " + id);
 
         Topo topo = new Topo();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
@@ -82,49 +81,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
             logger.error(e.getMessage());
         }
         return topo;
-
-        //        Ancienne méthode, avec PreparedStatement
-//
-//        ResultSet resultat = null;
-//
-//        loadDatabase();
-//
-//        try {
-//            PreparedStatement preparedStatement = getConnexion().prepareStatement("SELECT * FROM topo WHERE id = ?;");
-//            preparedStatement.setInt(1,pId);
-//            resultat = preparedStatement.executeQuery();
-//
-//
-//            // Récupération des données
-//            if (!resultat.next()) {
-//                System.out.println("Pas de données");
-//                throw new SQLException("Pas de données");
-//            } else {
-//                int id = resultat.getInt("id");
-//                String auteur = resultat.getString("auteur");
-//                String titre = resultat.getString("titre");
-//                String description = resultat.getString("description");
-//
-//                topo.setId(id);
-//                topo.setAuteur(auteur);
-//                topo.setTitre(titre);
-//                topo.setDescription(description);
-//
-//            }
-//        } catch (SQLException e) {
-//        } finally {
-//            // Fermeture de la connexion
-//            try {
-//                if (resultat != null)
-//                    resultat.close();
-//
-//            } catch (SQLException ignore) {
-//            } finally{
-//                closeConnexion();
-//            }
-//        }
-//        return topo;
-
 
     }
 
@@ -190,7 +146,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     }
 
-    @Transactional
     @Override
     public void update(Object model) {
 
@@ -226,7 +181,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 //        closeConnexion();
     }
 
-    @Transactional
     @Override
     public void delete(Integer id) {
 

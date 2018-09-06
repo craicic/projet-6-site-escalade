@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
          http://www.springframework.org/schema/context
-         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="com.gg.proj"/>
 
-    <!-- todo splité le fichier applicationContexte.xml en plusieurs, chacun contenu dans son module -->
+    <!-- Autoriser des tx management déclaratif basé sur des annotation -->
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="txManager" />
+
+    <!-- todo spliter le fichier applicationContexte.xml en plusieurs, chacun contenu dans son module -->
     <!-- Création d'un bean DataSource en utilisant les propriétés ci dessous
     (on peut faire le choix d'externaliser les propriétés) -->
     <bean id="basicDataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/db-escalade" />
-        <property name="username" value="postgres" />
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/db-escalade"/>
+        <property name="username" value="postgres"/>
         <!-- todo password en clair -->
-        <property name="password" value="test123" />
+        <property name="password" value="test123"/>
         <property name="defaultAutoCommit" value="true"/>
         <!-- todo voir pourquoi defaultTransactionIsolation ne marche pas, en attendant j'ai passé defaultAutoCommit à true pour régler le probleème de (non)commit -->
         <!--<property name="defaultTransactionIsolation" value="1" />-->
 
-        <property name="initialSize" value="3" />
-        <property name="maxTotal" value="10" />
+        <property name="initialSize" value="3"/>
+        <property name="maxTotal" value="10"/>
         <property name="maxIdle" value="30"/>
         <property name="minIdle" value="1"/>
         <property name="maxWaitMillis" value="60000"/>
@@ -36,11 +43,10 @@
         <property name="validationQuery" value="SELECT 1"/>
         <property name="testWhileIdle" value="true"/>
         <property name="testOnBorrow" value="true"/>
-
     </bean>
 
-    <!-- Ajout du bean DataSourceTransactionManager pour spring tx, todo ce bean devrait être déplacé vers un fichier businessContext.xml, ou bien trouvé une méthode pour configurer le bean via annonation -->
-    <bean id="txManagerTicket" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!-- Ajout du bean DataSourceTransactionManager pour spring tx, todo ce bean devrait être déplacé vers un fichier businessContext.xml, ou bien trouver une méthode pour configurer le bean via annonation -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="basicDataSource"/>
     </bean>
 

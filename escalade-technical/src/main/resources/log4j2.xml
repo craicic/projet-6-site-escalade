@@ -10,13 +10,18 @@
 
     <!-- ===== Loggers ===== -->
     <Loggers>
-        <!-- == Logger pour Struts == -->
-        <Logger name="com.opensymphony.xwork2" level="debug">
-            <AppenderRef ref="STDOUT"/>
-        </Logger>
-        <Logger name="org.apache.struts2" level="debug">
-            <AppenderRef ref="STDOUT"/>
-        </Logger>
+        <!--&lt;!&ndash; == Logger pour Struts == &ndash;&gt;-->
+        <!--<Logger name="com.opensymphony.xwork2" level="debug">-->
+            <!--<AppenderRef ref="STDOUT"/>-->
+        <!--</Logger>-->
+        <!--<Logger name="org.apache.struts2" level="debug">-->
+            <!--<AppenderRef ref="STDOUT"/>-->
+        <!--</Logger>-->
+
+        <!-- == Logger pour Spring == -->
+        <logger name="org.springframework" level="debug" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
 
         <!-- == Logger pour l'application == -->
         <Logger name="com.gg.proj" level="debug" additivity="false">

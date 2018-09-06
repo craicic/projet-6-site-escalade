@@ -46,6 +46,30 @@ public class Site implements Model {
         this.description = description;
     }
 
+    public String getProfils() {
+        return profils;
+    }
+
+    public void setProfils(String profils) {
+        this.profils = profils;
+    }
+
+    public String getRoche() {
+        return roche;
+    }
+
+    public void setRoche(String roche) {
+        this.roche = roche;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Point getCoordonneesGPS() {
         return coordonneesGPS;
     }
