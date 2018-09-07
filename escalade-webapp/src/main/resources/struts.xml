@@ -4,7 +4,6 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-
     <package name="default" namespace="/" extends="struts-default">
 
         <default-action-ref name="index"/>
@@ -19,6 +18,7 @@
             <result>/jsp/index.jsp</result>
         </action>
 
+        <!-- ============================ TOPOS ============================ -->
         <!-- Affichage de la liste des topo -->
         <action name="list_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
@@ -31,6 +31,7 @@
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doDetail">
 
+            <!-- todo l'intercepteur est mal configuré -->
             <interceptor-ref name="store">
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
@@ -44,6 +45,7 @@
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doCreate">
 
+            <!-- todo l'intercepteur est mal configuré -->
             <interceptor-ref name="store">
                 <param name="operationMode">STORE</param>
             </interceptor-ref>
@@ -70,6 +72,13 @@
 
             <result name="input">/jsp/topo/update.jsp</result>
             <result name="success" type="redirectAction">list_topo</result>
+        </action>
+
+        <!-- ============================ UTILISATEURS ============================ -->
+        <action name="list_utilisateur"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doList">
+            <result name="success">/jsp/utilisateur/list.jsp</result>
         </action>
     </package>
 </struts>

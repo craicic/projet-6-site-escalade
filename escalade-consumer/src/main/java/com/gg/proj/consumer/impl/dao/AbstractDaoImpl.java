@@ -15,7 +15,6 @@ import java.sql.SQLException;
 public abstract class AbstractDaoImpl {
 
 
-
     private Connection connexion;
 
     @Inject
@@ -29,25 +28,4 @@ public abstract class AbstractDaoImpl {
         return connexion;
     }
 
-    protected void loadDatabase() {
-        // Chargement du driver
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-        }
-
-        try {
-            connexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/db-escalade", "postgres", "test123");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected void closeConnexion(){
-        try {
-            if(connexion != null) connexion.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -62,7 +62,7 @@ public class TopoManagerImpl implements TopoManager {
     @Override
     @Transactional
     public void delete(Integer id) {
-        logger.info("Entrée dans la méthode delete avec l'id " + id);
+        logger.debug("Entrée dans la méthode delete avec l'id " + id);
         topoDao.delete(id);
 
     }

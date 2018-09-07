@@ -14,7 +14,7 @@ public class Utilisateur implements Model {
     private String description;
     private String adresseMail;
     private Date dateInscription;
-    private UUID uuid;
+    private String uuid;
     private String hashMotDePasse;
 
     // constructeurs
@@ -90,11 +90,11 @@ public class Utilisateur implements Model {
         this.dateInscription = dateInscription;
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
