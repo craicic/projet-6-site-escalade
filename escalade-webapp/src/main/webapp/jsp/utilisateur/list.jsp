@@ -6,8 +6,14 @@
 
 <html>
 
+<head>
+    <%@include file="../_include/head.jsp" %>
+</head>
+
+<%@ include file="../_include/header.jsp"%>
 <body>
-<h2>Liste des topos</h2>
+
+<h2>Liste des utilisateurs</h2>
 
 <ul>
     <s:iterator value="listUtilisateur">
@@ -16,11 +22,11 @@
             <div>Nom : <s:property value="nom"/></div>
             <div>Prenom : <s:property value="prenom"/></div>
             <div>Pseudo : <s:property value="pseudo"/></div>
-            <div>adresse : <s:property value="adresse"/></div>
+            <div>Adresse : <s:property value="adresse"/></div>
             <div>Description : <s:property value="description"/></div>
-            <div>adresseMail : <s:property value="adresseMail"/></div>
-            <div>dateInscription : <s:property value="dateInscription"/></div>
-            <div>uuid : <s:property value="uuid"/></div>
+            <div>Adresse mail : <s:property value="adresseMail"/></div>
+            <div>Date d'inscription : <s:property value="dateInscription"/></div>
+            <div>UUID : <s:property value="uuid"/></div>
         </li>
     </s:iterator>
 </ul>

@@ -49,20 +49,19 @@ public class GestionTopoAction extends ActionSupport {
         // Sinon, c'est que l'on vient de valider le formulaire d'ajout
 
         // Par défaut, le result est "input"
-        String vResult = ActionSupport.INPUT;
+        String result = ActionSupport.INPUT;
 
         if (this.topo != null) {
             try {
                 managerFactory.getTopoManager().create(this.topo);
                 this.addActionMessage("Topo ajouté.");
-                vResult = ActionSupport.SUCCESS;
+                result = ActionSupport.SUCCESS;
             } catch (Exception e) {
-                logger.error(e.getMessage());
                 this.addActionError(e.getMessage());
-                vResult = ActionSupport.ERROR;
+                result = ActionSupport.ERROR;
             }
         }
-        return vResult;
+        return result;
     }
 
     public String doList() {
@@ -89,7 +88,7 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doUpdate() {
-        String vResult = ActionSupport.INPUT;
+        String result = ActionSupport.INPUT;
 
         if (this.topo != null) {
             if (topo.getId() != null) {
@@ -104,16 +103,16 @@ public class GestionTopoAction extends ActionSupport {
                 } catch (NoSuchElementException e) {
                     ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
-                vResult = ActionSupport.SUCCESS;
+                result = ActionSupport.SUCCESS;
             } else {
                 addActionError("Id doit être défini");
-                vResult = ActionSupport.ERROR;
+                result = ActionSupport.ERROR;
             }
         } else {
             // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur topo afin de pré-rempir les champs de la page web
             topo = managerFactory.getTopoManager().get(id);
         }
-        return vResult;
+        return result;
     }
 
     public String doDelete() {

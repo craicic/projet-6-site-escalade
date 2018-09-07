@@ -80,5 +80,12 @@
                 method="doList">
             <result name="success">/jsp/utilisateur/list.jsp</result>
         </action>
+
+        <action name="utilisateur_new"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doCreate">
+            <result name="input">/jsp/utilisateur/new.jsp</result>
+            <result name="success" type="redirectAction">list_utilisateur</result>
+        </action>
     </package>
 </struts>

@@ -24,12 +24,34 @@ public class GestionUtilisateurAction extends ActionSupport {
         return listUtilisateur;
     }
 
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String doCreate() {
+        String result = Action.INPUT;
+        if (utilisateur != null) {
+            try {
+                managerFactory.getUtilisateurManager().create(utilisateur);
+                result = Action.SUCCESS;
+            } catch (Exception e) {
+                this.addActionError(e.getMessage());
+                result = ActionSupport.ERROR;
+            }
+        }
+        return result;
+    }
+
     public String doList() {
         listUtilisateur = managerFactory.getUtilisateurManager().list();
         return Action.SUCCESS;
     }
 
-    public String doDelete(){
+    public String doDelete() {
         return Action.SUCCESS;
     }
 

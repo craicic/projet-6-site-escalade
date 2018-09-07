@@ -10,9 +10,18 @@
         Nouveau topo
     </s:a>
 
+    <s:a action="list_utilisateur">
+        Liste des utilisateurs
+    </s:a>
+
+    <s:a action="utilisateur_new">
+        Nouvel utilisateur
+    </s:a>
+
     <s:a action="index">
         Retour à l'index
     </s:a>
+
 </nav>
 
 <s:actionmessage/>
