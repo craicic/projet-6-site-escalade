@@ -6,11 +6,8 @@ public class GenerateurUUID {
 
     private UUID uuid;
 
-    public GenerateurUUID(){
-        uuid = new UUID(2,10);
-    }
-
     public UUID getUuid() {
+        uuid = UUID.randomUUID();
         return uuid;
     }
 }

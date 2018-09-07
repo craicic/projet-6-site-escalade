@@ -31,7 +31,8 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     @Override
     @Transactional
     public void create(Utilisateur model) {
-        // Génération de l'UUID
+        logger.debug("Entrée dans la méthode create");
+        // Génération de l'UUID via le module technical
         GenerateurUUID generateurUUID = new GenerateurUUID();
         String uuid = generateurUUID.getUuid().toString();
         model.setUuid(uuid);
@@ -43,10 +44,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         utilisateurDao.create(model);
     }
 
-    // todo
     @Override
     public Utilisateur get(int id) {
-        return null;
+        logger.debug("Entrée dans la méthode get");
+        return (Utilisateur) utilisateurDao.get(id);
     }
 
     @Override
@@ -59,9 +60,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     public void update(Utilisateur model) {
 
     }
-    // todo
-    @Override
-    public void delete(Integer id) {
 
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        logger.debug("Entrée dans la méthode delete");
+        utilisateurDao.delete(id);
     }
 }

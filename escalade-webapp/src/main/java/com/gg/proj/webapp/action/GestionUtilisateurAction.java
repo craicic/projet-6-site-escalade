@@ -17,8 +17,17 @@ public class GestionUtilisateurAction extends ActionSupport {
     @Inject
     ManagerFactory managerFactory;
 
+    private Integer id;
     private List<Utilisateur> listUtilisateur;
     private Utilisateur utilisateur;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public List<Utilisateur> getListUtilisateur() {
         return listUtilisateur;
@@ -46,13 +55,22 @@ public class GestionUtilisateurAction extends ActionSupport {
         return result;
     }
 
+    public String doDetail() {
+        utilisateur = managerFactory.getUtilisateurManager().get(id);
+        return Action.SUCCESS;
+    }
+
     public String doList() {
         listUtilisateur = managerFactory.getUtilisateurManager().list();
         return Action.SUCCESS;
     }
 
-    public String doDelete() {
+    public String doUpdate(){
         return Action.SUCCESS;
     }
 
+    public String doDelete() {
+        managerFactory.getUtilisateurManager().delete(id);
+        return Action.SUCCESS;
+    }
 }

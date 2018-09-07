@@ -35,7 +35,23 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     @Override
     public Object get(int id) {
         logger.debug("Entrée dans la méthode get");
-        return null;
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        Utilisateur utilisateur = jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE id = ?;",
+                (rs, rowNum) -> {
+                    Utilisateur u = new Utilisateur();
+                    u.setId(rs.getInt("id"));
+                    u.setNom(rs.getString("nom"));
+                    u.setPrenom(rs.getString("prenom"));
+                    u.setPseudo(rs.getString("pseudo"));
+                    u.setAdresse(rs.getString("adresse"));
+                    u.setDescription(rs.getString("Description"));
+                    u.setAdresseMail(rs.getString("adresse_mail"));
+                    u.setDateInscription(rs.getDate("date_inscription"));
+                    u.setUuid(rs.getString("uuid"));
+                    return u;
+                },
+                id);
+        return utilisateur;
     }
 
     @Override
@@ -68,5 +84,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     @Override
     public void delete(Integer id) {
         logger.debug("Entrée dans la méthode delete");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        jdbcTemplate.update("DELETE FROM utilisateur WHERE id = ?;", id);
     }
 }

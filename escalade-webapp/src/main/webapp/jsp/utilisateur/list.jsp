@@ -27,6 +27,14 @@
             <div>Adresse mail : <s:property value="adresseMail"/></div>
             <div>Date d'inscription : <s:property value="dateInscription"/></div>
             <div>UUID : <s:property value="uuid"/></div>
+            <div><s:a action="detail_utilisateur">
+                <s:param name="id" value="id"/>
+                détail d'un utilisateur
+            </s:a></div>
+            <div><s:a action="delete_utilisateur">
+                <s:param name="id" value="id"/>
+                supprimer
+            </s:a></div>
         </li>
     </s:iterator>
 </ul>
