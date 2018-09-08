@@ -91,11 +91,16 @@
                 method="doDetail">
             <result name="success">/jsp/utilisateur/detail.jsp</result>
         </action>
-
         <action name="delete_utilisateur"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
                 method="doDelete">
             <result name="success" type="redirectAction">list_utilisateur</result>
+        </action>
+        <action name="update_utilisateur"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doUpdate">
+            <result name="success" type="redirectAction">list_utilisateur</result>
+            <result name="input">/jsp/utilisateur/update.jsp</result>
         </action>
     </package>
 </struts>

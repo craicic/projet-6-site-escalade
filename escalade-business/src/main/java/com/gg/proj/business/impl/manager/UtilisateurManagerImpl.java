@@ -55,10 +55,12 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         logger.debug("Entrée dans la méthode list");
         return utilisateurDao.list();
     }
-    // todo
-    @Override
-    public void update(Utilisateur model) {
 
+    @Override
+    @Transactional
+    public void update(Utilisateur model) {
+        logger.debug("Entrée dans la méthode update");
+        utilisateurDao.update(model);
     }
 
     @Override

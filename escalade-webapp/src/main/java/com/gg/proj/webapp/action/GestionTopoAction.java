@@ -48,20 +48,20 @@ public class GestionTopoAction extends ActionSupport {
         // Si (this.topo == null) c'est que l'on entre dans l'ajout de topo
         // Sinon, c'est que l'on vient de valider le formulaire d'ajout
 
-        // Par défaut, le result est "input"
-        String result = ActionSupport.INPUT;
+        // Par défaut, le resultat est "input"
+        String resultat = ActionSupport.INPUT;
 
         if (this.topo != null) {
             try {
                 managerFactory.getTopoManager().create(this.topo);
                 this.addActionMessage("Topo ajouté.");
-                result = ActionSupport.SUCCESS;
+                resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
                 this.addActionError(e.getMessage());
-                result = ActionSupport.ERROR;
+                resultat = ActionSupport.ERROR;
             }
         }
-        return result;
+        return resultat;
     }
 
     public String doList() {
@@ -88,10 +88,10 @@ public class GestionTopoAction extends ActionSupport {
     }
 
     public String doUpdate() {
-        String result = ActionSupport.INPUT;
+        String resultat = ActionSupport.INPUT;
 
         if (this.topo != null) {
-            if (topo.getId() != null) {
+            if (this.topo.getId() != null) {
                 try {
                     // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Topo temporaire
                     // Ainsi l'id est non modifiable.
@@ -103,16 +103,16 @@ public class GestionTopoAction extends ActionSupport {
                 } catch (NoSuchElementException e) {
                     ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
-                result = ActionSupport.SUCCESS;
+                resultat = ActionSupport.SUCCESS;
             } else {
-                addActionError("Id doit être défini");
-                result = ActionSupport.ERROR;
+                this.addActionError("Id doit être défini");
+                resultat = ActionSupport.ERROR;
             }
         } else {
             // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur topo afin de pré-rempir les champs de la page web
             topo = managerFactory.getTopoManager().get(id);
         }
-        return result;
+        return resultat;
     }
 
     public String doDelete() {

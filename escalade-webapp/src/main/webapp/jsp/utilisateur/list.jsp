@@ -29,7 +29,11 @@
             <div>UUID : <s:property value="uuid"/></div>
             <div><s:a action="detail_utilisateur">
                 <s:param name="id" value="id"/>
-                détail d'un utilisateur
+                détail de l'utilisateur
+            </s:a></div>
+            <div><s:a action="update_utilisateur">
+                <s:param name="id" value="id"/>
+                modifier
             </s:a></div>
             <div><s:a action="delete_utilisateur">
                 <s:param name="id" value="id"/>
