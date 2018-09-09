@@ -1,5 +1,7 @@
 package com.gg.proj.model.bean;
 
+import org.postgresql.geometric.PGpoint;
+
 import java.awt.*;
 
 public class Site implements Model {
@@ -11,9 +13,9 @@ public class Site implements Model {
     private String profils;
     private String roche;
     private String type;
-    private Point coordonneesGPS;
-    // constructeurs
+    private PGpoint coordonneesGPS;
 
+    // constructeurs
     public Site(){}
 
     public Site(Integer id) {
@@ -70,11 +72,11 @@ public class Site implements Model {
         this.type = type;
     }
 
-    public Point getCoordonneesGPS() {
+    public PGpoint getCoordonneesGPS() {
         return coordonneesGPS;
     }
 
-    public void setCoordonneesGPS(Point coordonneesGPS) {
+    public void setCoordonneesGPS(PGpoint coordonneesGPS) {
         this.coordonneesGPS = coordonneesGPS;
     }
 }

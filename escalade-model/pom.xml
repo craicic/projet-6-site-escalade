@@ -25,6 +25,12 @@
             <artifactId>escalade-technical</artifactId>
         </dependency>
 
+        <!-- Pour la gestion du type PGPoint (coordGPS) -->
+        <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        </dependency>
+
         <!-- bibliotheque tierce -->
         <dependency>
             <groupId>junit</groupId>

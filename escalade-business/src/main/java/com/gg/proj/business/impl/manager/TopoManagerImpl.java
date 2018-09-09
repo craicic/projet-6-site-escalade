@@ -29,8 +29,6 @@ public class TopoManagerImpl implements TopoManager {
     public void create(Topo model) {
 //                 Si le titre à été rempli, la transaction est effectuée
         logger.debug("Entrée dans la méthode create");
-        Topo topo = (Topo) model;
-        logger.debug("Création d'un bean model de classe : " + model.getClass());
         if (!model.getTitre().isEmpty()) {
             topoDao.create(model);
         } else {
@@ -42,7 +40,7 @@ public class TopoManagerImpl implements TopoManager {
     @Override
     public Topo get(int id) {
         logger.debug("Entrée dans la méthode get avec l'id " + id);
-        return (Topo) topoDao.get(id);
+        return topoDao.get(id);
     }
 
     @Override

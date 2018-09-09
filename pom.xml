@@ -152,7 +152,8 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>42.2.4</version>
-                <scope>runtime</scope>
+                <!-- la dépendance se lance a l'execution car j'ai besoin du type PGPoint pour les coordonnées -->
+                <!--<scope>runtime</scope>-->
             </dependency>
 
             <!--<dependency>-->

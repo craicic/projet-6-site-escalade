@@ -42,6 +42,11 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
         </dependency>
+        <!-- Pour la gestion du type PGPoint (coordGPS) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
         <!-- spring tx s-->
         <dependency>
             <groupId>org.springframework</groupId>

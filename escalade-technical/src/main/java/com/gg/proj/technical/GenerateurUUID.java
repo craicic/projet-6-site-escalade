@@ -1,4 +1,4 @@
-package com.gg.proj.technical.logger;
+package com.gg.proj.technical;
 
 import java.util.UUID;
 

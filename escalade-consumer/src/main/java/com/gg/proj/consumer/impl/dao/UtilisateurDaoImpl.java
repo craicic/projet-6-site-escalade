@@ -15,7 +15,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     private final static Logger logger = LogManager.getLogger();
 
     @Override
-    public void create(Object model) {
+    public void create(Utilisateur model) {
         logger.debug("Entrée dans la méthode create");
         Utilisateur utilisateur = (Utilisateur) model;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
@@ -33,7 +33,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
     @Override
-    public Object get(int id) {
+    public Utilisateur get(int id) {
         logger.debug("Entrée dans la méthode get");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         Utilisateur utilisateur = jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE id = ?;",
@@ -77,7 +77,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
     @Override
-    public void update(Object model) {
+    public void update(Utilisateur model) {
         Utilisateur utilisateur = (Utilisateur) model;
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

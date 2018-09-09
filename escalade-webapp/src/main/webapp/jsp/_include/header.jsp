@@ -5,23 +5,24 @@
     <s:a action="list_topo">
         Liste des topos
     </s:a>
-
     <s:a action="topo_new">
         Nouveau topo
     </s:a>
-
     <s:a action="list_utilisateur">
         Liste des utilisateurs
     </s:a>
-
     <s:a action="utilisateur_new">
         Nouvel utilisateur
     </s:a>
-
+    <s:a action="list_site">
+        Liste des sites
+    </s:a>
+    <s:a action="site_new">
+        Nouveau site
+    </s:a>
     <s:a action="index">
         Retour à l'index
     </s:a>
-
 </nav>
 
 <s:actionmessage/>

@@ -14,9 +14,6 @@ import java.sql.SQLException;
 
 public abstract class AbstractDaoImpl {
 
-
-    private Connection connexion;
-
     @Inject
     private DataSource dataSource;
 
@@ -24,8 +21,5 @@ public abstract class AbstractDaoImpl {
         return dataSource;
     }
 
-    protected Connection getConnexion() {
-        return connexion;
-    }
 
 }

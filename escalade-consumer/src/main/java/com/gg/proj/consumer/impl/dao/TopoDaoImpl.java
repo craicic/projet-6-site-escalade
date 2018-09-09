@@ -16,7 +16,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public void create(Object model) {
+    public void create(Topo model) {
         logger.debug("Entrée dans la méthode create");
         Topo topo = (Topo) model;
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
@@ -29,7 +29,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     // todo : question faut-il utiliser Object ou Topo
     @Override
-    public Object get(int id) {
+    public Topo get(int id) {
         logger.debug("Entrée dans la méthode get avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         Topo topo = jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;",
@@ -65,7 +65,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     @Override
-    public void update(Object model) {
+    public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
         Topo topo = (Topo) model;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
