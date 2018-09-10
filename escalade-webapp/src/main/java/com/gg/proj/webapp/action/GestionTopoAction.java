@@ -97,6 +97,7 @@ public class GestionTopoAction extends ActionSupport {
                     tmpTopo.setTitre(topo.getTitre());
                     tmpTopo.setAuteur(topo.getAuteur());
                     tmpTopo.setDescription(topo.getDescription());
+                    tmpTopo.setEmpreintable(topo.isEmpreintable());
                     managerFactory.getTopoManager().update(tmpTopo);
                 } catch (NoSuchElementException e) {
                     ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);

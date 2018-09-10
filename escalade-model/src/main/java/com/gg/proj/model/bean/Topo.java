@@ -7,6 +7,7 @@ public class Topo implements Model {
     private String auteur;
     private String titre;
     private String description;
+    private boolean empreintable;
 
     // constructeurs
     public Topo() {
@@ -48,5 +49,13 @@ public class Topo implements Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEmpreintable() {
+        return empreintable;
+    }
+
+    public void setEmpreintable(boolean empreintable) {
+        this.empreintable = empreintable;
     }
 }

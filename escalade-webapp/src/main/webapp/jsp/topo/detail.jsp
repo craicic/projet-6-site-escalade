@@ -21,6 +21,7 @@
     <li>Titre : <s:property value="topo.titre"/></li>
     <li>Auteur : <s:property value="topo.auteur"/></li>
     <li>Description : <s:property value="topo.description"/></li>
+    <li>Dispo à l'empreint : <s:property value="topo.empreintable"/></li>
 </ul>
 </body>
 </html>

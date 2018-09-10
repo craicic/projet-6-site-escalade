@@ -19,10 +19,11 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void create(Topo model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
-        jdbcTempplate.update("INSERT INTO topo (auteur, titre, description) VALUES(?, ?, ?);",
+        jdbcTempplate.update("INSERT INTO topo (auteur, titre, description, empreintable) VALUES(?, ?, ?, ?);",
                 model.getAuteur(),
                 model.getTitre(),
-                model.getDescription()
+                model.getDescription(),
+                model.isEmpreintable()
         );
     }
 
@@ -35,9 +36,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 (rs, rowNum) -> {
                     Topo t = new Topo();
                     t.setId(rs.getInt("id"));
-                    t.setTitre(rs.getString("Titre"));
-                    t.setAuteur(rs.getString("Auteur"));
-                    t.setDescription(rs.getString("Description"));
+                    t.setTitre(rs.getString("titre"));
+                    t.setAuteur(rs.getString("auteur"));
+                    t.setDescription(rs.getString("description"));
+                    t.setEmpreintable(rs.getBoolean("empreintable"));
                     return t;
                 },
                 id // Paramètre '?' de la requête
@@ -53,9 +55,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 (rs, rowNum) -> {
                     Topo t = new Topo();
                     t.setId(rs.getInt("id"));
-                    t.setTitre(rs.getString("Titre"));
-                    t.setAuteur(rs.getString("Auteur"));
-                    t.setDescription(rs.getString("Description"));
+                    t.setTitre(rs.getString("titre"));
+                    t.setAuteur(rs.getString("auteur"));
+                    t.setDescription(rs.getString("description"));
+                    t.setEmpreintable(rs.getBoolean("empreintable"));
                     return t;
                 });
         return topos;
@@ -65,10 +68,11 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;",
+        jdbcTemplate.update("UPDATE topo SET (auteur, titre, description, empreintable) = (?,?,?,?) WHERE id = ? ;",
                 model.getAuteur(),
                 model.getTitre(),
                 model.getDescription(),
+                model.isEmpreintable(),
                 model.getId()
         );
 

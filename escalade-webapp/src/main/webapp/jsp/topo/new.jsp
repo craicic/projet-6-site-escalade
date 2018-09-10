@@ -20,6 +20,7 @@
     <s:textfield  name="topo.titre" label="Titre" requiredLabel="true"/>
     <s:textfield name="topo.auteur" label="Auteur" requiredLabel="false"/>
     <s:textarea name="topo.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
+    <s:checkbox name="topo.empreintable" label="Empreintable" requiredLabel="true"/>
     <s:submit value="Ok"/>
 </s:form>
 

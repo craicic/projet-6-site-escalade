@@ -53,6 +53,7 @@ public class SecteurManagerImpl implements SecteurManager {
     @Transactional
     public void update(Secteur model) {
         logger.debug("Entrée dans la méthode update");
+        model.setCoordonneesGPS(new PGpoint(1,1));
         secteurDao.update(model);
     }
 

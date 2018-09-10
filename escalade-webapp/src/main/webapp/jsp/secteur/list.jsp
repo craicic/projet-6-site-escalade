@@ -10,29 +10,28 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
-<h2>Liste des sites</h2>
+<h2>Liste des Secteur</h2>
 
 <ul>
-    <s:iterator value="listSite">
+    <s:iterator value="listSecteur">
         <li>
             <div>ID : <s:property value="id"/></div>
             <div>Nom : <s:property value="nom"/></div>
             <div>Description : <s:property value="description"/></div>
-            <div>Profil : <s:property value="profil"/></div>
-            <div>Roche : <s:property value="roche"/></div>
-            <div>Type : <s:property value="type"/></div>
-            <div><s:a action="detail_site">
+                <%-- todo coordonnees GPS --%>
+            <div>Secteur associé : <s:property value="siteId"/></div>
+            <div><s:a action="detail_secteur">
                 <s:param name="id" value="id"/>
                 détail du site
             </s:a></div>
-            <div><s:a action="update_site">
+            <div><s:a action="update_secteur">
                 <s:param name="id" value="id"/>
                 modifier
             </s:a></div>
-            <div><s:a action="delete_site">
+            <div><s:a action="delete_secteur">
                 <s:param name="id" value="id"/>
                 supprimer
             </s:a></div>

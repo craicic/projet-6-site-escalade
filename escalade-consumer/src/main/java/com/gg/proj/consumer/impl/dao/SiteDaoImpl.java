@@ -17,10 +17,10 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("INSERT INTO site (nom, description, profils, roche, type, coordonnees_gps) VALUES (?,?,?,?,?,?);",
+        jdbcTemplate.update("INSERT INTO site (nom, description, profil, roche, type, coordonnees_gps) VALUES (?,?,?,?,?,?);",
                 model.getNom(),
                 model.getDescription(),
-                model.getProfils(),
+                model.getProfil(),
                 model.getRoche(),
                 model.getType(),
                 model.getCoordonneesGPS()
@@ -37,7 +37,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
                     s.setId(rs.getInt("id"));
                     s.setNom(rs.getString("nom"));
                     s.setDescription(rs.getString("description"));
-                    s.setProfils(rs.getString("profils"));
+                    s.setProfil(rs.getString("profil"));
                     s.setRoche(rs.getString("roche"));
                     s.setType(rs.getString("type"));
                     s.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
@@ -56,7 +56,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
                     s.setId(rs.getInt("id"));
                     s.setNom(rs.getString("nom"));
                     s.setDescription(rs.getString("description"));
-                    s.setProfils(rs.getString("profils"));
+                    s.setProfil(rs.getString("profil"));
                     s.setRoche(rs.getString("roche"));
                     s.setType(rs.getString("type"));
                     s.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
@@ -68,10 +68,10 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     public void update(Site model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE site SET (nom,description,profils,roche,type,coordonnees_gps) = (?,?,?,?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE site SET (nom,description,profil,roche,type,coordonnees_gps) = (?,?,?,?,?,?) WHERE id = ?;",
                 model.getNom(),
                 model.getDescription(),
-                model.getProfils(),
+                model.getProfil(),
                 model.getRoche(),
                 model.getType(),
                 model.getCoordonneesGPS(),

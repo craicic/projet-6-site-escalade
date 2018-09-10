@@ -89,7 +89,7 @@ public class GestionSiteAction extends ActionSupport {
                 Site tmpSite = managerFactory.getSiteManager().get(site.getId());
                 tmpSite.setNom(site.getNom());
                 tmpSite.setDescription(site.getDescription());
-                tmpSite.setProfils(site.getProfils());
+                tmpSite.setProfil(site.getProfil());
                 tmpSite.setRoche(site.getRoche());
                 tmpSite.setType(site.getType());
                 tmpSite.setCoordonneesGPS(site.getCoordonneesGPS());

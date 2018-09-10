@@ -8,7 +8,7 @@ CREATE TABLE public.site (
                 profil VARCHAR NOT NULL,
                 roche VARCHAR NOT NULL,
                 type VARCHAR NOT NULL,
-                coordonnees_gps POINT NOT NULL,
+                coordonnees_gps POINT,
                 CONSTRAINT site_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN public.site.coordonnees_gps IS 'Type : Point';
@@ -22,7 +22,7 @@ CREATE TABLE public.secteur (
                 id INTEGER NOT NULL DEFAULT nextval('public.secteur_id_seq'),
                 nom VARCHAR NOT NULL,
                 decription VARCHAR,
-                coordonnees_gps POINT NOT NULL,
+                coordonnees_gps POINT,
                 site_id INTEGER NOT NULL,
                 CONSTRAINT secteur_pk PRIMARY KEY (id)
 );
@@ -37,7 +37,7 @@ CREATE TABLE public.voie (
                 id INTEGER NOT NULL DEFAULT nextval('public.voie_id_seq'),
                 nom VARCHAR NOT NULL,
                 description VARCHAR,
-                nombre_points INTEGER NOT NULL,
+                nombre_points INTEGER,
                 nombre_longueurs INTEGER NOT NULL,
                 cotation VARCHAR(10) NOT NULL,
                 hauteur VARCHAR NOT NULL,
@@ -55,6 +55,7 @@ CREATE TABLE public.topo (
                 titre VARCHAR NOT NULL,
                 auteur VARCHAR,
                 description VARCHAR,
+                empreintable BOOLEAN NOT NULL,
                 CONSTRAINT topo_pk PRIMARY KEY (id)
 );
 
@@ -86,6 +87,14 @@ CREATE TABLE public.utilisateur (
 
 
 ALTER SEQUENCE public.utilisateur_id_seq OWNED BY public.utilisateur.id;
+
+CREATE UNIQUE INDEX utilisateur_idx
+ ON public.utilisateur
+ ( pseudo );
+
+CREATE UNIQUE INDEX utilisateur_idx1
+ ON public.utilisateur
+ ( adresse_mail );
 
 CREATE TABLE public.propriete_topo (
                 topo_id INTEGER NOT NULL,

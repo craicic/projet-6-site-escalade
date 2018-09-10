@@ -121,15 +121,15 @@
                 method="doDetail">
             <result name="success">/jsp/site/detail.jsp</result>
         </action>
-        <action name="delete_site"
-                class="com.gg.proj.webapp.action.GestionSiteAction"
-                method="doDelete">
-            <result name="success" type="redirectAction">list_site</result>
-        </action>
         <action name="update_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doUpdate">
             <result name="input">/jsp/site/update.jsp</result>
+            <result name="success" type="redirectAction">list_site</result>
+        </action>
+        <action name="delete_site"
+                class="com.gg.proj.webapp.action.GestionSiteAction"
+                method="doDelete">
             <result name="success" type="redirectAction">list_site</result>
         </action>
         <!-- ============================ SECTEUR ============================ -->
@@ -140,10 +140,26 @@
             <result name="input">/jsp/secteur/new.jsp</result>
             <result name="success" type="redirectAction">list_site</result>
         </action>
+        <action name="list_secteur"
+                class="com.gg.proj.webapp.action.GestionSecteurAction"
+                method="doList">
+            <result name="success">/jsp/secteur/list.jsp</result>
+        </action>
         <action name="detail_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doDetail">
             <result name="success">/jsp/secteur/detail.jsp</result>
+        </action>
+        <action name="update_secteur"
+                class="com.gg.proj.webapp.action.GestionSecteurAction"
+                method="doUpdate">
+            <result name="input">/jsp/secteur/update.jsp</result>
+            <result name="success" type="redirectAction">list_secteur</result>
+        </action>
+        <action name="delete_secteur"
+                class="com.gg.proj.webapp.action.GestionSecteurAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">list_secteur</result>
         </action>
     </package>
 </struts>

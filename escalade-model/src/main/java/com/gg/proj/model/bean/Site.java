@@ -2,15 +2,13 @@ package com.gg.proj.model.bean;
 
 import org.postgresql.geometric.PGpoint;
 
-import java.awt.*;
-
 public class Site implements Model {
 
     // propriétés
     private Integer id;
     private String nom;
     private String description;
-    private String profils;
+    private String profil;
     private String roche;
     private String type;
     private PGpoint coordonneesGPS;
@@ -48,12 +46,12 @@ public class Site implements Model {
         this.description = description;
     }
 
-    public String getProfils() {
-        return profils;
+    public String getProfil() {
+        return profil;
     }
 
-    public void setProfils(String profils) {
-        this.profils = profils;
+    public void setProfil(String profil) {
+        this.profil = profil;
     }
 
     public String getRoche() {

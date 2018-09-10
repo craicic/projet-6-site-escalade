@@ -20,6 +20,12 @@
     <s:a action="site_new">
         Nouveau site
     </s:a>
+    <s:a action="list_secteur">
+        Liste des secteurs
+    </s:a>
+    <s:a action="secteur_new">
+        Nouveau secteur
+    </s:a>
     <s:a action="index">
         Retour à l'index
     </s:a>
