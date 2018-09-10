@@ -23,6 +23,15 @@
     <li>Profils : <s:property value="site.profils"/></li>
     <li>Roche : <s:property value="site.roche"/></li>
     <li>Type : <s:property value="site.type"/></li>
+    <s:iterator value="listSecteur">
+        <s:if test="%{#siteId == #id}">
+        <li><s:a action="detail_secteur">
+            <s:param name="id" value="id"/>
+            Secteur associé : <s:property value="nom"/>
+        </s:a></li>
+        </s:if>
+    </s:iterator>
 </ul>
+<p><s:a action="secteur_new">nouveau secteur associé</s:a></p>
 </body>
 </html>

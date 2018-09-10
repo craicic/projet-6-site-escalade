@@ -71,8 +71,6 @@ public class GestionTopoAction extends ActionSupport {
 
     public String doDetail() {
 
-        // todo générer les exceptions
-
         if (id == null) {
             this.addActionError("Vous devez indiquer un id de topo");
         } else {

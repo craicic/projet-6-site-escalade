@@ -18,21 +18,19 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     @Override
     public void create(Topo model) {
         logger.debug("Entrée dans la méthode create");
-        Topo topo = (Topo) model;
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
         jdbcTempplate.update("INSERT INTO topo (auteur, titre, description) VALUES(?, ?, ?);",
-                topo.getAuteur(),
-                topo.getTitre(),
-                topo.getDescription()
+                model.getAuteur(),
+                model.getTitre(),
+                model.getDescription()
         );
     }
 
-    // todo : question faut-il utiliser Object ou Topo
     @Override
     public Topo get(int id) {
         logger.debug("Entrée dans la méthode get avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        Topo topo = jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;",
+        return jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;",
                 // RowMapper<T> ecrit via lambda
                 (rs, rowNum) -> {
                     Topo t = new Topo();
@@ -44,7 +42,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 },
                 id // Paramètre '?' de la requête
         );
-        return topo;
     }
 
     @Override
@@ -67,13 +64,12 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     @Override
     public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
-        Topo topo = (Topo) model;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("UPDATE topo SET (auteur, titre, description) = (?,?,?) WHERE id = ? ;",
-                topo.getAuteur(),
-                topo.getTitre(),
-                topo.getDescription(),
-                topo.getId()
+                model.getAuteur(),
+                model.getTitre(),
+                model.getDescription(),
+                model.getId()
         );
 
     }

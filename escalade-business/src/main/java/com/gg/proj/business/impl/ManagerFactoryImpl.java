@@ -1,15 +1,22 @@
 package com.gg.proj.business.impl;
 
 import com.gg.proj.business.contract.ManagerFactory;
-import com.gg.proj.business.contract.manager.SiteManager;
-import com.gg.proj.business.contract.manager.TopoManager;
-import com.gg.proj.business.contract.manager.UtilisateurManager;
+import com.gg.proj.business.contract.manager.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 public class ManagerFactoryImpl implements ManagerFactory {
+
+    @Inject
+    private CommentaireManager commentaireManager;
+
+    @Inject
+    private EmpreintManager empreintManager;
+
+    @Inject
+    SecteurManager secteurManager;
 
     @Inject
     private SiteManager siteManager;
@@ -20,6 +27,23 @@ public class ManagerFactoryImpl implements ManagerFactory {
     @Inject
     private UtilisateurManager utilisateurManager;
 
+    @Inject
+    private VoieManager voieManager;
+
+    @Override
+    public CommentaireManager getCommentaireManager() {
+        return commentaireManager;
+    }
+
+    @Override
+    public EmpreintManager getEmpreintManager() {
+        return empreintManager;
+    }
+
+    @Override
+    public SecteurManager getSecteurManager() {
+        return secteurManager;
+    }
 
     @Override
     public SiteManager getSiteManager() {
@@ -36,4 +60,8 @@ public class ManagerFactoryImpl implements ManagerFactory {
         return utilisateurManager;
     }
 
+    @Override
+    public VoieManager getVoieManager() {
+        return voieManager;
+    }
 }

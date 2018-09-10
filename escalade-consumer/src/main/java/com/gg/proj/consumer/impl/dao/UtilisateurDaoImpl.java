@@ -81,8 +81,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
         Utilisateur utilisateur = (Utilisateur) model;
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE utilisateur SET (nom, prenom, pseudo, adresse, description, adresse_mail, date_inscription, uuid, hash_du_mot_de_passe)" +
-                        " = (?,?,?,?,?,?,?,?,?)" +
+        jdbcTemplate.update("UPDATE utilisateur SET (nom, prenom, pseudo, adresse, description, adresse_mail, date_inscription, uuid)" +
+                        " = (?,?,?,?,?,?,?,?)" +
                         "WHERE id = ?;",
                 utilisateur.getNom(),
                 utilisateur.getPrenom(),
@@ -92,7 +92,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
                 utilisateur.getAdresseMail(),
                 utilisateur.getDateInscription(),
                 utilisateur.getUuid(),
-                utilisateur.getHashMotDePasse(),
+//                utilisateur.getHashMotDePasse(),
                 utilisateur.getId()
         );
     }

@@ -21,10 +21,10 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     private static final Logger logger = LogManager.getLogger();
 
     @Inject
-    private UtilisateurDao utilisateurDao;
+    UtilisateurDao utilisateurDao;
 
-    @Inject
-    PlatformTransactionManager platformTransactionManager;
+//    @Inject
+//    PlatformTransactionManager platformTransactionManager;
 
     @Override
     @Transactional
@@ -46,7 +46,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     @Override
     public Utilisateur get(int id) {
         logger.debug("Entrée dans la méthode get");
-        return (Utilisateur) utilisateurDao.get(id);
+        return utilisateurDao.get(id);
     }
 
     @Override

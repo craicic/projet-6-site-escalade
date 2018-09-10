@@ -10,6 +10,7 @@ public class Voie implements Model {
     private Integer nombreDeLongueurs;
     private String cotation;
     private String hauteur;
+    private Integer secteurId;
 
     // constructeurs
     public Voie(){    }
@@ -74,5 +75,13 @@ public class Voie implements Model {
 
     public void setHauteur(String hauteur) {
         this.hauteur = hauteur;
+    }
+
+    public Integer getSecteurId() {
+        return secteurId;
+    }
+
+    public void setSecteurId(Integer secteurId) {
+        this.secteurId = secteurId;
     }
 }

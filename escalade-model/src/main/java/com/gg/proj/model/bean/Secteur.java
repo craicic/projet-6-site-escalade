@@ -1,13 +1,15 @@
 package com.gg.proj.model.bean;
 
-import java.awt.*;
+import org.postgresql.geometric.PGpoint;
 
 public class Secteur implements Model {
     // propriétés
     private Integer id;
     private String nom;
-    private String Description;
-    private Point coordonneesGPS;
+    private String description;
+    private PGpoint coordonneesGPS;
+    private Integer siteId;
+
 
     // constructeurs
     public Secteur(){}
@@ -35,18 +37,26 @@ public class Secteur implements Model {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public Point getCoordonneesGPS() {
+    public PGpoint getCoordonneesGPS() {
         return coordonneesGPS;
     }
 
-    public void setCoordonneesGPS(Point coordonneesGPS) {
+    public void setCoordonneesGPS(PGpoint coordonneesGPS) {
         this.coordonneesGPS = coordonneesGPS;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 }

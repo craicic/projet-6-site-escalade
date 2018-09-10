@@ -66,7 +66,8 @@ public class GestionUtilisateurAction extends ActionSupport {
     }
 
     public String doUpdate(){
-        // todo une meilleurs gestion du mot de passe, pour l'instant le mot de passe est appelé sur la page !!!!!
+        // n'update ni la date d'inscription ni le mot de passe ni l'uuid
+        // todo une meilleurs gestion du mot de passe, pour l'instant le mot de passe est appelé sur la page
         String resultat = ActionSupport.INPUT;
 
         if (this.utilisateur != null) {
@@ -78,10 +79,11 @@ public class GestionUtilisateurAction extends ActionSupport {
                 tmpUtilisateur.setPrenom(utilisateur.getPrenom());
                 tmpUtilisateur.setPseudo(utilisateur.getPseudo());
                 tmpUtilisateur.setAdresse(utilisateur.getAdresse());
+                tmpUtilisateur.setDescription(utilisateur.getDescription());
                 tmpUtilisateur.setAdresseMail(utilisateur.getAdresseMail());
-                tmpUtilisateur.setDateInscription(utilisateur.getDateInscription());
-                tmpUtilisateur.setUuid(utilisateur.getUuid());
-                tmpUtilisateur.setHashMotDePasse(utilisateur.getHashMotDePasse());
+//                tmpUtilisateur.setDateInscription(utilisateur.getDateInscription());
+//                tmpUtilisateur.setUuid(utilisateur.getUuid());
+//                tmpUtilisateur.setHashMotDePasse(utilisateur.getHashMotDePasse());
                 managerFactory.getUtilisateurManager().update(tmpUtilisateur);
                 resultat = ActionSupport.SUCCESS;
             } else {

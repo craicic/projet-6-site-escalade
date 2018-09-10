@@ -1,6 +1,7 @@
 package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.SiteManager;
+import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
@@ -20,19 +21,18 @@ public class SiteManagerImpl implements SiteManager {
     private static final Logger logger = LogManager.getLogger();
 
     @Inject
-    private SiteDao siteDao;
+    SiteDao siteDao;
 
-    @Inject
-    PlatformTransactionManager platformTransactionManager;
 
+//    @Inject
+//    private PlatformTransactionManager platformTransactionManager;
     @Override
     @Transactional
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");
         if (!model.getNom().isEmpty()) {
             // todo retirer ce fix de coordonnéesGPS
-            PGpoint coordonnees = new PGpoint(1,1);
-            model.setCoordonneesGPS(coordonnees);
+            model.setCoordonneesGPS(new PGpoint(1,1));
             siteDao.create(model);
         }
         else
@@ -55,6 +55,8 @@ public class SiteManagerImpl implements SiteManager {
     @Transactional
     public void update(Site model) {
         logger.debug("Entrée dans la méthode update");
+        // todo retirer ce fix de coordonnéesGPS
+        model.setCoordonneesGPS(new PGpoint(1,1));
         siteDao.update(model);
     }
 

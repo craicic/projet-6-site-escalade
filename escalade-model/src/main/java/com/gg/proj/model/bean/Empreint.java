@@ -7,6 +7,7 @@ public class Empreint implements Model{
     private Integer id;
     private Date dateEmpreint;
     private Date dateRetour;
+    private Integer utilisateurId;
 
     // constructeurs
     public Empreint(){}
@@ -39,5 +40,13 @@ public class Empreint implements Model{
 
     public void setDateRetour(Date dateRetour) {
         this.dateRetour = dateRetour;
+    }
+
+    public Integer getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Integer utilisateurId) {
+        this.utilisateurId = utilisateurId;
     }
 }

@@ -16,7 +16,7 @@
 
 <h2>Modifier un site</h2>
 
-<s:form action="site_new">
+<s:form action="update_site">
     <s:textfield  name="site.nom" label="Nom" requiredLabel="true"/>
     <s:textarea name="site.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
     <s:textfield name="site.profils" label="Profils" requiredLabel="false"/>

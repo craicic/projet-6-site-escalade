@@ -24,6 +24,7 @@ public class TopoManagerImpl implements TopoManager {
     @Inject
     private PlatformTransactionManager platformTransactionManager;
 
+    // todo implémenter des vérification de saisie aux updates de tout les models
     @Override
     @Transactional
     public void create(Topo model) {

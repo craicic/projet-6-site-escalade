@@ -1,6 +1,7 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
+import com.gg.proj.model.bean.Secteur;
 import com.gg.proj.model.bean.Site;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ public class GestionSiteAction extends ActionSupport {
     private Integer id;
     private Site site;
     private List<Site> listSite;
+    private List<Secteur> listSecteur;
 
     public Integer getId() {
         return id;
@@ -40,6 +42,12 @@ public class GestionSiteAction extends ActionSupport {
     public void setListSite(List<Site> listSite) {
         this.listSite = listSite;
     }
+    public List<Secteur> getListSecteur() {
+        return listSecteur;
+    }
+    public void setListSecteur(List<Secteur> listSecteur) {
+        this.listSecteur = listSecteur;
+    }
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
@@ -49,8 +57,7 @@ public class GestionSiteAction extends ActionSupport {
                 this.addActionMessage("Site ajouté : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
-                e.printStackTrace();
-                this.addActionError("");
+                this.addActionError(e.getMessage());
             }
         }
         return resultat;
@@ -59,6 +66,7 @@ public class GestionSiteAction extends ActionSupport {
     public String doDetail() {
         if (id != null){
             site = managerFactory.getSiteManager().get(id);
+            listSecteur = managerFactory.getSecteurManager().list();
             return ActionSupport.SUCCESS;
         } else {
             addActionMessage("Id doit être défini");
@@ -77,29 +85,31 @@ public class GestionSiteAction extends ActionSupport {
             try {
                 // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Site temporaire
                 // Ainsi l'id est non modifiable.
-                Site tmpSite = managerFactory.getSiteManager().get(id);
+                logger.info("hey");
+                Site tmpSite = managerFactory.getSiteManager().get(site.getId());
                 tmpSite.setNom(site.getNom());
                 tmpSite.setDescription(site.getDescription());
                 tmpSite.setProfils(site.getProfils());
                 tmpSite.setRoche(site.getRoche());
                 tmpSite.setType(site.getType());
                 tmpSite.setCoordonneesGPS(site.getCoordonneesGPS());
-                managerFactory.getSiteManager().update(site);
+                managerFactory.getSiteManager().update(tmpSite);
                 this.addActionMessage("Site modifié : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
-                e.printStackTrace();
-                this.addActionError("");
+                logger.info("heyxeption" + e.getMessage());
+                this.addActionError(e.getMessage());
             }
+        } else {
+            // Si site est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur site afin de pré-rempir les champs de la page web
+            site = managerFactory.getSiteManager().get(id);
+            logger.info("site.description : " + site.getDescription());
         }
-        // Si site est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur site afin de pré-rempir les champs de la page web
-        site = managerFactory.getSiteManager().get(id);
         return resultat;
     }
 
     public String doDelete() {
         try {
-            logger.info(id);
             managerFactory.getSiteManager().delete(this.id);
             this.addActionMessage("Site supprimé");
         } catch (NoSuchElementException e) {

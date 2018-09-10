@@ -7,6 +7,7 @@ public class Commentaire implements Model {
     private Integer id;
     private Date dateCreation;
     private String contenuTexte;
+    private Integer utilisateurId;
 
     // constructeurs
     public Commentaire() {
@@ -40,5 +41,13 @@ public class Commentaire implements Model {
 
     public void setContenuTexte(String contenuTexte) {
         this.contenuTexte = contenuTexte;
+    }
+
+    public Integer getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Integer utilisateurId) {
+        this.utilisateurId = utilisateurId;
     }
 }
