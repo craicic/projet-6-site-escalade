@@ -138,7 +138,7 @@
                 method="doCreate">
             <!-- todo afficher le detail du site associé -->
             <result name="input">/jsp/secteur/new.jsp</result>
-            <result name="success" type="redirectAction">list_site</result>
+            <result name="success" type="redirectAction">list_secteur</result>
         </action>
         <action name="list_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
@@ -160,6 +160,35 @@
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doDelete">
             <result name="success" type="redirectAction">list_secteur</result>
+        </action>
+        <!-- ============================ SECTEUR ============================ -->
+        <action name="voie_new"
+                class="com.gg.proj.webapp.action.GestionVoieAction"
+                method="doCreate">
+            <!-- todo afficher le detail du site associé -->
+            <result name="input">/jsp/voie/new.jsp</result>
+            <result name="success" type="redirectAction">list_voie</result>
+        </action>
+        <action name="list_voie"
+                class="com.gg.proj.webapp.action.GestionVoieAction"
+                method="doList">
+            <result name="success">/jsp/voie/list.jsp</result>
+        </action>
+        <action name="detail_voie"
+                class="com.gg.proj.webapp.action.GestionVoieAction"
+                method="doDetail">
+            <result name="success">/jsp/voie/detail.jsp</result>
+        </action>
+        <action name="update_voie"
+                class="com.gg.proj.webapp.action.GestionVoieAction"
+                method="doUpdate">
+            <result name="input">/jsp/voie/update.jsp</result>
+            <result name="success" type="redirectAction">list_voie</result>
+        </action>
+        <action name="delete_voie"
+                class="com.gg.proj.webapp.action.GestionVoieAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">list_voie</result>
         </action>
     </package>
 </struts>

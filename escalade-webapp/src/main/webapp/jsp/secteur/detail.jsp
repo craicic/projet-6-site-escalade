@@ -21,7 +21,7 @@
     <li>Nom : <s:property value="secteur.nom"/></li>
     <li>Description : <s:property value="secteur.description"/></li>
     <%-- todo coord GPS --%>
-    <li>Secteur associé : <s:property value="secteur.siteId"/></li>
+    <li>Site associé : <s:property value="secteur.siteId"/></li>
 </ul>
 <%--<p><s:a action="voie_new">nouvelle voie associée</s:a></p>--%>
 </body>

@@ -16,22 +16,25 @@
 <h2>Liste des Secteur</h2>
 
 <ul>
-    <s:iterator value="listSecteur">
+    <s:iterator value="listVoie">
         <li>
             <div>ID : <s:property value="id"/></div>
             <div>Nom : <s:property value="nom"/></div>
             <div>Description : <s:property value="description"/></div>
-                <%-- todo coordonnees GPS --%>
-            <div>Site associé : <s:property value="siteId"/></div>
-            <div><s:a action="detail_secteur">
+            <div>Nombre de points : <s:property value="nombreDePoints"/></div>
+            <div>Nombre de longueurs : <s:property value="nombreDeLongueurs"/></div>
+            <div>Cotation : <s:property value="cotation"/></div>
+            <div>Hauteur : <s:property value="hauteur"/></div>
+            <div>Secteur associé : <s:property value="secteurId"/></div>
+            <div><s:a action="detail_voie">
                 <s:param name="id" value="id"/>
-                détail du site
+                détail de la voie
             </s:a></div>
-            <div><s:a action="update_secteur">
+            <div><s:a action="update_voie">
                 <s:param name="id" value="id"/>
                 modifier
             </s:a></div>
-            <div><s:a action="delete_secteur">
+            <div><s:a action="delete_voie">
                 <s:param name="id" value="id"/>
                 supprimer
             </s:a></div>

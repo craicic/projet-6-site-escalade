@@ -62,7 +62,7 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doDetail() {
         if (id == null) {
-            this.addActionError("Vous devez indiquer un id de topo");
+            this.addActionError("Vous devez indiquer un id de secteur");
         } else {
             try {
         secteur = managerFactory.getSecteurManager().get(id);
