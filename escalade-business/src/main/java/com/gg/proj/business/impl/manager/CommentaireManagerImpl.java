@@ -28,7 +28,7 @@ public class CommentaireManagerImpl implements CommentaireManager {
         if (!model.getContenuTexte().isEmpty() && model.getUtilisateurId() != null){
             // Ajout d'une date de création
             model.setDateCreation(Timestamp.from(Instant.now()));
-        } else logger.warn("CErreur : contenu ou utilisateur vide");
+        } else logger.warn("Erreur : contenu ou utilisateur vide");
     }
 
     @Override

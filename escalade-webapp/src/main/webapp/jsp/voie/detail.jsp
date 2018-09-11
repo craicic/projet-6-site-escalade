@@ -17,14 +17,14 @@
 <h2>Détail d'un voie</h2>
 
 <ul>
-    <li>ID : <s:property value="id"/></li>
-    <li>Nom : <s:property value="nom"/></li>
-    <li>Description : <s:property value="description"/></li>
-    <li>Nombre de points : <s:property value="nombreDePoints"/></li>
-    <li>Nombre de longueurs : <s:property value="nombreDeLongueurs"/></li>
-    <li>Cotation : <s:property value="cotation"/></li>
-    <li>Hauteur : <s:property value="hauteur"/></li>
-    <li>Secteur associé : <s:property value="secteurId"/></li>
+    <li>ID : <s:property value="voie.id"/></li>
+    <li>Nom : <s:property value="voie.nom"/></li>
+    <li>Description : <s:property value="voie.description"/></li>
+    <li>Nombre de points : <s:property value="voie.nombreDePoints"/></li>
+    <li>Nombre de longueurs : <s:property value="voie.nombreDeLongueurs"/></li>
+    <li>Cotation : <s:property value="voie.cotation"/></li>
+    <li>Hauteur : <s:property value="voie.hauteur"/></li>
+    <li>Secteur associé : <s:property value="voie.secteurId"/></li>
 </ul>
 </body>
 </html>

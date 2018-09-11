@@ -23,5 +23,8 @@
     <li>Description : <s:property value="topo.description"/></li>
     <li>Dispo à l'empreint : <s:property value="topo.empreintable"/></li>
 </ul>
+<p><s:a action="commentaire_new">
+    <s:param name="objectType" value="topo"/>
+    Rédiger un commentaire</s:a></p>
 </body>
 </html>

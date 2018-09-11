@@ -99,6 +99,7 @@ public class GestionVoieAction extends ActionSupport {
                 managerFactory.getVoieManager().update(tmpVoie);
                 this.addActionMessage("Voie modifié : " + voie.getNom());
                 resultat = ActionSupport.SUCCESS;
+
             } catch (Exception e) {
                 this.addActionError(e.getMessage());
             }
@@ -110,7 +111,6 @@ public class GestionVoieAction extends ActionSupport {
         }
         return resultat;
     }
-
 
     public String doDelete() {
         managerFactory.getVoieManager().delete(id);

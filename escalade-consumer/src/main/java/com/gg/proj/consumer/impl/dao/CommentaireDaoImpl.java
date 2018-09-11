@@ -38,7 +38,6 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
                     return commentaire;
                 },
                 id);
-
     }
 
     @Override

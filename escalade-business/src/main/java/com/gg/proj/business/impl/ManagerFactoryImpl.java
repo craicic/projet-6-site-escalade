@@ -13,6 +13,9 @@ public class ManagerFactoryImpl implements ManagerFactory {
     private CommentaireManager commentaireManager;
 
     @Inject
+    private CommentaireSurTopoManager commentaireSurTopoManager;
+
+    @Inject
     private EmpreintManager empreintManager;
 
     @Inject
@@ -33,6 +36,11 @@ public class ManagerFactoryImpl implements ManagerFactory {
     @Override
     public CommentaireManager getCommentaireManager() {
         return commentaireManager;
+    }
+
+    @Override
+    public CommentaireSurTopoManager getCommentaireSurTopoManager() {
+        return commentaireSurTopoManager;
     }
 
     @Override

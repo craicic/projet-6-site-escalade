@@ -26,6 +26,12 @@
     <s:a action="secteur_new">
         Nouveau secteur
     </s:a>
+    <s:a action="list_voie">
+        Liste des voies
+    </s:a>
+    <s:a action="voie_new">
+        Nouvelle voie
+    </s:a>
     <s:a action="index">
         Retour à l'index
     </s:a>

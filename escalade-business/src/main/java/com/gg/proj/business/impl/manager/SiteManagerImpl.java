@@ -64,6 +64,8 @@ public class SiteManagerImpl implements SiteManager {
     @Transactional
     public void delete(Integer id) {
         logger.debug("Entrée dans la méthode delete");
+        // supprime les commentaire
+        //
         siteDao.delete(id);
     }
 }
