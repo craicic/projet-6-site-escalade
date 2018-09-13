@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="s" uri="/struts-tags"%>
 
+<header>
+    <s:if test="#session.utilisateur">
+        Utilisateur connecté :
+        <s:property value="#session.utilisateur.pseudo" />
+        <s:a action="logout">Déconnexion</s:a>
+    </s:if>
+    <s:else>
+        <s:a action="login">Connexion</s:a>
+    </s:else>
+</header>
+
 <nav>
     <s:a action="list_topo">
         Liste des topos

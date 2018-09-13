@@ -5,6 +5,8 @@ import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
 import javassist.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 public class LoginAction extends ActionSupport implements SessionAware {
 
+    private static final Logger logger = LogManager.getLogger();
     @Inject
     ManagerFactory managerFactory;
 
@@ -41,21 +44,21 @@ public class LoginAction extends ActionSupport implements SessionAware {
         if (!StringUtils.isAllEmpty(identifiant,motDePasse)){
             try{
                 Utilisateur utilisateur = managerFactory.getUtilisateurManager().get(identifiant, motDePasse);
-
+                logger.info("utilisateur " + utilisateur.getPseudo());
                 // Ajout de l'utilisateur en session
-                this.session.put(utilisateur.getPseudo(), utilisateur);
+                this.session.put("utilisateur", utilisateur);
 
                 resultat = ActionSupport.SUCCESS;
             // NotFoundException n'était pas implémenté
             } catch (Exception e){
-                this.addActionError("Identifiant ou mot de passe incorrect !");
+                this.addActionError("Identifiant ou mot de passe incorrect ! " + e.getMessage());
             }
         }
         return resultat;
     }
 
     public String doLogout(){
-        this.session.remove(identifiant);
+        this.session.remove("utilisateur");
         return ActionSupport.SUCCESS;
     }
 }
