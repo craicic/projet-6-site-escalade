@@ -103,4 +103,24 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM utilisateur WHERE id = ?;", id);
     }
+
+    @Override
+    public Utilisateur get(String identifiant, String hashDuMotDePasse) {
+        logger.debug("Entrée dans la méthode get(param : 'identifiant, hash')");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        return jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ? AND hash_du_mot_de_passe = ?;",(rs, rowNum) ->
+        {
+            Utilisateur u = new Utilisateur();
+            u.setId(rs.getInt("id"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setPseudo(rs.getString("pseudo"));
+            u.setAdresse(rs.getString("adresse"));
+            u.setDescription(rs.getString("Description"));
+            u.setAdresseMail(rs.getString("adresse_mail"));
+            u.setDateInscription(rs.getDate("date_inscription"));
+            u.setUuid(rs.getString("uuid"));
+            return u;
+        }, identifiant, hashDuMotDePasse);
+    }
 }

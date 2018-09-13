@@ -68,4 +68,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         logger.debug("Entrée dans la méthode delete");
         utilisateurDao.delete(id);
     }
+
+    @Override
+    public Utilisateur get(String identifiant, String motDePasse){
+        // Conversion de mot de passe en hash du mot de passe
+        return utilisateurDao.get(identifiant, motDePasse);
+    }
+
 }

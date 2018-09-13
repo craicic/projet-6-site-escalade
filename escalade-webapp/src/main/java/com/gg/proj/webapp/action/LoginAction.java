@@ -40,9 +40,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
         String resultat = ActionSupport.INPUT;
         if (!StringUtils.isAllEmpty(identifiant,motDePasse)){
             try{
-                Utilisateur utilisateur = managerFactory.getUtilisateurManager().get();
+                Utilisateur utilisateur = managerFactory.getUtilisateurManager().get(identifiant, motDePasse);
+
+                // Ajout de l'utilisateur en session
+                this.session.put(utilisateur.getPseudo(), utilisateur);
+
                 resultat = ActionSupport.SUCCESS;
-            } catch (NotFoundException e){
+            // NotFoundException n'était pas implémenté
+            } catch (Exception e){
                 this.addActionError("Identifiant ou mot de passe incorrect !");
             }
         }
@@ -50,6 +55,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     public String doLogout(){
+        this.session.remove(identifiant);
         return ActionSupport.SUCCESS;
     }
 }
