@@ -197,5 +197,17 @@
             <result name="input">/jsp/commentaire/new.jsp</result>
             <result name="success" type="redirectAction">index</result>
         </action>
+        <!-- ============================ LOGIN / LOGOUT ============================ -->
+        <action name="login"
+                class="com.gg.proj.webapp.action.LoginAction"
+                method="doLogin">
+            <result name="input">jsp/login.jsp</result>
+            <result name="success" type ="redirectAction">index</result>
+        </action>
+        <action name="logout"
+                class="com.gg.proj.webapp.action.LoginAction"
+                method="doLogin">
+            <result type="redirectAction">index</result>
+        </action>
     </package>
 </struts>
