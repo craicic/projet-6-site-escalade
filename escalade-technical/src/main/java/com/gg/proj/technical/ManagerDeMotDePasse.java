@@ -9,10 +9,7 @@ import com.gg.proj.technical.bcrypt.BCrypt;
  * jBCrypt: http://www.mindrot.org/projects/jBCrypt/
  */
 
-/**
- *
- * Cette classe utilise la classe BCrypt situé dans le package com.gg.proj.technical.bcrypt
- */
+
 public class ManagerDeMotDePasse {
     // Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
     private static int workload = 12;

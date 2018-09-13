@@ -17,11 +17,12 @@
 <h2>Saisie d'un nouvel utilisateur</h2>
 
 <s:form action="utilisateur_new">
-    <s:textfield  name="utilisateur.nom" label="Nom" requiredLabel="true"/>
+    <s:textfield  name="utilisateur.nom" label="Nom" requiredLabel="false"/>
     <s:textfield name="utilisateur.prenom" label="Prenom" requiredLabel="false"/>
-    <s:textfield name="utilisateur.pseudo" label="Pseudo" requiredLabel="false"/>
-    <s:textfield name="utilisateur.adresseMail" label="Adresse mail" requiredLabel="false"/>
-    <s:password name="utilisateur.hashMotDePasse" label="Mot de Passe" requiredLabel="false"/>
+    <s:textfield name="utilisateur.pseudo" label="Pseudo" requiredLabel="true"/>
+    <s:textfield name="utilisateur.adresseMail" label="Adresse mail" requiredLabel="true"/>
+    <s:password name="utilisateur.hashMotDePasse" label="Mot de Passe" requiredLabel="true"/>
+    <s:password name="motDePasseDoubleVerifiction" label="Vérif mot de passe" requiredLabel="true"/>
     <s:textarea name="utilisateur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
     <s:textarea name="utilisateur.adresse" label="Adresse" requiredLabel="false" cols="32" rows="9"/>
     <s:submit value="Ok"/>

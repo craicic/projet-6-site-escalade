@@ -5,6 +5,7 @@
     <s:if test="#session.utilisateur">
         Utilisateur connecté :
         <s:property value="#session.utilisateur.pseudo" />
+        <s:a action="update_password">Changer de mot de passe</s:a>
         <s:a action="logout">Déconnexion</s:a>
     </s:if>
     <s:else>

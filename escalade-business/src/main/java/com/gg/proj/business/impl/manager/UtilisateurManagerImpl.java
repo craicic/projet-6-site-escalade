@@ -31,6 +31,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     public void create(Utilisateur model) {
         // todo amélioration de la création de compte
         logger.debug("Entrée dans la méthode create");
+
         // Génération de l'UUID via le module technical
         GenerateurUUID generateurUUID = new GenerateurUUID();
         String uuid = generateurUUID.getUuid().toString();
@@ -74,12 +75,32 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
     @Override
     @Transactional
-    public Utilisateur get(String identifiant, String motDePasse) throws Exception{
+    public Utilisateur get(String identifiant, String motDePasse) throws Exception {
+        logger.debug("Entrée dans la méthode get(String, String)");
+        // On commence par récupérer le hash du mot de passe stocké en base de données
         // todo affiner l'exception
         String hashDuMotDePasse = utilisateurDao.getHash(identifiant);
+
+        // Puis on compare ce hash avec le mot de passe en clair
         if (ManagerDeMotDePasse.checkPassword(motDePasse,hashDuMotDePasse)) {
+            // Si ça match on retourne l'objet utilisateur
             return utilisateurDao.get(identifiant);
         } else throw new Exception("Mot de passe invalide");
     }
 
+    @Override
+    @Transactional
+    public boolean isCorrectPassword(String identifiant, String motDePasse){
+        logger.debug("Entrée dans la méthode isCorrectPassword");
+        String hashDuMotDePasse = utilisateurDao.getHash(identifiant);
+        return ManagerDeMotDePasse.checkPassword(motDePasse, hashDuMotDePasse);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(String identifiant, String motDePasse){
+        logger.debug("Entrée dans la méthode updatePassword");
+        String hashDuMotDePasse = ManagerDeMotDePasse.hashPassword(motDePasse);
+        utilisateurDao.updatePassword(identifiant, hashDuMotDePasse);
+    }
 }

@@ -8,4 +8,6 @@ public interface UtilisateurDao extends CrudDao<Utilisateur> {
     public Utilisateur get(String identifiant);
 
     public String getHash(String identifiant);
+
+    public void updatePassword(String identifiant, String motDePasse);
 }

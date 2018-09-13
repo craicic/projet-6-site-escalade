@@ -1,18 +1,15 @@
 package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.SiteManager;
-import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.awt.*;
 import java.util.List;
 
 @Named

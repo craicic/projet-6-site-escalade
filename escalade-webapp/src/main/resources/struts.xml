@@ -103,7 +103,13 @@
             <result name="input">/jsp/utilisateur/update.jsp</result>
             <result name="success" type="redirectAction">list_utilisateur</result>
         </action>
+        <action name="update_password"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doUpdatePassword">
+            <result name="input">/jsp/utilisateur/update_password.jsp</result>
+            <result name="success" type="redirectAction">list_utilisateur</result>
 
+        </action>
         <!-- ============================ SITE ============================ -->
         <action name="site_new"
                 class="com.gg.proj.webapp.action.GestionSiteAction"

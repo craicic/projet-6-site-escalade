@@ -107,7 +107,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public Utilisateur get(String identifiant) {
         logger.debug("Entrée dans la méthode get(param : 'identifiant')");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ?;",(rs, rowNum) ->
+        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE pseudo = ?;", (rs, rowNum) ->
         {
             Utilisateur u = new Utilisateur();
             u.setId(rs.getInt("id"));
@@ -127,12 +127,22 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public String getHash(String identifiant) {
         logger.debug("Entrée dans la méthode getHash");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        Utilisateur utilisateur = jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ?;",(rs, rowNum) ->
+        Utilisateur utilisateur = jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE pseudo = ?;", (rs, rowNum) ->
         {
             Utilisateur u = new Utilisateur();
             u.setHashMotDePasse(rs.getString("hash_du_mot_de_passe"));
             return u;
         }, identifiant);
         return utilisateur.getHashMotDePasse();
+    }
+
+    @Override
+    public void updatePassword(String identifiant, String motDePasse) {
+        logger.debug("Entrée dans la méthode updatePassword");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        logger.info("mpd : "+motDePasse + " identifiant : "+identifiant);
+        jdbcTemplate.update("UPDATE utilisateur SET hash_du_mot_de_passe = ? WHERE pseudo = ?;",
+                motDePasse,
+                identifiant);
     }
 }
