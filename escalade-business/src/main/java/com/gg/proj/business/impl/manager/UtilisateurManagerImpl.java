@@ -4,9 +4,9 @@ import com.gg.proj.business.contract.manager.UtilisateurManager;
 import com.gg.proj.consumer.contract.dao.UtilisateurDao;
 import com.gg.proj.model.bean.Utilisateur;
 import com.gg.proj.technical.GenerateurUUID;
+import com.gg.proj.technical.ManagerDeMotDePasse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -40,6 +40,9 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         Date dateDuJour = Date.from(Instant.now());
         model.setDateInscription(dateDuJour);
 
+        // Create d'un hash a partir d'un mot de passe
+        model.setHashMotDePasse(ManagerDeMotDePasse.hashPassword(model.getHashMotDePasse()));
+
         utilisateurDao.create(model);
     }
 
@@ -70,9 +73,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     }
 
     @Override
-    public Utilisateur get(String identifiant, String motDePasse){
-        // Conversion de mot de passe en hash du mot de passe
-        return utilisateurDao.get(identifiant, motDePasse);
+    @Transactional
+    public Utilisateur get(String identifiant, String motDePasse) throws Exception{
+        // todo affiner l'exception
+        String hashDuMotDePasse = utilisateurDao.getHash(identifiant);
+        if (ManagerDeMotDePasse.checkPassword(motDePasse,hashDuMotDePasse)) {
+            return utilisateurDao.get(identifiant);
+        } else throw new Exception("Mot de passe invalide");
     }
 
 }

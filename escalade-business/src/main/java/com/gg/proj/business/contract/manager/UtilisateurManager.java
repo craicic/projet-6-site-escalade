@@ -5,5 +5,5 @@ import com.gg.proj.model.bean.Utilisateur;
 
 public interface UtilisateurManager extends CrudManager<Utilisateur> {
 
-    public Utilisateur get(String identifiant, String motDePasse);
+    public Utilisateur get(String identifiant, String motDePasse) throws Exception;
 }

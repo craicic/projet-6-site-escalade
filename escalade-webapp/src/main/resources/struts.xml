@@ -206,7 +206,7 @@
         </action>
         <action name="logout"
                 class="com.gg.proj.webapp.action.LoginAction"
-                method="doLogin">
+                method="doLogout">
             <result type="redirectAction">index</result>
         </action>
     </package>

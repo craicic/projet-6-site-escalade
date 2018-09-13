@@ -17,18 +17,17 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     @Override
     public void create(Utilisateur model) {
         logger.debug("Entrée dans la méthode create");
-        Utilisateur utilisateur = (Utilisateur) model;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("INSERT INTO utilisateur (nom, prenom, pseudo, adresse, description, adresse_mail, date_inscription, uuid, hash_du_mot_de_passe) VALUES (?,?,?,?,?,?,?,?,?);",
-                utilisateur.getNom(),
-                utilisateur.getPrenom(),
-                utilisateur.getPseudo(),
-                utilisateur.getAdresse(),
-                utilisateur.getDescription(),
-                utilisateur.getAdresseMail(),
-                utilisateur.getDateInscription(),
-                utilisateur.getUuid(),
-                utilisateur.getHashMotDePasse()
+                model.getNom(),
+                model.getPrenom(),
+                model.getPseudo(),
+                model.getAdresse(),
+                model.getDescription(),
+                model.getAdresseMail(),
+                model.getDateInscription(),
+                model.getUuid(),
+                model.getHashMotDePasse()
         );
     }
 
@@ -105,10 +104,10 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
     @Override
-    public Utilisateur get(String identifiant, String hashDuMotDePasse) {
-        logger.debug("Entrée dans la méthode get(param : 'identifiant, hash')");
+    public Utilisateur get(String identifiant) {
+        logger.debug("Entrée dans la méthode get(param : 'identifiant')");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ? AND hash_du_mot_de_passe = ?;",(rs, rowNum) ->
+        return jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ?;",(rs, rowNum) ->
         {
             Utilisateur u = new Utilisateur();
             u.setId(rs.getInt("id"));
@@ -121,6 +120,19 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
             u.setDateInscription(rs.getDate("date_inscription"));
             u.setUuid(rs.getString("uuid"));
             return u;
-        }, identifiant, hashDuMotDePasse);
+        }, identifiant);
+    }
+
+    @Override
+    public String getHash(String identifiant) {
+        logger.debug("Entrée dans la méthode getHash");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        Utilisateur utilisateur = jdbcTemplate.queryForObject( "SELECT * FROM utilisateur WHERE pseudo = ?;",(rs, rowNum) ->
+        {
+            Utilisateur u = new Utilisateur();
+            u.setHashMotDePasse(rs.getString("hash_du_mot_de_passe"));
+            return u;
+        }, identifiant);
+        return utilisateur.getHashMotDePasse();
     }
 }
