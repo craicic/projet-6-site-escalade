@@ -45,6 +45,9 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
         this.servletRequest = request;
     }
 
+    /**
+     * @return un String de l'enumération {@link ActionSupport}.
+     */
     public String doLogin(){
         String resultat = ActionSupport.INPUT;
         if (!StringUtils.isAllEmpty(identifiant,motDePasse)){
@@ -62,6 +65,9 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
         return resultat;
     }
 
+    /**
+     * @return un String de l'enumération {@link ActionSupport} toujours un success.
+     */
     public String doLogout(){
         // Invalidation de la session utilisateur
         servletRequest.getSession().invalidate();

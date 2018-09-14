@@ -103,12 +103,23 @@
             <result name="input">/jsp/utilisateur/update.jsp</result>
             <result name="success" type="redirectAction">list_utilisateur</result>
         </action>
+        <action name="update_my_account"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doUpdateMyAccount">
+            <result name="input">/jsp/utilisateur/update_my_account.jsp</result>
+            <result name="success" type="redirectAction">list_utilisateur</result>
+        </action>
+        <action name="detail_my_account"
+                class="com.gg.proj.webapp.action.GestionUtilisateurAction"
+                method="doDetailMyAccount">
+            <result name="success">/jsp/utilisateur/detail_my_account.jsp</result>
+        </action>
+        <!-- Gestion mot de passe -->
         <action name="update_password"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
                 method="doUpdatePassword">
             <result name="input">/jsp/utilisateur/update_password.jsp</result>
             <result name="success" type="redirectAction">list_utilisateur</result>
-
         </action>
         <!-- ============================ SITE ============================ -->
         <action name="site_new"

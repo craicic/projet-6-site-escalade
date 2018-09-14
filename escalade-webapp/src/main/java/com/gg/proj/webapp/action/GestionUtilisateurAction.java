@@ -90,9 +90,13 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
         return ActionSupport.SUCCESS;
     }
 
+    /**
+     *
+     * Permet d'afficher n'importe quel utilisateur par son id.
+     * @return ActionSupport
+     */
     public String doUpdate(){
         // n'update ni la date d'inscription ni le mot de passe ni l'uuid
-        // todo une meilleurs gestion du mot de passe, pour l'instant le mot de passe est appelé sur la page
         String resultat = ActionSupport.INPUT;
 
         if (this.utilisateur != null) {
@@ -106,9 +110,6 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
                 tmpUtilisateur.setAdresse(utilisateur.getAdresse());
                 tmpUtilisateur.setDescription(utilisateur.getDescription());
                 tmpUtilisateur.setAdresseMail(utilisateur.getAdresseMail());
-//                tmpUtilisateur.setDateInscription(utilisateur.getDateInscription());
-//                tmpUtilisateur.setUuid(utilisateur.getUuid());
-//                tmpUtilisateur.setHashMotDePasse(utilisateur.getHashMotDePasse());
                 managerFactory.getUtilisateurManager().update(tmpUtilisateur);
                 resultat = ActionSupport.SUCCESS;
             } else {
@@ -116,8 +117,9 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
                 resultat = ActionSupport.ERROR;
             }
         } else {
+
             // Si utilisateur est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur utilisateur afin de pré-rempir les champs de la page web
-            utilisateur = managerFactory.getUtilisateurManager().get(id);
+             utilisateur = managerFactory.getUtilisateurManager().get(id);
         }
         return resultat;
     }
@@ -126,7 +128,7 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
         managerFactory.getUtilisateurManager().delete(id);
         return ActionSupport.SUCCESS;
     }
-    
+
     public String doUpdatePassword(){
         String resultat = ActionSupport.INPUT;
         if (nouveauMotDePasse != null && motDePasseDoubleVerifiction != null) {
@@ -157,5 +159,43 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
             }
         }
         return resultat;
+    }
+
+    /**
+     * Permet d'éditer les infos son propre compte.
+     * @return ActionSupport
+     */
+    public String doUpdateMyAccount(){
+        String resultat = ActionSupport.INPUT;
+        if (this.utilisateur != null) {
+            // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un objet temporaire
+            // Ainsi l'id est non modifiable.
+            Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+            Utilisateur tmpUtilisateur = managerFactory.getUtilisateurManager().get(utilisateurEnSession.getId());
+            tmpUtilisateur.setNom(utilisateur.getNom());
+            tmpUtilisateur.setPrenom(utilisateur.getPrenom());
+            tmpUtilisateur.setPseudo(utilisateur.getPseudo());
+            tmpUtilisateur.setAdresse(utilisateur.getAdresse());
+            tmpUtilisateur.setDescription(utilisateur.getDescription());
+            tmpUtilisateur.setAdresseMail(utilisateur.getAdresseMail());
+            resultat = ActionSupport.SUCCESS;
+        } else {
+            // Si utilisateur est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur utilisateur afin de pré-rempir les champs de la page web
+            // On va chercher l'utilisateur en session
+            Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+            // Afin de récupéré son Id, puis on va chercher l'utilisateur en BDD
+            utilisateur = managerFactory.getUtilisateurManager().get(utilisateurEnSession.getId());
+        }
+        return resultat;
+    }
+
+    /**
+     * Permet d'afficher les infos son propre compte.
+     * @return ActionSupport
+     */
+    public String doDetailMyAccount(){
+        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+        utilisateur = managerFactory.getUtilisateurManager().get(utilisateurEnSession.getId());
+        return ActionSupport.SUCCESS;
     }
 }

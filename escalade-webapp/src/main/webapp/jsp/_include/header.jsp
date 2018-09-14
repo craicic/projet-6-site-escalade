@@ -6,10 +6,13 @@
         Utilisateur connecté :
         <s:property value="#session.utilisateur.pseudo" />
         <s:a action="update_password">Changer de mot de passe</s:a>
+        <s:a action="update_my_account">Editer mon compte</s:a>
+        <s:a action="detail_my_account">Détail de mon compte</s:a>
         <s:a action="logout">Déconnexion</s:a>
     </s:if>
     <s:else>
         <s:a action="login">Connexion</s:a>
+        <s:a action="utilisateur_new">Inscription</s:a>
     </s:else>
 </header>
 

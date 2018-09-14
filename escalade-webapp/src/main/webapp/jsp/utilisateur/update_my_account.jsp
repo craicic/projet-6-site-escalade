@@ -14,16 +14,15 @@
 
 <body>
 
-<h2>Modifier un utilisateur</h2>
+<h2>Modifier mon compte</h2>
 
-<s:form action="update_utilisateur">
+<s:form action="update_my_account">
     <s:textfield  name="utilisateur.nom" label="Nom" requiredLabel="true"/>
     <s:textfield name="utilisateur.prenom" label="Prenom" requiredLabel="false"/>
     <s:textfield name="utilisateur.pseudo" label="Pseudo" requiredLabel="true"/>
     <s:textfield name="utilisateur.adresseMail" label="Adresse mail" requiredLabel="true"/>
     <s:textarea name="utilisateur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
     <s:textarea name="utilisateur.adresse" label="Adresse" requiredLabel="false" cols="32" rows="9"/>
-    <s:hidden name="utilisateur.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
 
