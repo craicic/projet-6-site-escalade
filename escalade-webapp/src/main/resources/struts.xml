@@ -107,7 +107,7 @@
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
                 method="doUpdateMyAccount">
             <result name="input">/jsp/utilisateur/update_my_account.jsp</result>
-            <result name="success" type="redirectAction">list_utilisateur</result>
+            <result name="success" type="redirectAction">detail_my_account</result>
         </action>
         <action name="detail_my_account"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
