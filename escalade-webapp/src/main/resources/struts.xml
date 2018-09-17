@@ -54,8 +54,8 @@
 
             <result name="input">/jsp/topo/new.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">list_topo</param>
-                <!--<param name="id">${topo.id}</param>-->
+                <param name="actionName">detail_topo</param>
+                <param name="id">${topo.id}</param>
             </result>
         </action>
 
@@ -73,6 +73,13 @@
 
             <result name="input">/jsp/topo/update.jsp</result>
             <result name="success" type="redirectAction">list_topo</result>
+        </action>
+
+        <!-- Ajout d'un commentaire -->
+        <action name="add_comment_topo"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doAddComment">
+            <result name="success" type="redirectAction">detail_topo</result>
         </action>
 
         <!-- ============================ UTILISATEURS ============================ -->

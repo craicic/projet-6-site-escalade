@@ -18,7 +18,7 @@
 
 <s:form action="commentaire_new">
     <s:textarea name="commentaire.contenuTexte" label="Commentaire" requiredLabel="false" cols="32" rows="9"/>
-    <!-- todo enlever ce fix de recupération d'id lorsque j'aurai implémenté les session utilisateurs -->
+    <!-- todo enlever ce fix de recupération d'id lorsque j'aurai implémenté les sessions utilisateurs -->
     <s:hidden name="utilisateur.id" value="1"/>
     <s:submit value="Ok"/>
 </s:form>

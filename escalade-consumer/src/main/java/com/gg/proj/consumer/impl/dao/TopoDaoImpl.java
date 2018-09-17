@@ -84,4 +84,19 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM topo WHERE id = ?;", id);
     }
+
+    @Override
+    public Integer getId(Topo topo){
+        logger.debug("Entrée dans la méthode getId avec le titre topo : " + topo.getTitre());
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre,description,auteur,empreintable) = (?,?,?,?);",
+                (rs, rowNum) -> {
+                    return rs.getInt("id");
+                },
+                topo.getTitre(),
+                topo.getDescription(),
+                topo.getAuteur(),
+                topo.isEmpreintable()
+        );
+    }
 }

@@ -1,18 +1,22 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
+import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.Topo;
+import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class GestionTopoAction extends ActionSupport {
+public class GestionTopoAction extends ActionSupport implements SessionAware {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -22,6 +26,9 @@ public class GestionTopoAction extends ActionSupport {
     private Integer id;
     private List<Topo> listTopo;
     private Topo topo;
+    private Commentaire commentaire;
+    private List<Commentaire> listCommentaire;
+    private Map<String, Object> session;
 
     public Integer getId() {
         return id;
@@ -29,19 +36,34 @@ public class GestionTopoAction extends ActionSupport {
     public void setId(Integer id) {
         this.id = id;
     }
-
     public List<Topo> getListTopo() {
         return listTopo;
     }
     public void setListTopo(List<Topo> listTopo) {
         this.listTopo = listTopo;
     }
-
     public Topo getTopo() {
         return topo;
     }
     public void setTopo(Topo topo) {
         this.topo = topo;
+    }
+    public Commentaire getCommentaire() {
+        return commentaire;
+    }
+    public void setCommentaire(Commentaire commentaire) {
+        this.commentaire = commentaire;
+    }
+    public List<Commentaire> getListCommentaire() {
+        return listCommentaire;
+    }
+    public void setListCommentaire(List<Commentaire> listCommentaire) {
+        this.listCommentaire = listCommentaire;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 
     public String doCreate() {
@@ -54,6 +76,8 @@ public class GestionTopoAction extends ActionSupport {
         if (this.topo != null) {
             try {
                 managerFactory.getTopoManager().create(this.topo);
+        // Il nous faut récupéré l'id
+                topo.setId(managerFactory.getTopoManager().getId(this.topo));
                 this.addActionMessage("Topo ajouté.");
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
@@ -76,6 +100,7 @@ public class GestionTopoAction extends ActionSupport {
         } else {
             try {
                 topo = managerFactory.getTopoManager().get(id);
+                listCommentaire = managerFactory.getTopoManager().listComments(id);
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Topo non trouvé. ID = " + id);
@@ -125,4 +150,18 @@ public class GestionTopoAction extends ActionSupport {
         return ActionSupport.SUCCESS;
     }
 
+    /**
+     * Action d'ajout de commentaires
+     * @return ActionSupport
+     */
+    public String doAddComment(){
+        // On récupère l'utilisateur en session
+        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+        // Pour en récupérer l'id
+        commentaire.setUtilisateurId(utilisateurEnSession.getId());
+        //
+        logger.info(commentaire.getId()+" "+commentaire.getContenuTexte()+" id = " + id);
+        managerFactory.getTopoManager().addComment(commentaire,id);
+        return ActionSupport.SUCCESS;
+    }
 }
