@@ -1,11 +1,12 @@
 package com.gg.proj.model.bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Commentaire implements Model {
     // propriétés
     private Integer id;
-    private Date dateCreation;
+    private Timestamp dateCreation;
     private String contenuTexte;
     private Integer utilisateurId;
 
@@ -27,11 +28,11 @@ public class Commentaire implements Model {
         this.id = id;
     }
 
-    public Date getDateCreation() {
+    public Timestamp getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(Timestamp dateCreation) {
         this.dateCreation = dateCreation;
     }
 

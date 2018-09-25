@@ -9,5 +9,5 @@ public interface CommentaireDao extends CrudDao<Commentaire> {
 
     public List<Commentaire> getCommentsByTopoId(Integer topoId);
 
-    public Integer getId(Commentaire model);
+    public Integer getId(Commentaire commentaire);
 }

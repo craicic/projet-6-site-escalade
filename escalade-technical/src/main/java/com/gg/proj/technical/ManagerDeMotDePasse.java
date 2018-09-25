@@ -1,6 +1,6 @@
 package com.gg.proj.technical;
 
-import com.gg.proj.technical.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Author: Ian Gallagher <igallagher@securityinnovation.com>

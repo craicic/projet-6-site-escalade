@@ -49,7 +49,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
     @Override
     public Utilisateur get(int id) {
-        logger.debug("Entrée dans la méthode get");
+        logger.debug("Entrée dans la méthode getByUserPseudo");
         return utilisateurDao.get(id);
     }
 
@@ -76,7 +76,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
     @Override
     @Transactional
     public Utilisateur get(String identifiant, String motDePasse) throws Exception {
-        logger.debug("Entrée dans la méthode get(String, String)");
+        logger.debug("Entrée dans la méthode getByUserPseudo(String, String)");
         // On commence par récupérer le hash du mot de passe stocké en base de données
         // todo affiner l'exception
         String hashDuMotDePasse = utilisateurDao.getHash(identifiant);
@@ -84,7 +84,8 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         // Puis on compare ce hash avec le mot de passe en clair
         if (ManagerDeMotDePasse.checkPassword(motDePasse,hashDuMotDePasse)) {
             // Si ça match on retourne l'objet utilisateur
-            return utilisateurDao.get(identifiant);
+            return utilisateurDao.getByUserPseudo(identifiant);
+            // todo affinez l'exeption
         } else throw new Exception("Mot de passe invalide");
     }
 

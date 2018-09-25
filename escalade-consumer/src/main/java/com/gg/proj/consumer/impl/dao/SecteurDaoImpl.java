@@ -78,4 +78,26 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM secteur WHERE id = ?;", id);
     }
+
+    /**
+     * Cette méthode renvoit la liste des secteurs associé au site d'id siteId
+     * @param siteId
+     * @return la liste des secteurs
+     */
+    @Override
+    public List<Secteur> getBySiteId(Integer siteId){
+        logger.debug("Entrée dans la méthode getBySiteId avec le siteId : " + siteId);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        return jdbcTemplate.query("SELECT * FROM secteur WHERE site_id = ?;",
+                (rs, rowNum) -> {
+                    Secteur secteur = new Secteur();
+                    secteur.setId(rs.getInt("id"));
+                    secteur.setNom(rs.getString("nom"));
+                    secteur.setDescription(rs.getString("decription"));
+                    secteur.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
+                    secteur.setSiteId(rs.getInt("site_id"));
+                    return secteur;
+                },
+                siteId);
+    }
 }

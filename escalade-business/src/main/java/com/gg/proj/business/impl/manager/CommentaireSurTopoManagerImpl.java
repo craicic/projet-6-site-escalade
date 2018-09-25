@@ -27,7 +27,7 @@ public class CommentaireSurTopoManagerImpl implements CommentaireSurTopoManager 
 
     @Override
     public CommentaireSurTopo get(int commentaireId) {
-        logger.debug("Entrée dans la méthode get avec l'id " + commentaireId);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + commentaireId);
         return commentaireSurTopoDaoDao.get(commentaireId);
     }
 

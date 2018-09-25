@@ -29,7 +29,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 
     @Override
     public Site get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM site WHERE id = ?;",
                 (rs, rowNum) -> {

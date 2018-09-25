@@ -27,7 +27,7 @@ public class EmpreintDaoImpl extends AbstractDaoImpl implements EmpreintDao {
 
     @Override
     public Empreint get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM empreint WHERE id = ?;", (rs, rowNum) -> {
                     Empreint empreint = new Empreint();

@@ -38,7 +38,7 @@ public class SiteManagerImpl implements SiteManager {
 
     @Override
     public Site get(int id) {
-        logger.debug("Entrée dans la méthode get");
+        logger.debug("Entrée dans la méthode getByUserPseudo");
         return siteDao.get(id);
     }
 

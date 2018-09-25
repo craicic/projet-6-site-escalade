@@ -52,7 +52,7 @@ public class TopoManagerImpl implements TopoManager {
 
     @Override
     public Topo get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         return topoDao.get(id);
     }
 

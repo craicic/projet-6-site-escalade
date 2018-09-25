@@ -33,7 +33,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
 
     @Override
     public Utilisateur get(int id) {
-        logger.debug("Entrée dans la méthode get");
+        logger.debug("Entrée dans la méthode getByUserPseudo");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         Utilisateur utilisateur = jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE id = ?;",
                 (rs, rowNum) -> {
@@ -104,8 +104,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
     @Override
-    public Utilisateur get(String identifiant) {
-        logger.debug("Entrée dans la méthode get(param : 'identifiant')");
+    public Utilisateur getByUserPseudo(String identifiant) {
+        logger.debug("Entrée dans la méthode getByUserPseudo(param : 'identifiant')");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE pseudo = ?;", (rs, rowNum) ->
         {
@@ -122,6 +122,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
             return u;
         }, identifiant);
     }
+
+
 
     @Override
     public String getHash(String identifiant) {
@@ -144,5 +146,25 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
         jdbcTemplate.update("UPDATE utilisateur SET hash_du_mot_de_passe = ? WHERE pseudo = ?;",
                 motDePasse,
                 identifiant);
+    }
+
+    @Override
+    public Utilisateur getByUserMailAdress(String adresseEmail) {
+        logger.debug("Entrée dans la méthode getByUserMailAdresse");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE adresse_mail = ?;", (rs, rowNum) ->
+        {
+            Utilisateur u = new Utilisateur();
+            u.setId(rs.getInt("id"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setPseudo(rs.getString("pseudo"));
+            u.setAdresse(rs.getString("adresse"));
+            u.setDescription(rs.getString("Description"));
+            u.setAdresseMail(rs.getString("adresse_mail"));
+            u.setDateInscription(rs.getDate("date_inscription"));
+            u.setUuid(rs.getString("uuid"));
+            return u;
+        }, adresseEmail);
     }
 }

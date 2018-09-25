@@ -26,10 +26,10 @@ public class CommentaireSurTopoDaoImpl extends AbstractDaoImpl implements Commen
 
     @Override
     /*
-    /!\ la méthode get prend en paramètre un commentaire_id
+    /!\ la méthode getByUserPseudo prend en paramètre un commentaire_id
      */
     public CommentaireSurTopo get(int commentaireId) {
-        logger.debug("Entrée dans la méthode get avec commentaireId " + commentaireId);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec commentaireId " + commentaireId);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM commentaire_sur_topo WHERE commentaire_id = ?;", (rs, rowNum) -> {
                     CommentaireSurTopo c = new CommentaireSurTopo();
@@ -65,7 +65,7 @@ public class CommentaireSurTopoDaoImpl extends AbstractDaoImpl implements Commen
 
     @Override
         /*
-    /!\ la méthode get prend en paramètre un commentaire_id
+    /!\ la méthode getByUserPseudo prend en paramètre un commentaire_id
      */
     public void delete(Integer commentaireId) {
         logger.debug("Entrée dans la méthode create");

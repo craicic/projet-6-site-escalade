@@ -39,7 +39,7 @@ public class SecteurManagerImpl implements SecteurManager {
 
     @Override
     public Secteur get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         return secteurDao.get(id);
     }
 

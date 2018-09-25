@@ -34,7 +34,7 @@ public class EmpreintManagerImpl implements EmpreintManager {
 
     @Override
     public Empreint get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         return empreintDao.get(id);
     }
 

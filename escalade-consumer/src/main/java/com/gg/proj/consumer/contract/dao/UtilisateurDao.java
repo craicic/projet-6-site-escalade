@@ -5,9 +5,11 @@ import com.gg.proj.model.bean.Utilisateur;
 
 public interface UtilisateurDao extends CrudDao<Utilisateur> {
 
-    public Utilisateur get(String identifiant);
+    public Utilisateur getByUserPseudo(String identifiant);
 
     public String getHash(String identifiant);
 
     public void updatePassword(String identifiant, String motDePasse);
+
+    public Utilisateur getByUserMailAdress(String adresseEmail);
 }

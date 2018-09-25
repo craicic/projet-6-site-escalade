@@ -24,8 +24,10 @@
     <li>Roche : <s:property value="site.roche"/></li>
     <li>Type : <s:property value="site.type"/></li>
     <s:iterator value="listSecteur">
+        <s:property value="siteId"/>
+        <s:property value="id"/>
         <%-- todo fixer cette condition qui ne marche pas --%>
-        <s:if test="%{#siteId == #id}">
+        <s:if test="%{siteId == id}">
         <li><s:a action="detail_secteur">
             <s:param name="id" value="id"/>
             Secteur associé : <s:property value="nom"/>

@@ -29,7 +29,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public Topo get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;",
                 // RowMapper<T> ecrit via lambda

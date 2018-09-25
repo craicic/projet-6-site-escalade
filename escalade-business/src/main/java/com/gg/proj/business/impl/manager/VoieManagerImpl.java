@@ -36,7 +36,7 @@ public class VoieManagerImpl implements VoieManager {
 
     @Override
     public Voie get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         return voieDao.get(id);
     }
 

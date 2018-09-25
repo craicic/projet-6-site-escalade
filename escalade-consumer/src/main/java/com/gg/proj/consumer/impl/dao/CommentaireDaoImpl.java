@@ -27,12 +27,12 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
 
     @Override
     public Commentaire get(int id) {
-        logger.debug("Entrée dans la méthode get avec l'id " + id);
+        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM commentaire WHERE id = ?;", (rs, rowNum) -> {
                     Commentaire commentaire = new Commentaire();
                     commentaire.setId(rs.getInt("id"));
-                    commentaire.setDateCreation(rs.getDate("date_de_creation"));
+                    commentaire.setDateCreation(rs.getTimestamp("date_de_creation"));
                     commentaire.setContenuTexte(rs.getString("contenu_texte"));
                     commentaire.setUtilisateurId(rs.getInt("utilisateur_id"));
                     return commentaire;
@@ -47,7 +47,7 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         return jdbcTemplate.query("SELECT * FROM commentaire;", (rs, rowNum) -> {
             Commentaire commentaire = new Commentaire();
             commentaire.setId(rs.getInt("id"));
-            commentaire.setDateCreation(rs.getDate("date_de_creation"));
+            commentaire.setDateCreation(rs.getTimestamp("date_de_creation"));
             commentaire.setContenuTexte(rs.getString("contenu_texte"));
             commentaire.setUtilisateurId(rs.getInt("utilisateur_id"));
             return commentaire;
@@ -55,14 +55,14 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
     }
 
     @Override
-    public void update(Commentaire model) {
+    public void update(Commentaire commentaire) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("UPDATE commentaire SET (date_de_creation,contenu_texte,utilisateur_id) = (?,?,?) WHERE id = ?;",
-                model.getDateCreation(),
-                model.getContenuTexte(),
-                model.getUtilisateurId(),
-                model.getId());
+                commentaire.getDateCreation(),
+                commentaire.getContenuTexte(),
+                commentaire.getUtilisateurId(),
+                commentaire.getId());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         return jdbcTemplate.query("SELECT * FROM commentaire WHERE id IN ( SELECT commentaire_sur_topo.commentaire_id FROM commentaire_sur_topo WHERE commentaire_sur_topo.topo_id = ?);", (rs, rowNum) -> {
             Commentaire commentaire = new Commentaire();
             commentaire.setId(rs.getInt("id"));
-            commentaire.setDateCreation(rs.getDate("date_de_creation"));
+            commentaire.setDateCreation(rs.getTimestamp("date_de_creation"));
             commentaire.setContenuTexte(rs.getString("contenu_texte"));
             commentaire.setUtilisateurId(rs.getInt("utilisateur_id"));
             return commentaire;
@@ -94,19 +94,19 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
 
     /**
      *
-     * @param model le commentaire pour lequel on veux connaitre l'Id
+     * @param commentaire le commentaire pour lequel on veut connaitre l'Id
      * @return l'id du commentaire.
      */
     @Override
-    public Integer getId(Commentaire model) {
+    public Integer getId(Commentaire commentaire) {
         logger.debug("Entrée dans la méthode getId");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM commentaire WHERE (date_de_creation,contenu_texte,utilisateur_id) = (?,?,?);",
                 (rs, rowNum) -> {
                     return rs.getInt("id");
                 },
-                model.getDateCreation(),
-                model.getContenuTexte(),
-                model.getUtilisateurId());
+                commentaire.getDateCreation(),
+                commentaire.getContenuTexte(),
+                commentaire.getUtilisateurId());
     }
 }
