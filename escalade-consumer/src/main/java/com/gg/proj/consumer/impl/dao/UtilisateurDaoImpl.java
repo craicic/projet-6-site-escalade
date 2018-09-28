@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.UtilisateurDao;
+import com.gg.proj.consumer.impl.rowmapper.UtilisateurRM;
 import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,20 +36,9 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public Utilisateur get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        UtilisateurRM utilisateurRM = new UtilisateurRM();
         Utilisateur utilisateur = jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE id = ?;",
-                (rs, rowNum) -> {
-                    Utilisateur u = new Utilisateur();
-                    u.setId(rs.getInt("id"));
-                    u.setNom(rs.getString("nom"));
-                    u.setPrenom(rs.getString("prenom"));
-                    u.setPseudo(rs.getString("pseudo"));
-                    u.setAdresse(rs.getString("adresse"));
-                    u.setDescription(rs.getString("Description"));
-                    u.setAdresseMail(rs.getString("adresse_mail"));
-                    u.setDateInscription(rs.getDate("date_inscription"));
-                    u.setUuid(rs.getString("uuid"));
-                    return u;
-                },
+                utilisateurRM,
                 id);
         return utilisateur;
     }
@@ -58,20 +48,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
         logger.debug("Entrée dans la méthode list");
         List<Utilisateur> utilisateurs;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        utilisateurs = jdbcTemplate.query("SELECT * FROM utilisateur;",
-                (rs, rowNum) -> {
-                    Utilisateur u = new Utilisateur();
-                    u.setId(rs.getInt("id"));
-                    u.setNom(rs.getString("nom"));
-                    u.setPrenom(rs.getString("prenom"));
-                    u.setPseudo(rs.getString("pseudo"));
-                    u.setAdresse(rs.getString("adresse"));
-                    u.setDescription(rs.getString("Description"));
-                    u.setAdresseMail(rs.getString("adresse_mail"));
-                    u.setDateInscription(rs.getDate("date_inscription"));
-                    u.setUuid(rs.getString("uuid"));
-                    return u;
-                });
+        UtilisateurRM utilisateurRM = new UtilisateurRM();
+        utilisateurs = jdbcTemplate.query("SELECT * FROM utilisateur;", utilisateurRM);
         return utilisateurs;
     }
 
@@ -107,20 +85,8 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public Utilisateur getByUserPseudo(String identifiant) {
         logger.debug("Entrée dans la méthode getByUserPseudo(param : 'identifiant')");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE pseudo = ?;", (rs, rowNum) ->
-        {
-            Utilisateur u = new Utilisateur();
-            u.setId(rs.getInt("id"));
-            u.setNom(rs.getString("nom"));
-            u.setPrenom(rs.getString("prenom"));
-            u.setPseudo(rs.getString("pseudo"));
-            u.setAdresse(rs.getString("adresse"));
-            u.setDescription(rs.getString("Description"));
-            u.setAdresseMail(rs.getString("adresse_mail"));
-            u.setDateInscription(rs.getDate("date_inscription"));
-            u.setUuid(rs.getString("uuid"));
-            return u;
-        }, identifiant);
+        UtilisateurRM utilisateurRM = new UtilisateurRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE pseudo = ?;", utilisateurRM, identifiant);
     }
 
 
@@ -152,19 +118,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public Utilisateur getByUserMailAdress(String adresseEmail) {
         logger.debug("Entrée dans la méthode getByUserMailAdresse");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE adresse_mail = ?;", (rs, rowNum) ->
-        {
-            Utilisateur u = new Utilisateur();
-            u.setId(rs.getInt("id"));
-            u.setNom(rs.getString("nom"));
-            u.setPrenom(rs.getString("prenom"));
-            u.setPseudo(rs.getString("pseudo"));
-            u.setAdresse(rs.getString("adresse"));
-            u.setDescription(rs.getString("Description"));
-            u.setAdresseMail(rs.getString("adresse_mail"));
-            u.setDateInscription(rs.getDate("date_inscription"));
-            u.setUuid(rs.getString("uuid"));
-            return u;
-        }, adresseEmail);
+        UtilisateurRM utilisateurRM = new UtilisateurRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE adresse_mail = ?;", utilisateurRM, adresseEmail);
     }
 }

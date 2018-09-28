@@ -2,17 +2,17 @@ package com.gg.proj.model.bean;
 
 import java.util.Date;
 
-public class Empreint implements Model{
+public class Emprunt implements Model{
     // propriétés
     private Integer id;
-    private Date dateEmpreint;
+    private Date dateEmprunt;
     private Date dateRetour;
     private Integer utilisateurId;
 
     // constructeurs
-    public Empreint(){}
+    public Emprunt(){}
 
-    public Empreint(Integer id) {
+    public Emprunt(Integer id) {
         this.id = id;
     }
 
@@ -26,12 +26,12 @@ public class Empreint implements Model{
         this.id = id;
     }
 
-    public Date getDateEmpreint() {
-        return dateEmpreint;
+    public Date getDateEmprunt() {
+        return dateEmprunt;
     }
 
-    public void setDateEmpreint(Date dateEmpreint) {
-        this.dateEmpreint = dateEmpreint;
+    public void setDateEmprunt(Date dateEmprunt) {
+        this.dateEmprunt = dateEmprunt;
     }
 
     public Date getDateRetour() {

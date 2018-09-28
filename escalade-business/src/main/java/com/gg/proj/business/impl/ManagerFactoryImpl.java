@@ -16,7 +16,7 @@ public class ManagerFactoryImpl implements ManagerFactory {
     private CommentaireSurTopoManager commentaireSurTopoManager;
 
     @Inject
-    private EmpreintManager empreintManager;
+    private EmpruntManager empruntManager;
 
     @Inject
     SecteurManager secteurManager;
@@ -44,8 +44,8 @@ public class ManagerFactoryImpl implements ManagerFactory {
     }
 
     @Override
-    public EmpreintManager getEmpreintManager() {
-        return empreintManager;
+    public EmpruntManager getEmpruntManager() {
+        return empruntManager;
     }
 
     @Override

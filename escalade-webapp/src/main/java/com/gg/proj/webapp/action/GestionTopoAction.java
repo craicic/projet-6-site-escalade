@@ -101,6 +101,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
             try {
                 topo = managerFactory.getTopoManager().get(id);
                 listCommentaire = managerFactory.getTopoManager().listComments(id);
+
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Topo non trouvé. ID = " + id);

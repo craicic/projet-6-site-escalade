@@ -23,6 +23,8 @@ public class Utilisateur implements Model {
         this.id = id;
     }
 
+    public Utilisateur(String pseudo) {this.pseudo = pseudo; }
+
     // setters & getters
     @Override
     public Integer getId() {

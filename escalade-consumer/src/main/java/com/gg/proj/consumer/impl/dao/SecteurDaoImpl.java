@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.SecteurDao;
+import com.gg.proj.consumer.impl.rowmapper.SecteurRM;
 import com.gg.proj.model.bean.Secteur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,33 +32,16 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     public Secteur get(int id) {
         logger.debug("Entrée dans la méthode get avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM secteur WHERE id = ?;",
-                (rs, rowNum) -> {
-                    Secteur secteur = new Secteur();
-                    secteur.setId(rs.getInt("id"));
-                    secteur.setNom(rs.getString("nom"));
-                    secteur.setDescription(rs.getString("decription"));
-                    secteur.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-                    secteur.setSiteId(rs.getInt("site_id"));
-                    return secteur;
-                },
-                id);
+        SecteurRM secteurRM = new SecteurRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM secteur WHERE id = ?;", secteurRM, id);
     }
 
     @Override
     public List<Secteur> list() {
         logger.debug("Entrée dans la méthode list");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("SELECT * FROM secteur;",
-                (rs, rowNum) -> {
-                    Secteur secteur = new Secteur();
-                    secteur.setId(rs.getInt("id"));
-                    secteur.setNom(rs.getString("nom"));
-                    secteur.setDescription(rs.getString("decription"));
-                    secteur.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-                    secteur.setSiteId(rs.getInt("site_id"));
-                    return secteur;
-                });
+        SecteurRM secteurRM = new SecteurRM();
+        return jdbcTemplate.query("SELECT * FROM secteur;", secteurRM);
     }
 
     @Override
@@ -81,23 +65,15 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 
     /**
      * Cette méthode renvoit la liste des secteurs associé au site d'id siteId
+     *
      * @param siteId
      * @return la liste des secteurs
      */
     @Override
-    public List<Secteur> getBySiteId(Integer siteId){
+    public List<Secteur> getBySiteId(Integer siteId) {
         logger.debug("Entrée dans la méthode getBySiteId avec le siteId : " + siteId);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("SELECT * FROM secteur WHERE site_id = ?;",
-                (rs, rowNum) -> {
-                    Secteur secteur = new Secteur();
-                    secteur.setId(rs.getInt("id"));
-                    secteur.setNom(rs.getString("nom"));
-                    secteur.setDescription(rs.getString("decription"));
-                    secteur.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-                    secteur.setSiteId(rs.getInt("site_id"));
-                    return secteur;
-                },
-                siteId);
+        SecteurRM secteurRM = new SecteurRM();
+        return jdbcTemplate.query("SELECT * FROM secteur WHERE site_id = ?;", secteurRM, siteId);
     }
 }

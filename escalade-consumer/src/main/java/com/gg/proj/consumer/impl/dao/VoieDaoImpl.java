@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.VoieDao;
+import com.gg.proj.consumer.impl.rowmapper.VoieRM;
 import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,19 +35,8 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
     public Voie get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM voie WHERE id = ?;",
-                (rs, rowNum) -> {
-                    Voie voie = new Voie();
-                    voie.setId(rs.getInt("id"));
-                    voie.setNom(rs.getString("nom"));
-                    voie.setDescription(rs.getString("description"));
-                    voie.setNombreDePoints(rs.getInt("nombre_points"));
-                    voie.setNombreDeLongueurs(rs.getInt("nombre_longueurs"));
-                    voie.setCotation(rs.getString("cotation"));
-                    voie.setHauteur(rs.getString("hauteur"));
-                    voie.setSecteurId(rs.getInt("secteur_id"));
-                    return voie;
-                },id);
+        VoieRM voieRM = new VoieRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM voie WHERE id = ?;", voieRM, id);
     }
 
     @Override
@@ -54,19 +44,8 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
 
         logger.debug("Entrée dans la méthode list");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("SELECT * FROM voie;",
-                (rs, rowNum) -> {
-                    Voie voie = new Voie();
-                    voie.setId(rs.getInt("id"));
-                    voie.setNom(rs.getString("nom"));
-                    voie.setDescription(rs.getString("description"));
-                    voie.setNombreDePoints(rs.getInt("nombre_points"));
-                    voie.setNombreDeLongueurs(rs.getInt("nombre_longueurs"));
-                    voie.setCotation(rs.getString("cotation"));
-                    voie.setHauteur(rs.getString("hauteur"));
-                    voie.setSecteurId(rs.getInt("secteur_id"));
-                    return voie;
-                });
+        VoieRM voieRM = new VoieRM();
+        return jdbcTemplate.query("SELECT * FROM voie;", voieRM);
     }
 
     @Override

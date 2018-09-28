@@ -22,7 +22,7 @@
             <div>Titre : <s:property value="titre"/></div>
             <div>Auteur : <s:property value="auteur"/></div>
             <div>Description : <s:property value="description"/></div>
-            <div>Dispo à l'empreint : <s:property value="empreintable"/></div>
+            <div>Dispo à l'emprunt : <s:property value="empreintable"/></div>
             <div><s:a action="detail_topo">
                 <s:param name="id" value="id"/>
                 détail du topo

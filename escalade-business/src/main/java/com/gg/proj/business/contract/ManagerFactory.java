@@ -8,7 +8,7 @@ public interface ManagerFactory {
 
     CommentaireSurTopoManager getCommentaireSurTopoManager();
 
-    EmpreintManager getEmpreintManager();
+    EmpruntManager getEmpruntManager();
 
     SecteurManager getSecteurManager();
 

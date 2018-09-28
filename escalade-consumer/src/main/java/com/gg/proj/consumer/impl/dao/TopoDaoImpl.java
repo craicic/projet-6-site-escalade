@@ -1,10 +1,12 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.TopoDao;
+import com.gg.proj.consumer.impl.rowmapper.TopoRM;
 import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.inject.Named;
 import java.util.List;
@@ -31,19 +33,18 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public Topo get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;",
-                // RowMapper<T> ecrit via lambda
-                (rs, rowNum) -> {
-                    Topo t = new Topo();
-                    t.setId(rs.getInt("id"));
-                    t.setTitre(rs.getString("titre"));
-                    t.setAuteur(rs.getString("auteur"));
-                    t.setDescription(rs.getString("description"));
-                    t.setEmpreintable(rs.getBoolean("empreintable"));
-                    return t;
-                },
-                id // Paramètre '?' de la requête
-        );
+        TopoRM topoRM = new TopoRM();
+        // RowMapper<T> ecrit via lambda
+//                (rs, rowNum) -> {
+//                    Topo t = new Topo();
+//                    t.setId(rs.getInt("id"));
+//                    t.setTitre(rs.getString("titre"));
+//                    t.setAuteur(rs.getString("auteur"));
+//                    t.setDescription(rs.getString("description"));
+//                    t.setEmpreintable(rs.getBoolean("empreintable"));
+//                    return t;
+//                },
+        return jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;", topoRM, id /* Paramètre '?' de la requête */);
     }
 
     @Override
@@ -51,16 +52,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         logger.debug("Entrée dans la méthode list");
         List<Topo> topos;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        topos = jdbcTemplate.query("SELECT * FROM topo;",
-                (rs, rowNum) -> {
-                    Topo t = new Topo();
-                    t.setId(rs.getInt("id"));
-                    t.setTitre(rs.getString("titre"));
-                    t.setAuteur(rs.getString("auteur"));
-                    t.setDescription(rs.getString("description"));
-                    t.setEmpreintable(rs.getBoolean("empreintable"));
-                    return t;
-                });
+        TopoRM topoRM = new TopoRM();
+        topos = jdbcTemplate.query("SELECT * FROM topo;", topoRM);
         return topos;
     }
 
@@ -85,14 +78,19 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         jdbcTemplate.update("DELETE FROM topo WHERE id = ?;", id);
     }
 
+    /**
+     *
+     * @param topo
+     * @return L'id du topo
+     */
     @Override
     public Integer getId(Topo topo){
         logger.debug("Entrée dans la méthode getId avec le titre topo : " + topo.getTitre());
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre,description,auteur,empreintable) = (?,?,?,?);",
-                (rs, rowNum) -> {
-                    return rs.getInt("id");
-                },
+                /* RowMapper : */
+                (rs, rowNum) -> {return rs.getInt("id");},
+                /* Params '?' */
                 topo.getTitre(),
                 topo.getDescription(),
                 topo.getAuteur(),

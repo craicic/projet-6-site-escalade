@@ -105,7 +105,7 @@ CREATE TABLE public.propriete_topo (
 
 CREATE SEQUENCE public.empreint_id_seq;
 
-CREATE TABLE public.empreint (
+CREATE TABLE public.emprunt (
                 id INTEGER NOT NULL DEFAULT nextval('public.empreint_id_seq'),
                 date_empreint DATE NOT NULL,
                 date_retour DATE NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE public.empreint (
 );
 
 
-ALTER SEQUENCE public.empreint_id_seq OWNED BY public.empreint.id;
+ALTER SEQUENCE public.empreint_id_seq OWNED BY public.emprunt.id;
 
 CREATE TABLE public.empreint_de_topos (
                 topo_id INTEGER NOT NULL,
@@ -227,7 +227,7 @@ ON DELETE SET NULL
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.empreint ADD CONSTRAINT utilisateur_empreint_fk
+ALTER TABLE public.emprunt ADD CONSTRAINT utilisateur_empreint_fk
 FOREIGN KEY (utilisateur_id)
 REFERENCES public.utilisateur (id)
 ON DELETE SET NULL
@@ -243,7 +243,7 @@ NOT DEFERRABLE;
 
 ALTER TABLE public.empreint_de_topos ADD CONSTRAINT empreint_empreint_de_topos_fk
 FOREIGN KEY (empreint_id)
-REFERENCES public.empreint (id)
+REFERENCES public.emprunt (id)
 ON DELETE SET NULL
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

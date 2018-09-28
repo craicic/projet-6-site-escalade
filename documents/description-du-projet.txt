@@ -47,5 +47,5 @@ Les cas d'utilisation suivis de * peuvent être effectués sans la pré-conditio
 			-> Lier une fiche à sa présentation
 		
 		Consulter une fiche de prêt de topo *
-			-> Sélectionner une période d'empreint
+			-> Sélectionner une période d'emprunt
 				-> Réserver un topo

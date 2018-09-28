@@ -9,6 +9,7 @@ public class Commentaire implements Model {
     private Timestamp dateCreation;
     private String contenuTexte;
     private Integer utilisateurId;
+    private Utilisateur utilisateur;
 
     // constructeurs
     public Commentaire() {
@@ -50,5 +51,13 @@ public class Commentaire implements Model {
 
     public void setUtilisateurId(Integer utilisateurId) {
         this.utilisateurId = utilisateurId;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

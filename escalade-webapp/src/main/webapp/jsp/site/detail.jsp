@@ -34,6 +34,12 @@
         </s:a></li>
         </s:if>
     </s:iterator>
+    <iframe
+            width="600"
+            height="450"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=&q=Space+Needle,Seattle+WA" allowfullscreen>
+    </iframe>
 </ul>
 <p><s:a action="secteur_new">nouveau secteur associé</s:a></p>
 </body>

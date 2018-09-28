@@ -21,7 +21,7 @@
     <li>Titre : <s:property value="topo.titre"/></li>
     <li>Auteur : <s:property value="topo.auteur"/></li>
     <li>Description : <s:property value="topo.description"/></li>
-    <li>Dispo à l'empreint : <s:property value="topo.empreintable"/></li>
+    <li>Dispo à l'emprunt : <s:property value="topo.empreintable"/></li>
 </ul>
 <%--<p><s:a action="commentaire_new">--%>
     <%--<s:param name="objectType" value="topo"/>--%>
@@ -40,8 +40,7 @@
 <ul>
     <s:iterator value="listCommentaire">
         <li>
-            <div>Auteur : <s:property value="utilisateurId"/></div>
-            <!-- todo résoudre le probleme de dateCréation : il doit être de type timestamp et non date -->
+            <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
             <div>Posté à <s:property value="dateCreation"/></div>
             <div><s:property value="contenuTexte"/></div>
         </li>

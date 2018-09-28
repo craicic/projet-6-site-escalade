@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.SiteDao;
+import com.gg.proj.consumer.impl.rowmapper.SiteRM;
 import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,37 +32,16 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     public Site get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM site WHERE id = ?;",
-                (rs, rowNum) -> {
-                    Site s = new Site();
-                    s.setId(rs.getInt("id"));
-                    s.setNom(rs.getString("nom"));
-                    s.setDescription(rs.getString("description"));
-                    s.setProfil(rs.getString("profil"));
-                    s.setRoche(rs.getString("roche"));
-                    s.setType(rs.getString("type"));
-                    s.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-                    return s;
-                },
-                id);
+        SiteRM siteRM = new SiteRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM site WHERE id = ?;", siteRM, id);
     }
 
     @Override
     public List<Site> list() {
         logger.debug("Entrée dans la méthode list");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("SELECT * FROM site;",
-                (rs, rowNum) -> {
-                    Site s = new Site();
-                    s.setId(rs.getInt("id"));
-                    s.setNom(rs.getString("nom"));
-                    s.setDescription(rs.getString("description"));
-                    s.setProfil(rs.getString("profil"));
-                    s.setRoche(rs.getString("roche"));
-                    s.setType(rs.getString("type"));
-                    s.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-                    return s;
-                });
+        SiteRM siteRM = new SiteRM();
+        return jdbcTemplate.query("SELECT * FROM site;", siteRM);
     }
 
     @Override
