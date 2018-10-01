@@ -29,7 +29,7 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
 
     @Override
     public Commentaire get(int id) {
-        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
+        logger.debug("Entrée dans la méthode get avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         CommentaireRM commentaireRM = new CommentaireRM();
         return jdbcTemplate.queryForObject("SELECT * FROM commentaire WHERE id = ?;", commentaireRM, id);
@@ -93,9 +93,9 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         logger.debug("Entrée dans la méthode getId");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM commentaire WHERE (date_de_creation,contenu_texte,utilisateur_id) = (?,?,?);",
-                (rs, rowNum) -> {
-                    return rs.getInt("id");
-                },
+                /* RowMapper sous forme lambda */
+                (rs, rowNum) -> {return rs.getInt("id");},
+                /* Parametres */
                 commentaire.getDateCreation(),
                 commentaire.getContenuTexte(),
                 commentaire.getUtilisateurId());

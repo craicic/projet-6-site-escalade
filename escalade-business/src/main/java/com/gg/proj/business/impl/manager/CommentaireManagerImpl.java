@@ -33,7 +33,7 @@ public class CommentaireManagerImpl implements CommentaireManager {
 
     @Override
     public Commentaire get(int id) {
-        logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
+        logger.debug("Entrée dans la méthode get avec l'id " + id);
         return commentaireDao.get(id);
     }
 

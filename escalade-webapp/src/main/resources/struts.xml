@@ -215,11 +215,23 @@
             <result name="success" type="redirectAction">list_voie</result>
         </action>
         <!-- ============================ COMMENTAIRE ============================ -->
+        <!-- todo cette action est obsolete ( a supprimer lorsque l'impl des commentaire sera complete -->
         <action name="commentaire_new"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doCreate">
             <result name="input">/jsp/commentaire/new.jsp</result>
             <result name="success" type="redirectAction">index</result>
+        </action>
+        <action name="update_my_comment"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doUpdateMyComment">
+            <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
+            <result name="success" type="redirectAction">index</result>
+        </action>
+        <action name="delete_commentaire"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">detail_topo</result>
         </action>
         <!-- ============================ LOGIN / LOGOUT ============================ -->
         <action name="login"

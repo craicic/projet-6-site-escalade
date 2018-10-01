@@ -23,9 +23,7 @@
     <li>Description : <s:property value="topo.description"/></li>
     <li>Dispo à l'emprunt : <s:property value="topo.empreintable"/></li>
 </ul>
-<%--<p><s:a action="commentaire_new">--%>
-    <%--<s:param name="objectType" value="topo"/>--%>
-    <%--Rédiger un commentaire</s:a></p>--%>
+
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_topo">
         <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
@@ -36,13 +34,22 @@
 <s:else>
     <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
 </s:else>
-<!-- todo afficher la liste des commentaire -->
 <ul>
     <s:iterator value="listCommentaire">
         <li>
             <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
             <div>Posté à <s:property value="dateCreation"/></div>
             <div><s:property value="contenuTexte"/></div>
+            <s:if test="%{utilisateurId == #session.utilisateur.id}">
+                <s:a action="delete_commentaire">
+                    <s:param name="id" value="id"/>
+                    Supprimer
+                </s:a>
+                <s:a action="update_my_comment">
+                    <s:param name="id" value="id"/>
+                    Éditer
+                </s:a>
+            </s:if>
         </li>
     </s:iterator>
 </ul>

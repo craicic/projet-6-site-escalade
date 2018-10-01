@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.EmpreintDao;
+import com.gg.proj.consumer.impl.rowmapper.EmpruntRM;
 import com.gg.proj.model.bean.Emprunt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,30 +30,16 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
     public Emprunt get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT * FROM empreint WHERE id = ?;", (rs, rowNum) -> {
-                    Emprunt emprunt = new Emprunt();
-                    emprunt.setId(rs.getInt("id"));
-                    emprunt.setDateEmprunt(rs.getDate("date_empreint"));
-                    emprunt.setDateRetour(rs.getDate("date_retour"));
-                    emprunt.setUtilisateurId(rs.getInt("utilisateur_id"));
-                    return emprunt;
-                },
-                id);
+        EmpruntRM empruntRM = new EmpruntRM();
+        return jdbcTemplate.queryForObject("SELECT * FROM empreint WHERE id = ?;", empruntRM, id);
     }
 
     @Override
     public List<Emprunt> list() {
         logger.debug("Entrée dans la méthode list");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("SELECT * FROM empreint;",
-                (rs, rowNum) -> {
-                    Emprunt emprunt = new Emprunt();
-                    emprunt.setId(rs.getInt("id"));
-                    emprunt.setDateEmprunt(rs.getDate("date_empreint"));
-                    emprunt.setDateRetour(rs.getDate("date_retour"));
-                    emprunt.setUtilisateurId(rs.getInt("utilisateur_id"));
-                    return emprunt;
-                });
+        EmpruntRM empruntRM = new EmpruntRM();
+        return jdbcTemplate.query("SELECT * FROM empreint;", empruntRM);
     }
 
     @Override

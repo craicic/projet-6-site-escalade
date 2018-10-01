@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Commentaire implements Model {
+
     // propriétés
     private Integer id;
     private Timestamp dateCreation;
