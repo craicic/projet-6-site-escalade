@@ -74,12 +74,13 @@ public class VoieManagerImpl implements VoieManager {
 
     /**
      * Cette méthode permet l'ajout d'un commentaire lié à un voie en BDD. Cette méthode se charger d'ajouté le timestamp sur l'objet commentaire.
-     * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_topo.
+     * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_voie.
      *
      * @param commentaire un objet commentaire dont la propriété contenuTexte est non null
      * @param voieId      l'id du voie associé
      */
     @Override
+    @Transactional
     public void addComment(Commentaire commentaire, Integer voieId) {
         logger.debug("Entrée dans la méthode addComment avec l'id " + voieId);
         // Ajout du timestamp de la création du commentaire
@@ -88,12 +89,18 @@ public class VoieManagerImpl implements VoieManager {
         commentaireDao.create(commentaire);
         // On récupère l'id
         Integer commentaireId = commentaireDao.getId(commentaire);
-        // Il reste a créer une entrée dans la table de composition commentaire_sur_topo
-        // On créé un bean CommentaireSurTopo pour lui attribuer les valeurs.
+        // Il reste a créer une entrée dans la table de composition commentaire_sur_voie
+        // On créé un bean CommentaireSurVoie pour lui attribuer les valeurs.
         CommentaireSurVoie commentaireSurVoie = new CommentaireSurVoie();
         commentaireSurVoie.setCommentaireId(commentaireId);
         commentaireSurVoie.setVoieId(voieId);
         // Création de l'entrée
         commentaireSurVoieDao.create(commentaireSurVoie);
+    }
+
+    @Override
+    @Transactional
+    public List<Commentaire> listComments(Integer voieId) {
+        return commentaireDao.getCommentsByVoieId(voieId);
     }
 }

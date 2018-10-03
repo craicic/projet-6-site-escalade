@@ -34,13 +34,39 @@
         </s:a></li>
         </s:if>
     </s:iterator>
-    <iframe
-            width="600"
-            height="450"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key=&q=Space+Needle,Seattle+WA" allowfullscreen>
-    </iframe>
 </ul>
-<p><s:a action="secteur_new">nouveau secteur associé</s:a></p>
+
+<s:a action="secteur_new">nouveau secteur associé</s:a>
+
+<s:if test="#session.utilisateur">
+    <s:form action="add_comment_site">
+        <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
+        <s:hidden name="id" value="%{id}"/>
+        <s:submit value="Ok"/>
+    </s:form>
+</s:if>
+<s:else>
+    <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
+</s:else>
+
+<ul>
+    <s:iterator value="listCommentaire">
+        <li>
+            <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
+            <div>Posté à <s:property value="dateCreation"/></div>
+            <div><s:property value="contenuTexte"/></div>
+            <s:if test="%{utilisateurId == #session.utilisateur.id}">
+                <s:a action="delete_commentaire">
+                    <s:param name="id" value="id"/>
+                    Supprimer
+                </s:a>
+                <s:a action="update_my_comment">
+                    <s:param name="id" value="id"/>
+                    Éditer
+                </s:a>
+            </s:if>
+        </li>
+    </s:iterator>
+</ul>
 </body>
 </html>

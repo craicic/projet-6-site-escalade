@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface CommentaireDao extends CrudDao<Commentaire> {
 
-    public List<Commentaire> getCommentsByTopoId(Integer topoId);
+    List<Commentaire> getCommentsByTopoId(Integer topoId);
 
-    public Integer getId(Commentaire commentaire);
+    Integer getId(Commentaire commentaire);
+
+    List<Commentaire> getCommentsByVoieId(Integer voieId);
+
+    List<Commentaire> getCommentsBySiteId(Integer siteId);
 }

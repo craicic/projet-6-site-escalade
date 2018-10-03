@@ -161,7 +161,7 @@
         <action name="add_comment_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doAddComment">
-            <result name="success" type="redirectAction">detail_topo</result>
+            <result name="success" type="redirectAction">index</result>
         </action>
 
         <!-- ============================ SECTEUR ============================ -->

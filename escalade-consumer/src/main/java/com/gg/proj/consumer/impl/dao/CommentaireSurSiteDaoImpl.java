@@ -49,16 +49,34 @@ public class CommentaireSurSiteDaoImpl extends AbstractDaoImpl implements Commen
 
     @Override
     public List<CommentaireSurSite> list() {
-        return null;
+        logger.debug("Entrée dans la méthode list");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        return jdbcTemplate.query("SELECT * FROM commentaire_sur_site;", (rs, rowNum) -> {
+            CommentaireSurSite c = new CommentaireSurSite();
+            c.setSiteId(rs.getInt("site_id"));
+            c.setCommentaireId(rs.getInt("commentaire_id"));
+            return c;
+        });
     }
 
     @Override
     public void update(CommentaireSurSite model) {
-
+        logger.debug("Entrée dans la méthode update");
+        JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
+        jdbcTempplate.update("UPDATE commentaire_sur_site SET (site_id) = (?) WHERE commentaire_id = ?;",
+                model.getSiteId(),
+                model.getCommentaireId()
+        );
     }
 
+    /**
+     * la méthode delete prend en paramètre un commentaire_id (elle pourrait aussi s'appelée deleteByCommentId)
+     * @param commentaireId
+     */
     @Override
-    public void delete(Integer id) {
-
+    public void delete(Integer commentaireId) {
+        logger.debug("Entrée dans la méthode create");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        jdbcTemplate.update("DELETE FROM commentaire_sur_site WHERE commentaire_id = ?;", commentaireId);
     }
 }

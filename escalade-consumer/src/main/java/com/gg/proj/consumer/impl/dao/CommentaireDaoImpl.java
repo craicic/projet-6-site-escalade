@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.CommentaireDao;
+import com.gg.proj.consumer.impl.rowmapper.CommentaireFullRM;
 import com.gg.proj.consumer.impl.rowmapper.CommentaireRM;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.Utilisateur;
@@ -71,17 +72,10 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
     public List<Commentaire> getCommentsByTopoId(Integer topoId) {
         logger.debug("Entrée dans la méthode getCommentsByTopoId avec le topoId : " + topoId);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
         return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
                         "( SELECT commentaire_sur_topo.commentaire_id FROM commentaire_sur_topo WHERE commentaire_sur_topo.topo_id = ?);"
-                , (rs, rowNum) -> {
-                    Commentaire commentaire = new Commentaire();
-                    commentaire.setId(rs.getInt("id"));
-                    commentaire.setDateCreation(rs.getTimestamp("date_de_creation"));
-                    commentaire.setContenuTexte(rs.getString("contenu_texte"));
-                    commentaire.setUtilisateurId(rs.getInt("utilisateur_id"));
-                    commentaire.setUtilisateur(new Utilisateur(rs.getString("pseudo")));
-                    return commentaire;
-                }, topoId);
+                , commentaireFullRM, topoId);
     }
 
     /**
@@ -94,10 +88,32 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM commentaire WHERE (date_de_creation,contenu_texte,utilisateur_id) = (?,?,?);",
                 /* RowMapper sous forme lambda */
-                (rs, rowNum) -> {return rs.getInt("id");},
+                (rs, rowNum) -> {
+                    return rs.getInt("id");
+                },
                 /* Parametres */
                 commentaire.getDateCreation(),
                 commentaire.getContenuTexte(),
                 commentaire.getUtilisateurId());
+    }
+
+    @Override
+    public List<Commentaire> getCommentsByVoieId(Integer voieId) {
+        logger.debug("Entrée dans la méthode getCommentsByVoieId avec le voieId : " + voieId);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
+        return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
+                        "( SELECT commentaire_sur_voie.commentaire_id FROM commentaire_sur_voie WHERE commentaire_sur_voie.voie_id = ?);"
+                , commentaireFullRM, voieId);
+    }
+
+    @Override
+    public List<Commentaire> getCommentsBySiteId(Integer siteId) {
+        logger.debug("Entrée dans la méthode getCommentsBySiteId avec le siteId : " + siteId);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
+        return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
+                        "( SELECT commentaire_sur_site.commentaire_id FROM commentaire_sur_site WHERE commentaire_sur_site.site_id = ?);"
+                , commentaireFullRM, siteId);
     }
 }

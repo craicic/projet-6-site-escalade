@@ -27,6 +27,7 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     private Voie voie;
     private List<Voie> listVoie;
     private List<Secteur> listSecteur;
+    private List<Commentaire> listCommentaire;
     private Commentaire commentaire;
     private Map<String, Object> session;
 
@@ -58,6 +59,18 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }
+    public Commentaire getCommentaire() {
+        return commentaire;
+    }
+    public void setCommentaire(Commentaire commentaire) {
+        this.commentaire = commentaire;
+    }
+    public List<Commentaire> getListCommentaire() {
+        return listCommentaire;
+    }
+    public void setListCommentaire(List<Commentaire> listCommentaire) {
+        this.listCommentaire = listCommentaire;
+    }
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
@@ -78,6 +91,7 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     } else {
         try {
             voie = managerFactory.getVoieManager().get(id);
+            listCommentaire = managerFactory.getVoieManager().listComments(id);
         } catch (NoSuchElementException e) {
             logger.error(e.getMessage());
             this.addActionError("Voie non trouvée. ID = " + id);

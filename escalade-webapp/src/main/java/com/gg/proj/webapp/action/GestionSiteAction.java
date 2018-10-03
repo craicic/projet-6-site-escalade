@@ -28,6 +28,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     private List<Site> listSite;
     private List<Secteur> listSecteur;
     private Commentaire commentaire;
+    private List<Commentaire> listCommentaire;
     private Map<String, Object> session;
 
     public Integer getId() {
@@ -54,6 +55,19 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     public void setListSecteur(List<Secteur> listSecteur) {
         this.listSecteur = listSecteur;
     }
+    public Commentaire getCommentaire() {
+        return commentaire;
+    }
+    public void setCommentaire(Commentaire commentaire) {
+        this.commentaire = commentaire;
+    }
+    public List<Commentaire> getListCommentaire() {
+        return listCommentaire;
+    }
+    public void setListCommentaire(List<Commentaire> listCommentaire) {
+        this.listCommentaire = listCommentaire;
+    }
+
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
@@ -77,6 +91,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
         if (id != null){
             site = managerFactory.getSiteManager().get(id);
             listSecteur = managerFactory.getSecteurManager().list();
+            listCommentaire = managerFactory.getSiteManager().listComments(id);
             return ActionSupport.SUCCESS;
         } else {
             addActionMessage("Id doit être défini");

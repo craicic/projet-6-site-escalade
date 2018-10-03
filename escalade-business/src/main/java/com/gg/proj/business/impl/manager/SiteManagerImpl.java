@@ -76,7 +76,7 @@ public class SiteManagerImpl implements SiteManager {
 
     /**
      * Cette méthode permet l'ajout d'un commentaire lié à un site en BDD. Cette méthode se charger d'ajouté le timestamp sur l'objet commentaire.
-     * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_topo.
+     * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_site.
      *
      * @param commentaire un objet commentaire dont la propriété contenuTexte est non null
      * @param siteId      l'id du site associé
@@ -91,12 +91,18 @@ public class SiteManagerImpl implements SiteManager {
         commentaireDao.create(commentaire);
         // On récupère l'id
         Integer commentaireId = commentaireDao.getId(commentaire);
-        // Il reste a créer une entrée dans la table de composition commentaire_sur_topo
-        // On créé un bean CommentaireSurTopo pour lui attribuer les valeurs.
+        // Il reste a créer une entrée dans la table de composition commentaire_sur_site
+        // On créé un bean CommentaireSurSite pour lui attribuer les valeurs.
         CommentaireSurSite commentaireSurSite = new CommentaireSurSite();
         commentaireSurSite.setCommentaireId(commentaireId);
         commentaireSurSite.setSiteId(siteId);
         // Création de l'entrée
         commentaireSurSiteDao.create(commentaireSurSite);
+    }
+
+    @Override
+    @Transactional
+    public List<Commentaire> listComments(Integer siteId) {
+        return commentaireDao.getCommentsBySiteId(siteId);
     }
 }

@@ -69,10 +69,11 @@ public class CommentaireSurTopoDaoImpl extends AbstractDaoImpl implements Commen
         );
     }
 
-    @Override
-        /*
-    /!\ la méthode getByUserPseudo prend en paramètre un commentaire_id
+    /**
+     * la méthode delete prend en paramètre un commentaire_id (elle pourrait aussi s'appelée deleteByCommentId)
+     * @param commentaireId
      */
+    @Override
     public void delete(Integer commentaireId) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

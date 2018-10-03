@@ -26,5 +26,36 @@
     <li>Hauteur : <s:property value="voie.hauteur"/></li>
     <li>Secteur associé : <s:property value="voie.secteurId"/></li>
 </ul>
+
+<s:if test="#session.utilisateur">
+    <s:form action="add_comment_voie">
+        <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
+        <s:hidden name="id" value="%{id}"/>
+        <s:submit value="Ok"/>
+    </s:form>
+</s:if>
+<s:else>
+    <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
+</s:else>
+
+<ul>
+    <s:iterator value="listCommentaire">
+        <li>
+            <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
+            <div>Posté à <s:property value="dateCreation"/></div>
+            <div><s:property value="contenuTexte"/></div>
+            <s:if test="%{utilisateurId == #session.utilisateur.id}">
+                <s:a action="delete_commentaire">
+                    <s:param name="id" value="id"/>
+                    Supprimer
+                </s:a>
+                <s:a action="update_my_comment">
+                    <s:param name="id" value="id"/>
+                    Éditer
+                </s:a>
+            </s:if>
+        </li>
+    </s:iterator>
+</ul>
 </body>
 </html>
