@@ -2,17 +2,20 @@ package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.*;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class GestionCommentaireAction extends ActionSupport {
-    public final static Logger logger = LogManager.getLogger();
+public class GestionCommentaireAction extends ActionSupport implements SessionAware {
+    private final static Logger logger = LogManager.getLogger();
 
     @Inject
     ManagerFactory managerFactory;
@@ -20,6 +23,12 @@ public class GestionCommentaireAction extends ActionSupport {
     private Integer id;
     private Commentaire commentaire;
     private Utilisateur utilisateur;
+    private Map<String, Object> session;
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
 
     public Integer getId() {
         return id;
@@ -76,7 +85,7 @@ public class GestionCommentaireAction extends ActionSupport {
      * Méthode d'édition de ses propres commentaires
      * @return  ActionSupport
      */
-    public String doUpdateMyComment() {
+    public String doUpdateMyComment() throws IllegalAccessException {
         String resultat = ActionSupport.INPUT;
         if (this.commentaire != null){
             Commentaire tmpCommentaire = managerFactory.getCommentaireManager().get(commentaire.getId());
@@ -85,8 +94,16 @@ public class GestionCommentaireAction extends ActionSupport {
             resultat = ActionSupport.SUCCESS;
         } else {
             logger.info("Passage dans get");
-            // Si le commentaire est nul, on va charger le contenu du commentaire
-            commentaire = managerFactory.getCommentaireManager().get(this.id);
+            // On vérifie que l'utilisateur est connecté
+            Commentaire tmpCommentaire = managerFactory.getCommentaireManager().get(this.id);
+            Utilisateur tmpUtilisateur = (Utilisateur) session.get("utilisateur");
+            if ( tmpUtilisateur.getId() == tmpCommentaire.getUtilisateurId() ) {
+                // Si le commentaire est nul, on va charger le contenu du commentaire
+                commentaire = tmpCommentaire;
+            } else {
+                addActionError("Accès illegal");
+                resultat = ActionSupport.ERROR;
+            }
         }
         return resultat;
     }

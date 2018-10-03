@@ -1,19 +1,23 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
+import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.Secteur;
 import com.gg.proj.model.bean.Site;
+import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class GestionSiteAction extends ActionSupport {
+public class GestionSiteAction extends ActionSupport implements SessionAware {
     public final static Logger logger = LogManager.getLogger();
 
     @Inject
@@ -23,6 +27,8 @@ public class GestionSiteAction extends ActionSupport {
     private Site site;
     private List<Site> listSite;
     private List<Secteur> listSecteur;
+    private Commentaire commentaire;
+    private Map<String, Object> session;
 
     public Integer getId() {
         return id;
@@ -47,6 +53,10 @@ public class GestionSiteAction extends ActionSupport {
     }
     public void setListSecteur(List<Secteur> listSecteur) {
         this.listSecteur = listSecteur;
+    }
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 
     public String doCreate() {
@@ -116,6 +126,21 @@ public class GestionSiteAction extends ActionSupport {
             logger.error(e.getMessage());
             ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
+        return ActionSupport.SUCCESS;
+    }
+
+    /**
+     * Action d'ajout de commentaires
+     * @return ActionSupport
+     */
+    public String doAddComment(){
+        // On récupère l'utilisateur en session
+        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+        // Pour en récupérer l'id
+        commentaire.setUtilisateurId(utilisateurEnSession.getId());
+        //
+        logger.info(commentaire.getId()+" "+commentaire.getContenuTexte()+" id = " + id);
+        managerFactory.getSiteManager().addComment(commentaire,id);
         return ActionSupport.SUCCESS;
     }
 }

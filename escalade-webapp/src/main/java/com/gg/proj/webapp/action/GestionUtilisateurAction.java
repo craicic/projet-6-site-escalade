@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class GestionUtilisateurAction extends ActionSupport implements SessionAware {
 
-    public final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
 
     @Inject
     ManagerFactory managerFactory;

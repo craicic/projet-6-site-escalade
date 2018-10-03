@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
 public class GestionEmpreintAction extends ActionSupport {
-    public final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
 
     @Inject
     ManagerFactory managerFactory;

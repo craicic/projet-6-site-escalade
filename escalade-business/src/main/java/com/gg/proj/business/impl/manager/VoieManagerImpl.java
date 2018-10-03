@@ -1,7 +1,11 @@
 package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.VoieManager;
+import com.gg.proj.consumer.contract.dao.CommentaireDao;
+import com.gg.proj.consumer.contract.dao.CommentaireSurVoieDao;
 import com.gg.proj.consumer.contract.dao.VoieDao;
+import com.gg.proj.model.bean.Commentaire;
+import com.gg.proj.model.bean.CommentaireSurVoie;
 import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Named
@@ -19,14 +25,20 @@ public class VoieManagerImpl implements VoieManager {
     @Inject
     VoieDao voieDao;
 
+    @Inject
+    CommentaireDao commentaireDao;
+
+    @Inject
+    CommentaireSurVoieDao commentaireSurVoieDao;
+
     @Override
     @Transactional
     public void create(Voie model) {
         logger.debug("Entrée dans la méthode create");
         // On vérifie que le model contienne bien l'id d'un site
-        if(model.getSecteurId() != null){
+        if (model.getSecteurId() != null) {
             // puis on vérifie que getNom soit non null
-            if(model.getNom() != null){
+            if (model.getNom() != null) {
                 voieDao.create(model);
             } else
                 logger.warn("Voie doit posséder un nom");
@@ -58,5 +70,30 @@ public class VoieManagerImpl implements VoieManager {
     public void delete(Integer id) {
         logger.debug("Entrée dans la méthode delete avec l'id " + id);
         voieDao.delete(id);
+    }
+
+    /**
+     * Cette méthode permet l'ajout d'un commentaire lié à un voie en BDD. Cette méthode se charger d'ajouté le timestamp sur l'objet commentaire.
+     * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_topo.
+     *
+     * @param commentaire un objet commentaire dont la propriété contenuTexte est non null
+     * @param voieId      l'id du voie associé
+     */
+    @Override
+    public void addComment(Commentaire commentaire, Integer voieId) {
+        logger.debug("Entrée dans la méthode addComment avec l'id " + voieId);
+        // Ajout du timestamp de la création du commentaire
+        commentaire.setDateCreation(Timestamp.from(Instant.now()));
+        // Solocitation de la Dao pour création du commentaire
+        commentaireDao.create(commentaire);
+        // On récupère l'id
+        Integer commentaireId = commentaireDao.getId(commentaire);
+        // Il reste a créer une entrée dans la table de composition commentaire_sur_topo
+        // On créé un bean CommentaireSurTopo pour lui attribuer les valeurs.
+        CommentaireSurVoie commentaireSurVoie = new CommentaireSurVoie();
+        commentaireSurVoie.setCommentaireId(commentaireId);
+        commentaireSurVoie.setVoieId(voieId);
+        // Création de l'entrée
+        commentaireSurVoieDao.create(commentaireSurVoie);
     }
 }

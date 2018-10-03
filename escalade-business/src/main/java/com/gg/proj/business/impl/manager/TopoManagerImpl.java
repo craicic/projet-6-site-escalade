@@ -81,7 +81,7 @@ public class TopoManagerImpl implements TopoManager {
      * Cette méthode permet l'ajout d'un commentaire lié à un topo en BDD. Cette méthode se charger d'ajouté le timestamp sur l'objet commentaire.
      * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_topo.
      * @param commentaire un objet commentaire dont la propriété contenuTexte est non null
-     * @param topoId l'id du topo associé?
+     * @param topoId l'id du topo associé
      */
     @Override
     @Transactional

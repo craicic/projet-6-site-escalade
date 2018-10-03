@@ -14,6 +14,10 @@ public class CommentaireSurTopoDaoImpl extends AbstractDaoImpl implements Commen
 
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     * Création d'une entrée en base de donnée dans la table correspondante
+     * @param model le bean de type {@link CommentaireSurTopo}
+     */
     @Override
     public void create(CommentaireSurTopo model) {
         logger.debug("Entrée dans la méthode create");
@@ -24,12 +28,14 @@ public class CommentaireSurTopoDaoImpl extends AbstractDaoImpl implements Commen
         );
     }
 
-    @Override
-    /*
-    /!\ la méthode getByUserPseudo prend en paramètre un commentaire_id
+    /**
+     * Cette méthode get pourrait plus précisement s'appeler getByCommentId (on garde get pour coller à l'interface CrudDao)
+     * @param commentaireId
+     * @return un bean CommentaireSurTopo qui associe à un commentaireId son topoId
      */
+    @Override
     public CommentaireSurTopo get(int commentaireId) {
-        logger.debug("Entrée dans la méthode getByUserPseudo avec commentaireId " + commentaireId);
+        logger.debug("Entrée dans la méthode get avec commentaireId " + commentaireId);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT * FROM commentaire_sur_topo WHERE commentaire_id = ?;", (rs, rowNum) -> {
                     CommentaireSurTopo c = new CommentaireSurTopo();

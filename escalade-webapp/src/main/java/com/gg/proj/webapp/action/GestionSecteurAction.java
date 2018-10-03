@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class GestionSecteurAction extends ActionSupport {
-    public final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger();
 
     @Inject
     ManagerFactory managerFactory;
