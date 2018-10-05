@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-<h2>Liste des Secteur</h2>
+<h2>Liste des Voies</h2>
 
 <ul>
     <s:iterator value="listVoie">

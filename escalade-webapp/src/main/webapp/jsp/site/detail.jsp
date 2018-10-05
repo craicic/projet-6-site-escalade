@@ -10,7 +10,7 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 
@@ -28,10 +28,10 @@
         <s:property value="id"/>
         <%-- todo fixer cette condition qui ne marche pas --%>
         <s:if test="%{siteId == id}">
-        <li><s:a action="detail_secteur">
-            <s:param name="id" value="id"/>
-            Secteur associé : <s:property value="nom"/>
-        </s:a></li>
+            <li><s:a action="detail_secteur">
+                <s:param name="id" value="id"/>
+                Secteur associé : <s:property value="nom"/>
+            </s:a></li>
         </s:if>
     </s:iterator>
 </ul>
