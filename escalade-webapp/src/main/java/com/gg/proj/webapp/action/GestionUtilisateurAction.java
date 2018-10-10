@@ -132,7 +132,7 @@ public class GestionUtilisateurAction extends ActionSupport implements SessionAw
     public String doUpdatePassword(){
         String resultat = ActionSupport.INPUT;
         if (nouveauMotDePasse != null && motDePasseDoubleVerifiction != null) {
-            // On vérif qu'on est bien un utilisateur enregistré en session
+            // On vérif qu'on aie bien un utilisateur enregistré en session
             if (this.session.containsKey("utilisateur")) {
                 // On récupère l'utilisateur en session
                 logger.info("session : " + session.values());

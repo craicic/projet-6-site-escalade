@@ -156,7 +156,6 @@
                 method="doDelete">
             <result name="success" type="redirectAction">list_site</result>
         </action>
-        <!-- Gestion des commentaires -->
         <!-- Ajout d'un commentaire -->
         <action name="add_comment_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"

@@ -6,7 +6,6 @@ import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.inject.Named;
 import java.util.List;
@@ -89,7 +88,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre,description,auteur,empreintable) = (?,?,?,?);",
                 /* RowMapper : */
-                (rs, rowNum) -> {return rs.getInt("id");},
+                (rs, rowNum) -> rs.getInt("id"),
                 /* Params '?' */
                 topo.getTitre(),
                 topo.getDescription(),

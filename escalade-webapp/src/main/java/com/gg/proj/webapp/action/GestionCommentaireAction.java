@@ -85,7 +85,7 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
      * Méthode d'édition de ses propres commentaires
      * @return  ActionSupport
      */
-    public String doUpdateMyComment() throws IllegalAccessException {
+    public String doUpdateMyComment() {
         String resultat = ActionSupport.INPUT;
         if (this.commentaire != null){
             Commentaire tmpCommentaire = managerFactory.getCommentaireManager().get(commentaire.getId());

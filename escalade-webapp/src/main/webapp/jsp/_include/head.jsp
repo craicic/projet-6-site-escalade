@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 
 <h1>Escalade</h1>
+
+<head>
+    <link href="../css/bootstrap.css" rel="stylesheet"/>
+</head>
+
 <s:head/>
 
 

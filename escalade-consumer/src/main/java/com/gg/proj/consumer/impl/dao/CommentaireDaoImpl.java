@@ -74,7 +74,8 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
         return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
-                        "( SELECT commentaire_sur_topo.commentaire_id FROM commentaire_sur_topo WHERE commentaire_sur_topo.topo_id = ?);"
+                        "( SELECT commentaire_sur_topo.commentaire_id FROM commentaire_sur_topo WHERE commentaire_sur_topo.topo_id = ?) " +
+                        "ORDER BY commentaire.date_de_creation DESC;"
                 , commentaireFullRM, topoId);
     }
 
@@ -88,9 +89,8 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM commentaire WHERE (date_de_creation,contenu_texte,utilisateur_id) = (?,?,?);",
                 /* RowMapper sous forme lambda */
-                (rs, rowNum) -> {
-                    return rs.getInt("id");
-                },
+                (rs, rowNum) -> rs.getInt("id")
+                ,
                 /* Parametres */
                 commentaire.getDateCreation(),
                 commentaire.getContenuTexte(),
@@ -103,7 +103,8 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
         return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
-                        "( SELECT commentaire_sur_voie.commentaire_id FROM commentaire_sur_voie WHERE commentaire_sur_voie.voie_id = ?);"
+                        "( SELECT commentaire_sur_voie.commentaire_id FROM commentaire_sur_voie WHERE commentaire_sur_voie.voie_id = ?)" +
+                        "ORDER BY commentaire.date_de_creation DESC;"
                 , commentaireFullRM, voieId);
     }
 
@@ -113,7 +114,8 @@ public class CommentaireDaoImpl extends AbstractDaoImpl implements CommentaireDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         CommentaireFullRM commentaireFullRM = new CommentaireFullRM();
         return jdbcTemplate.query("SELECT * FROM commentaire JOIN utilisateur ON commentaire.utilisateur_id = utilisateur.id WHERE commentaire.id IN " +
-                        "( SELECT commentaire_sur_site.commentaire_id FROM commentaire_sur_site WHERE commentaire_sur_site.site_id = ?);"
+                        "( SELECT commentaire_sur_site.commentaire_id FROM commentaire_sur_site WHERE commentaire_sur_site.site_id = ?)" +
+                        "ORDER BY commentaire.date_de_creation DESC;"
                 , commentaireFullRM, siteId);
     }
 }
