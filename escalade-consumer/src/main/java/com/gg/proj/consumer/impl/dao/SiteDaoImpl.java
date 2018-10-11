@@ -14,6 +14,7 @@ import java.util.List;
 @Named
 public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     private static final Logger logger = LogManager.getLogger();
+
     @Override
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");

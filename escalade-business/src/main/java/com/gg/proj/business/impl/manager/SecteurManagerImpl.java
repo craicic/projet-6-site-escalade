@@ -3,6 +3,7 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.SecteurManager;
 import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.model.bean.Secteur;
+import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
@@ -62,5 +63,11 @@ public class SecteurManagerImpl implements SecteurManager {
     public void delete(Integer id) {
         logger.debug("Entrée dans la méthode delete avec l'id " + id);
         secteurDao.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Secteur> search(String termeDeLaRecherche) {
+        return null;
     }
 }

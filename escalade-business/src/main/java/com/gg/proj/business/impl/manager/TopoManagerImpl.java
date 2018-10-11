@@ -118,4 +118,25 @@ public class TopoManagerImpl implements TopoManager {
     public Integer getId(Topo topo){
         return topoDao.getId(topo);
     }
+
+    /**
+     * Solocite la Dao pour recherche de la liste des topos
+     * @param termeDeLaRecherche
+     * @return une liste de topos correspondant.
+     */
+    @Override
+    @Transactional
+    public List<Topo> search(String termeDeLaRecherche) {
+        List<Topo> listTopo = topoDao.search(termeDeLaRecherche);
+        if (!listTopo.isEmpty()){
+            logger.info("liste remplie");
+            for (Topo topo : listTopo) {
+                logger.info(topo.getAuteur());
+            }
+        } else {
+            logger.info("liste vide");
+        }
+        return listTopo;
+    }
+
 }

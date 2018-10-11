@@ -259,5 +259,11 @@
                 method="doLogout">
             <result type="redirectAction">index</result>
         </action>
+        <!-- ============================ RECHERCHE ============================ -->
+        <action name="search"
+                class="com.gg.proj.webapp.action.RechercheAction"
+                method="doSearch">
+            <result>jsp/search.jsp</result>
+        </action>
     </package>
 </struts>

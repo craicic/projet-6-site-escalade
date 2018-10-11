@@ -90,7 +90,6 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
 
-
     @Override
     public String getHash(String identifiant) {
         logger.debug("Entrée dans la méthode getHash");
@@ -108,7 +107,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     public void updatePassword(String identifiant, String motDePasse) {
         logger.debug("Entrée dans la méthode updatePassword");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        logger.info("mpd : "+motDePasse + " identifiant : "+identifiant);
+        logger.info("mpd : " + motDePasse + " identifiant : " + identifiant);
         jdbcTemplate.update("UPDATE utilisateur SET hash_du_mot_de_passe = ? WHERE pseudo = ?;",
                 motDePasse,
                 identifiant);

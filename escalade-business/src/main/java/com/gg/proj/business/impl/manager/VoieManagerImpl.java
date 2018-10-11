@@ -6,6 +6,7 @@ import com.gg.proj.consumer.contract.dao.CommentaireSurVoieDao;
 import com.gg.proj.consumer.contract.dao.VoieDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurVoie;
+import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -102,5 +103,11 @@ public class VoieManagerImpl implements VoieManager {
     @Transactional
     public List<Commentaire> listComments(Integer voieId) {
         return commentaireDao.getCommentsByVoieId(voieId);
+    }
+
+    @Override
+    @Transactional
+    public List<Voie> search(String termeDeLaRecherche) {
+        return null;
     }
 }

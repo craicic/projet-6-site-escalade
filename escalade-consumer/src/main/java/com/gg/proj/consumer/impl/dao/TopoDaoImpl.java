@@ -78,12 +78,11 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     /**
-     *
      * @param topo
      * @return L'id du topo
      */
     @Override
-    public Integer getId(Topo topo){
+    public Integer getId(Topo topo) {
         logger.debug("Entrée dans la méthode getId avec le titre topo : " + topo.getTitre());
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre,description,auteur,empreintable) = (?,?,?,?);",
@@ -95,5 +94,25 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 topo.getAuteur(),
                 topo.isEmpreintable()
         );
+    }
+
+    /**
+     * Fonction qui va accédé a la BDD avec une requete LIKE
+     * @param termeDeLaRecherche
+     * @return les topos qui correspondent
+     */
+    @Override
+    public List<Topo> search(String termeDeLaRecherche) {
+        logger.debug("Entrée dans la méthode search avec comme terme de recherche : " + termeDeLaRecherche);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        TopoRM topoRM = new TopoRM();
+        if (!termeDeLaRecherche.isEmpty()) {
+            logger.info("Entrée dans le If");
+            String SQL = "SELECT * FROM topo t WHERE t.auteur LIKE \'%" + termeDeLaRecherche + "%\' ;";
+            return jdbcTemplate.query(SQL, topoRM);
+        } else {
+            logger.info("c dlamerde");
+            return null;
+        }
     }
 }

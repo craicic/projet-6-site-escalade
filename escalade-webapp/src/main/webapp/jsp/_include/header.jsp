@@ -2,18 +2,6 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 
 <header>
-    <%--<s:if test="#session.utilisateur">--%>
-    <%--Utilisateur connecté :--%>
-    <%--<s:property value="#session.utilisateur.pseudo" />--%>
-    <%--<s:a action="update_password">Changer de mot de passe</s:a>--%>
-    <%--<s:a action="update_my_account">Editer mon compte</s:a>--%>
-    <%--<s:a action="detail_my_account">Détail de mon compte</s:a>--%>
-    <%--<s:a action="logout">Déconnexion</s:a>--%>
-    <%--</s:if>--%>
-    <%--<s:else>--%>
-    <%--<s:a action="login">Connexion</s:a>--%>
-    <%--<s:a action="utilisateur_new">Inscription</s:a>--%>
-    <%--</s:else>--%>
 
 </header>
 
@@ -98,10 +86,10 @@
             </s:else>
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Rechercher">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-        </form>
+        <s:form class="form-inline my-2 my-lg-0" action="search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" name="termeDeLaRecherche" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
+        </s:form>
     </div>
 </nav>
 

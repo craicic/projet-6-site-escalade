@@ -8,7 +8,7 @@ public abstract class AbstractDaoImpl {
     @Inject
     private DataSource dataSource;
 
-    protected DataSource getDataSource(){
+    protected DataSource getDataSource() {
         return dataSource;
     }
 

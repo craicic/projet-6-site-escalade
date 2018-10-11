@@ -12,4 +12,6 @@ public interface TopoManager extends CrudManager<Topo> {
     public List<Commentaire> listComments (Integer topoId);
 
     public Integer getId(Topo topo);
+
+    List<Topo> search(String termeDeLaRecherche);
 }

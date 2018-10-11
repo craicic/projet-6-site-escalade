@@ -7,6 +7,7 @@ import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurSite;
 import com.gg.proj.model.bean.Site;
+import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
@@ -104,5 +105,11 @@ public class SiteManagerImpl implements SiteManager {
     @Transactional
     public List<Commentaire> listComments(Integer siteId) {
         return commentaireDao.getCommentsBySiteId(siteId);
+    }
+
+    @Override
+    @Transactional
+    public List<Site> search(String termeDeLaRecherche) {
+        return null;
     }
 }

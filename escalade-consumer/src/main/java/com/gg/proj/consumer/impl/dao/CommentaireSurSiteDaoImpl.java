@@ -16,6 +16,7 @@ public class CommentaireSurSiteDaoImpl extends AbstractDaoImpl implements Commen
 
     /**
      * Création d'une entrée en base de donnée dans la table correspondante
+     *
      * @param model le bean de type {@link CommentaireSurSite}
      */
     @Override
@@ -31,6 +32,7 @@ public class CommentaireSurSiteDaoImpl extends AbstractDaoImpl implements Commen
 
     /**
      * Cette méthode get pourrait plus précisement s'appeler getByCommentId (on garde get pour coller à l'interface CrudDao)
+     *
      * @param commentaireId
      * @return un bean CommentaireSurSite qui associe à un commentaireId son siteId
      */
@@ -71,6 +73,7 @@ public class CommentaireSurSiteDaoImpl extends AbstractDaoImpl implements Commen
 
     /**
      * la méthode delete prend en paramètre un commentaire_id (elle pourrait aussi s'appelée deleteByCommentId)
+     *
      * @param commentaireId
      */
     @Override
