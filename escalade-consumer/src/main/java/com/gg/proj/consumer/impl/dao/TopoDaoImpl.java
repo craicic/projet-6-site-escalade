@@ -97,7 +97,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     /**
-     * Fonction qui va accédé a la BDD avec une requete LIKE
+     * Fonction qui va accéder à la BDD avec une requête LIKE
+     *
      * @param termeDeLaRecherche
      * @return les topos qui correspondent
      */
@@ -106,13 +107,9 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         logger.debug("Entrée dans la méthode search avec comme terme de recherche : " + termeDeLaRecherche);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         TopoRM topoRM = new TopoRM();
-        if (!termeDeLaRecherche.isEmpty()) {
-            logger.info("Entrée dans le If");
-            String SQL = "SELECT * FROM topo t WHERE t.auteur LIKE \'%" + termeDeLaRecherche + "%\' ;";
-            return jdbcTemplate.query(SQL, topoRM);
-        } else {
-            logger.info("c dlamerde");
-            return null;
-        }
+        String SQL = "SELECT DISTINCT * FROM topo t WHERE t.auteur LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR t.titre LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR t.description LIKE \'%" + termeDeLaRecherche +"%\' ;";
+        return jdbcTemplate.query(SQL, topoRM);
     }
 }

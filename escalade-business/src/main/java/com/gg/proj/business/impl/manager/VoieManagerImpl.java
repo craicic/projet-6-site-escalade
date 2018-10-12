@@ -99,15 +99,30 @@ public class VoieManagerImpl implements VoieManager {
         commentaireSurVoieDao.create(commentaireSurVoie);
     }
 
+
+    /**
+     * Commentaire qui renvoyé la list des commentaire associés avec une voie par son ID
+     *
+     * @param voieId
+     * @return liste de commentaire
+     */
     @Override
     @Transactional
     public List<Commentaire> listComments(Integer voieId) {
+        logger.debug("Entrée dans la méthode listComments avec l'id " + voieId);
         return commentaireDao.getCommentsByVoieId(voieId);
     }
 
+    /**
+     * Solicite la Dao pour recherche de la liste des voies
+     *
+     * @param termeDeLaRecherche
+     * @return une liste de voies correspondant.
+     */
     @Override
     @Transactional
     public List<Voie> search(String termeDeLaRecherche) {
-        return null;
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        return voieDao.search(termeDeLaRecherche);
     }
 }

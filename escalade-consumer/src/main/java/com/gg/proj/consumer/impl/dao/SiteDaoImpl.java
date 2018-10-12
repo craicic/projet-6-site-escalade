@@ -66,4 +66,23 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM site WHERE id = ? ;", id);
     }
+
+    /**
+     * Fonction qui va accéder à la BDD avec une requête LIKE
+     *
+     * @param termeDeLaRecherche
+     * @return les sites qui correspondent
+     */
+    @Override
+    public List<Site> search(String termeDeLaRecherche) {
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        SiteRM siteRM = new SiteRM();
+        String SQL = "SELECT DISTINCT * FROM site s WHERE s.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR s.description LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR s.roche LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR s.profil LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR s.type LIKE \'%" + termeDeLaRecherche +"%\' ;";
+        return jdbcTemplate.query(SQL, siteRM);
+    }
 }

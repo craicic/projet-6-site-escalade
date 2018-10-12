@@ -69,4 +69,21 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM voie WHERE id = ?;", id);
     }
+
+    /**
+     * Fonction qui va accéder à la BDD avec une requête LIKE
+     *
+     * @param termeDeLaRecherche
+     * @return les voies qui correspondent
+     */
+    @Override
+    public List<Voie> search(String termeDeLaRecherche) {
+        logger.debug("Entrée dans la méthode search avec comme terme de recherche : " + termeDeLaRecherche);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        VoieRM voieRM = new VoieRM();
+        String SQL = "SELECT DISTINCT * FROM voie v WHERE " +
+                "v.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR v.description LIKE \'%" + termeDeLaRecherche +"%\' ;";
+        return jdbcTemplate.query(SQL, voieRM);
+    }
 }

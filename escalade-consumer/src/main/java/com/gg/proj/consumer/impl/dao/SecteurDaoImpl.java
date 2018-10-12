@@ -76,4 +76,21 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         SecteurRM secteurRM = new SecteurRM();
         return jdbcTemplate.query("SELECT * FROM secteur WHERE site_id = ?;", secteurRM, siteId);
     }
+
+//    todo corriger la colonne description de secteur en BDD (orthographié decription)
+    /**
+     * Fonction qui va accéder à la BDD avec une requête LIKE
+     *
+     * @param termeDeLaRecherche
+     * @return les secteurs qui correspondent
+     */
+    @Override
+    public List<Secteur> search(String termeDeLaRecherche) {
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        SecteurRM secteurRM = new SecteurRM();
+        String SQL = "SELECT DISTINCT * FROM secteur s WHERE s.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
+                "OR s.decription LIKE \'%" + termeDeLaRecherche + "%\' ;";
+        return jdbcTemplate.query(SQL, secteurRM);
+    }
 }

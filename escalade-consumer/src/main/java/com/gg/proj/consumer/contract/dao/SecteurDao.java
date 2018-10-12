@@ -8,4 +8,6 @@ import java.util.List;
 public interface SecteurDao extends CrudDao<Secteur> {
 
     public List<Secteur> getBySiteId(Integer siteId);
+
+    List<Secteur> search(String termeDeLaRecherche);
 }

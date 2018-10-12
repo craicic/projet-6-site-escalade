@@ -101,15 +101,29 @@ public class SiteManagerImpl implements SiteManager {
         commentaireSurSiteDao.create(commentaireSurSite);
     }
 
+    /**
+     * Commentaire qui renvoyé la list des commentaire associés avec un site par son siteId
+     *
+     * @param siteId
+     * @return liste de commentaire
+     */
     @Override
     @Transactional
     public List<Commentaire> listComments(Integer siteId) {
+        logger.debug("Entrée dans la méthode listComments avec l'id " + siteId);
         return commentaireDao.getCommentsBySiteId(siteId);
     }
 
+    /**
+     * Solicite la Dao pour recherche de la liste des sites
+     *
+     * @param termeDeLaRecherche
+     * @return une liste de sites correspondant.
+     */
     @Override
     @Transactional
     public List<Site> search(String termeDeLaRecherche) {
-        return null;
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        return siteDao.search(termeDeLaRecherche);
     }
 }

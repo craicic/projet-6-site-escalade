@@ -65,9 +65,17 @@ public class SecteurManagerImpl implements SecteurManager {
         secteurDao.delete(id);
     }
 
+    /**
+     * Solicite la Dao pour recherche de la liste des secteurs
+     *
+     * @param termeDeLaRecherche
+     * @return une liste de secteur correspondant.
+     */
     @Override
     @Transactional
     public List<Secteur> search(String termeDeLaRecherche) {
-        return null;
+
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        return secteurDao.search(termeDeLaRecherche);
     }
 }
