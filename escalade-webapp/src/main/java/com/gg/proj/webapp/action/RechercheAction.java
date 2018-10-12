@@ -13,7 +13,9 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class RechercheAction extends ActionSupport {
+
     private static final Logger logger = LogManager.getLogger();
+
     @Inject
     ManagerFactory managerFactory;
 
@@ -61,6 +63,10 @@ public class RechercheAction extends ActionSupport {
         listSecteur = managerFactory.getSecteurManager().search(termeDeLaRecherche);
         listVoie = managerFactory.getVoieManager().search(termeDeLaRecherche);
 
+        return ActionSupport.SUCCESS;
+    }
+    public String doSearchAsync(){
+        listTopo = managerFactory.getTopoManager().search("m");
         return ActionSupport.SUCCESS;
     }
 }

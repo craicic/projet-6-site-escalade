@@ -39,7 +39,10 @@
             <groupId>com.gg.proj</groupId>
             <artifactId>escalade-technical</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+        </dependency>
         <!-- bibliotheque tierce -->
         <dependency>
             <groupId>javax.servlet</groupId>

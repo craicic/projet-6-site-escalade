@@ -5,10 +5,12 @@ import com.gg.proj.consumer.impl.rowmapper.SecteurRM;
 import com.gg.proj.model.bean.Secteur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
+import java.sql.Types;
 import java.util.List;
 
 @Named
@@ -20,7 +22,7 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     public void create(Secteur model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
-        jdbcTempplate.update("INSERT INTO secteur (nom, decription, coordonnees_gps, site_id)  VALUES(?, ?, ?, ?);",
+        jdbcTempplate.update("INSERT INTO secteur (nom, description, coordonnees_gps, site_id)  VALUES(?, ?, ?, ?);",
                 model.getNom(),
                 model.getDescription(),
                 model.getCoordonneesGPS(),
@@ -48,7 +50,7 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     public void update(Secteur model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE secteur SET (nom,decription,coordonnees_gps,site_id) = (?,?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE secteur SET (nom,description,coordonnees_gps,site_id) = (?,?,?,?) WHERE id = ?;",
                 model.getNom(),
                 model.getDescription(),
                 model.getCoordonneesGPS(),
@@ -87,10 +89,13 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     @Override
     public List<Secteur> search(String termeDeLaRecherche) {
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         SecteurRM secteurRM = new SecteurRM();
-        String SQL = "SELECT DISTINCT * FROM secteur s WHERE s.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR s.decription LIKE \'%" + termeDeLaRecherche + "%\' ;";
-        return jdbcTemplate.query(SQL, secteurRM);
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("terme", "%" + termeDeLaRecherche + "%", Types.VARCHAR);
+
+        String SQL = "SELECT * FROM secteur s WHERE upper(s.nom) LIKE upper(:terme) OR upper(s.description) LIKE upper(:terme);";
+        return jdbcTemplate.query(SQL, params, secteurRM);
     }
 }

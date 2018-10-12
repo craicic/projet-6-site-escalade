@@ -6,8 +6,11 @@ import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
+import java.sql.Types;
 import java.util.List;
 
 @Named
@@ -79,11 +82,13 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
     @Override
     public List<Voie> search(String termeDeLaRecherche) {
         logger.debug("Entrée dans la méthode search avec comme terme de recherche : " + termeDeLaRecherche);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         VoieRM voieRM = new VoieRM();
-        String SQL = "SELECT DISTINCT * FROM voie v WHERE " +
-                "v.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR v.description LIKE \'%" + termeDeLaRecherche +"%\' ;";
-        return jdbcTemplate.query(SQL, voieRM);
+        //Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("terme" , termeDeLaRecherche, Types.VARCHAR);
+
+        String SQL = "SELECT * FROM voie v WHERE upper(v.nom) LIKE upper(:terme) OR upper(v.description) LIKE upper(:terme);";
+        return jdbcTemplate.query(SQL, params, voieRM);
     }
 }

@@ -7,8 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
+import java.sql.Types;
 import java.util.List;
 
 @Named
@@ -76,13 +79,13 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     @Override
     public List<Site> search(String termeDeLaRecherche) {
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         SiteRM siteRM = new SiteRM();
-        String SQL = "SELECT DISTINCT * FROM site s WHERE s.nom LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR s.description LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR s.roche LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR s.profil LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR s.type LIKE \'%" + termeDeLaRecherche +"%\' ;";
-        return jdbcTemplate.query(SQL, siteRM);
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("terme", "%" + termeDeLaRecherche + "%", Types.VARCHAR);
+
+        String SQL = "SELECT * FROM site WHERE upper(nom) LIKE upper(:terme) OR upper(description) LIKE upper(:terme);";
+        return jdbcTemplate.query(SQL, params, siteRM);
     }
 }

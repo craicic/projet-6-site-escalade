@@ -6,8 +6,11 @@ import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
+import java.sql.Types;
 import java.util.List;
 
 @Named
@@ -105,11 +108,15 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     @Override
     public List<Topo> search(String termeDeLaRecherche) {
         logger.debug("Entrée dans la méthode search avec comme terme de recherche : " + termeDeLaRecherche);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         TopoRM topoRM = new TopoRM();
-        String SQL = "SELECT DISTINCT * FROM topo t WHERE t.auteur LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR t.titre LIKE \'%" + termeDeLaRecherche + "%\' " +
-                "OR t.description LIKE \'%" + termeDeLaRecherche +"%\' ;";
-        return jdbcTemplate.query(SQL, topoRM);
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("terme", "%" + termeDeLaRecherche + "%", Types.VARCHAR);
+
+        String SQL = "SELECT * FROM topo t WHERE upper(t.auteur) LIKE upper(:terme) " +
+                "OR upper(t.titre) LIKE upper(:terme) " +
+                "OR upper(t.description) LIKE upper(:terme) ;";
+        return jdbcTemplate.query(SQL, params, topoRM);
     }
 }
