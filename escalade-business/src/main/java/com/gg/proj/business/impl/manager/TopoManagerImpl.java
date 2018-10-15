@@ -3,9 +3,11 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.TopoManager;
 import com.gg.proj.consumer.contract.dao.CommentaireDao;
 import com.gg.proj.consumer.contract.dao.CommentaireSurTopoDao;
+import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.consumer.contract.dao.TopoDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurTopo;
+import com.gg.proj.model.bean.Site;
 import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +28,10 @@ public class TopoManagerImpl implements TopoManager {
 
     @Inject
     TopoDao topoDao;
+
+//   Injection de la siteDao pour la méthode listLinkedSite()
+    @Inject
+    SiteDao siteDao;
 
     @Inject
     CommentaireDao commentaireDao;
@@ -137,14 +143,28 @@ public class TopoManagerImpl implements TopoManager {
     public List<Topo> search(String termeDeLaRecherche) {
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
         List<Topo> listTopo = topoDao.search(termeDeLaRecherche);
+
         if (!listTopo.isEmpty()){
-            logger.info("liste remplie");
+            logger.debug("liste remplie");
             for (Topo topo : listTopo) {
-                logger.info(topo.getTitre());
+                logger.debug(topo.getTitre());
             }
         } else {
-            logger.info("liste vide");
+            logger.debug("liste vide");
         }
         return listTopo;
+    }
+
+    /**
+     * Cette méthode renvoie la liste des site associées au topo
+     *
+     * @param topoId
+     * @return list des site associés
+     */
+    @Override
+    public List<Site> listLinkedSite(Integer topoId) {
+        logger.debug("Entrée dans la méthode listLinkedSite avec le topoId : "+ topoId);
+        List<Site> listSite = siteDao.getListByTopoId(topoId);
+        return listSite;
     }
 }

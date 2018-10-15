@@ -24,6 +24,24 @@
     <li>Dispo à l'emprunt : <s:property value="topo.empreintable"/></li>
 </ul>
 
+<%-- Liste des sites associés --%>
+<s:iterator value="listSiteAssocie">
+    <div><s:a action="detail_site">
+        <s:property value="nom"/>
+    </s:a></div>
+</s:iterator>
+<%-- Plutot dans site --%>
+<%--<div><s:a action="site_new">--%>
+    <%--<s:param name="id" value="id"/>--%>
+    <%--Créer un nouveau site--%>
+<%--</s:a></div>--%>
+<%--<div><s:a action="link_site_topo">--%>
+    <%--<s:param name="id" value="id"/>--%>
+    <%--Lier ce topo à un site existant--%>
+<%--</s:a></div>--%>
+
+<%--==== Commentaires ====--%>
+<%-- Poster un commantaire --%>
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_topo">
         <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
@@ -34,6 +52,7 @@
 <s:else>
     <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
 </s:else>
+<%-- Liste des commentaires --%>
 <ul>
     <s:iterator value="listCommentaire">
         <li>

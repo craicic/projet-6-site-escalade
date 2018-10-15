@@ -71,7 +71,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     }
 
     /**
-     * Fonction qui va accéder à la BDD avec une requête LIKE
+     * Méthode qui va accéder à la BDD avec une requête LIKE
      *
      * @param termeDeLaRecherche
      * @return les sites qui correspondent
@@ -86,6 +86,28 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
         params.addValue("terme", "%" + termeDeLaRecherche + "%", Types.VARCHAR);
 
         String SQL = "SELECT * FROM site WHERE upper(nom) LIKE upper(:terme) OR upper(description) LIKE upper(:terme);";
+        return jdbcTemplate.query(SQL, params, siteRM);
+    }
+
+    /**
+     * Méthode qui accède à la BDD avec utilisation de la table de composition site / topo.
+     * Elle récupère les sites liés au topoId passé en paramètre.
+     *
+     * @param topoId
+     * @return liste des site lié au Topo.
+     */
+    @Override
+    public List<Site> getListByTopoId(Integer topoId) {
+        logger.debug("Entrée dans la méthode getListByTopoId avec le topoId : "+topoId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SiteRM siteRM = new SiteRM();
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", topoId, Types.INTEGER);
+        // requete SQL : On récupère les sites liés au topoId passé en paramètre.
+        String SQL = "SELECT * FROM site WHERE site.id IN " +
+                "(SELECT composition_site_topo.site_id FROM composition_site_topo " +
+                "WHERE composition_site_topo.topo_id = :topoId);";
         return jdbcTemplate.query(SQL, params, siteRM);
     }
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface SiteDao extends CrudDao<Site> {
     List<Site> search(String termeDeLaRecherche);
+
+    List<Site> getListByTopoId(Integer topoId);
 }

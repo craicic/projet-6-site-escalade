@@ -2,6 +2,7 @@ package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.Commentaire;
+import com.gg.proj.model.bean.Site;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +29,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     private Topo topo;
     private Commentaire commentaire;
     private List<Commentaire> listCommentaire;
+    private List<Site> listSiteAssocie;
     private Map<String, Object> session;
 
     public Integer getId() {
@@ -59,6 +61,12 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     }
     public void setListCommentaire(List<Commentaire> listCommentaire) {
         this.listCommentaire = listCommentaire;
+    }
+    public List<Site> getListSiteAssocie() {
+        return listSiteAssocie;
+    }
+    public void setListSiteAssocie(List<Site> listSiteAssocie) {
+        this.listSiteAssocie = listSiteAssocie;
     }
 
     @Override
@@ -100,8 +108,8 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
         } else {
             try {
                 topo = managerFactory.getTopoManager().get(id);
+                listSiteAssocie = managerFactory.getTopoManager().listLinkedSite(id);
                 listCommentaire = managerFactory.getTopoManager().listComments(id);
-
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Topo non trouvé. ID = " + id);

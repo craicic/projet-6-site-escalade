@@ -16,7 +16,6 @@
 <s:form action="login">
     <s:textfield name="identifiant" label="Identifiant" requiredLabel="true" />
     <s:password name="motDePasse" label="Mot de passe" requiredLabel="true" />
-
     <s:submit value="Connexion"/>
 </s:form>
 </body>
