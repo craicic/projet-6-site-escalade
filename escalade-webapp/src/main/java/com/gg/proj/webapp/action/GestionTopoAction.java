@@ -184,10 +184,10 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     public String doLinkSiteTopo() {
         String resultat = ActionSupport.INPUT;
 
-        if (id == null){
-            this.addActionError("Vous devez indiquer un id de topo");
-            resultat = ActionSupport.ERROR;
-        } else {
+//        if (id == null){
+//            this.addActionError("Vous devez indiquer un id de topo");
+//            resultat = ActionSupport.ERROR;
+//        } else {
             if (topo != null){
                 // On créé un objet CompositionSiteTopo
                 CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topo.getId(),site.getId());
@@ -201,7 +201,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 listSite = managerFactory.getSiteManager().listSiteNotLinked(id);
                 topo = managerFactory.getTopoManager().get(id);
             }
-        }
+//        }
         return resultat;
     }
 }

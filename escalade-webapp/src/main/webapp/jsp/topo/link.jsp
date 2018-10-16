@@ -25,7 +25,7 @@
               list="listSite" listKey="id" listValue="nom"
               emptyOption="true"
               requiredLabel="true"/>
-    <%--<s:hidden name="id" value="id"/>--%>
+    <s:hidden name="topo.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
 

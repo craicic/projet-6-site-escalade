@@ -37,7 +37,6 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
 
-
             <result name="success">/jsp/topo/detail.jsp</result>
         </action>
 
@@ -81,17 +80,16 @@
             <result name="success" type="redirectAction">detail_topo</result>
         </action>
 
-        <!-- Pour lié le topo a un site -->
+        <!-- Pour lier le topo a un site -->
         <action name="link_site_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doLinkSiteTopo">
 
             <result name="input">/jsp/topo/link.jsp
-                <!--<param name="id">${topo.id}</param>-->
             </result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_topo</param>
-                <!--<param name="id">${topo.id}</param>-->
+                <param name="id">${topo.id}</param>
             </result>
         </action>
         <!-- ============================ UTILISATEURS ============================ -->
@@ -161,7 +159,10 @@
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doUpdate">
             <result name="input">/jsp/site/update.jsp</result>
-            <result name="success" type="redirectAction">list_site</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_site</param>
+                <param name="id">${site.id}</param>
+            </result>
         </action>
         <action name="delete_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
