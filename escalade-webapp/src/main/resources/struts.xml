@@ -32,11 +32,11 @@
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doDetail">
 
-            <!-- todo l'intercepteur est mal configuré -->
             <interceptor-ref name="store">
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
+
 
             <result name="success">/jsp/topo/detail.jsp</result>
         </action>
@@ -46,7 +46,6 @@
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doCreate">
 
-            <!-- todo l'intercepteur est mal configuré -->
             <interceptor-ref name="store">
                 <param name="operationMode">STORE</param>
             </interceptor-ref>
@@ -82,6 +81,19 @@
             <result name="success" type="redirectAction">detail_topo</result>
         </action>
 
+        <!-- Pour lié le topo a un site -->
+        <action name="link_site_topo"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doLinkSiteTopo">
+
+            <result name="input">/jsp/topo/link.jsp
+                <!--<param name="id">${topo.id}</param>-->
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <!--<param name="id">${topo.id}</param>-->
+            </result>
+        </action>
         <!-- ============================ UTILISATEURS ============================ -->
         <action name="utilisateur_new"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"

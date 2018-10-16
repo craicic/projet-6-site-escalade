@@ -110,4 +110,26 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
                 "WHERE composition_site_topo.topo_id = :topoId);";
         return jdbcTemplate.query(SQL, params, siteRM);
     }
+
+    /**
+     * Méthode qui accède à la BDD avec utilisation de la table de composition site / topo.
+     * Elle récupère la liste de tout les sites qui ne sont pas associé au topoId
+     *
+     * @param topoId
+     * @return liste des site non-lié au Topo.
+     */
+    @Override
+    public List<Site> getListByTopoIdReverse(Integer topoId) {
+        logger.debug("Entrée dans la méthode getListByTopoIdReverse avec le topoId : "+topoId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SiteRM siteRM = new SiteRM();
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", topoId, Types.INTEGER);
+        // requete SQL : On récupère les sites liés au topoId passé en paramètre.
+        String SQL = "SELECT * FROM site WHERE site.id NOT IN " +
+                "(SELECT composition_site_topo.site_id FROM composition_site_topo " +
+                "WHERE composition_site_topo.topo_id = :topoId);";
+        return jdbcTemplate.query(SQL, params, siteRM);
+    }
 }

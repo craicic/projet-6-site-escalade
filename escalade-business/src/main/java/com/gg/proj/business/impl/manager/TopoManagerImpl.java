@@ -5,10 +5,7 @@ import com.gg.proj.consumer.contract.dao.CommentaireDao;
 import com.gg.proj.consumer.contract.dao.CommentaireSurTopoDao;
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.consumer.contract.dao.TopoDao;
-import com.gg.proj.model.bean.Commentaire;
-import com.gg.proj.model.bean.CommentaireSurTopo;
-import com.gg.proj.model.bean.Site;
-import com.gg.proj.model.bean.Topo;
+import com.gg.proj.model.bean.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -162,9 +159,16 @@ public class TopoManagerImpl implements TopoManager {
      * @return list des site associés
      */
     @Override
+    @Transactional
     public List<Site> listLinkedSite(Integer topoId) {
         logger.debug("Entrée dans la méthode listLinkedSite avec le topoId : "+ topoId);
         List<Site> listSite = siteDao.getListByTopoId(topoId);
         return listSite;
+    }
+
+    @Override
+    @Transactional
+    public void setLink(CompositionSiteTopo compositionSiteTopo) {
+        logger.debug("Entrée dans la méthode setLink");
     }
 }

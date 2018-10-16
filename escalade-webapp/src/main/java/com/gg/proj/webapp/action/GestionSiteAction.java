@@ -122,7 +122,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
                 this.addActionMessage("Site modifié : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
-                logger.info("heyxeption" + e.getMessage());
+                logger.info("exception " + e.getMessage());
                 this.addActionError(e.getMessage());
             }
         } else {

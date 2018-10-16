@@ -36,7 +36,8 @@
     </s:iterator>
 </ul>
 
-<s:a action="secteur_new">nouveau secteur associé</s:a>
+
+<div><s:a action="secteur_new">nouveau secteur associé</s:a></div>
 
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_site">

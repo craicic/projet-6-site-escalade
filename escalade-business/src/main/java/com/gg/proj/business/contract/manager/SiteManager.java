@@ -14,4 +14,6 @@ public interface SiteManager extends CrudManager<Site> {
     public List<Commentaire> listComments(Integer id);
 
     List<Site> search(String termeDeLaRecherche);
+
+    List<Site> listSiteNotLinked(Integer topoId);
 }

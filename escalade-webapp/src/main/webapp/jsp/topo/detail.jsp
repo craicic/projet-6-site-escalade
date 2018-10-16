@@ -25,22 +25,26 @@
 </ul>
 
 <%-- Liste des sites associés --%>
-<s:iterator value="listSiteAssocie">
+<s:iterator value="listSite">
     <div><s:a action="detail_site">
         <s:property value="nom"/>
     </s:a></div>
 </s:iterator>
-<%-- Plutot dans site --%>
+
+<%-- todo refléchir a l'utilité de : --%>
 <%--<div><s:a action="site_new">--%>
     <%--<s:param name="id" value="id"/>--%>
     <%--Créer un nouveau site--%>
 <%--</s:a></div>--%>
-<%--<div><s:a action="link_site_topo">--%>
-    <%--<s:param name="id" value="id"/>--%>
-    <%--Lier ce topo à un site existant--%>
-<%--</s:a></div>--%>
 
-<%--==== Commentaires ====--%>
+<div><s:a action="link_site_topo">
+<%--Pas sur que cette ligne servent a quelque chose --%>
+    <%--<s:param name="id" value="id"/>--%>
+    <s:param name="id" value="id"/>
+    Lier ce topo à un site existant
+</s:a></div>
+
+<%-- ==== Commentaires ==== --%>
 <%-- Poster un commantaire --%>
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_topo">

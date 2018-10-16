@@ -126,4 +126,12 @@ public class SiteManagerImpl implements SiteManager {
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
         return siteDao.search(termeDeLaRecherche);
     }
+
+    @Override
+    @Transactional
+    public List<Site> listSiteNotLinked(Integer topoId) {
+        logger.debug("Entrée dans la méthode listSiteNotLinked avec le topoId :" +topoId);
+        List<Site> listSite = siteDao.getListByTopoIdReverse(topoId);
+        return listSite;
+    }
 }

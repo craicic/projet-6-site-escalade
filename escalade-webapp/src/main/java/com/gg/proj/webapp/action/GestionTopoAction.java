@@ -1,10 +1,7 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
-import com.gg.proj.model.bean.Commentaire;
-import com.gg.proj.model.bean.Site;
-import com.gg.proj.model.bean.Topo;
-import com.gg.proj.model.bean.Utilisateur;
+import com.gg.proj.model.bean.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,9 +24,10 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     private Integer id;
     private List<Topo> listTopo;
     private Topo topo;
+    private Site site;
     private Commentaire commentaire;
     private List<Commentaire> listCommentaire;
-    private List<Site> listSiteAssocie;
+    private List<Site> listSite;
     private Map<String, Object> session;
 
     public Integer getId() {
@@ -50,6 +48,12 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     public void setTopo(Topo topo) {
         this.topo = topo;
     }
+    public Site getSite() {
+        return site;
+    }
+    public void setSite(Site site) {
+        this.site = site;
+    }
     public Commentaire getCommentaire() {
         return commentaire;
     }
@@ -62,11 +66,11 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     public void setListCommentaire(List<Commentaire> listCommentaire) {
         this.listCommentaire = listCommentaire;
     }
-    public List<Site> getListSiteAssocie() {
-        return listSiteAssocie;
+    public List<Site> getListSite() {
+        return listSite;
     }
-    public void setListSiteAssocie(List<Site> listSiteAssocie) {
-        this.listSiteAssocie = listSiteAssocie;
+    public void setListSite(List<Site> listSite) {
+        this.listSite = listSite;
     }
 
     @Override
@@ -107,8 +111,10 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
             this.addActionError("Vous devez indiquer un id de topo");
         } else {
             try {
+
                 topo = managerFactory.getTopoManager().get(id);
-                listSiteAssocie = managerFactory.getTopoManager().listLinkedSite(id);
+                // La liste des sites associés au topo d'id topoId
+                listSite = managerFactory.getTopoManager().listLinkedSite(id);
                 listCommentaire = managerFactory.getTopoManager().listComments(id);
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
@@ -172,5 +178,30 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
         logger.info(commentaire.getId()+" "+commentaire.getContenuTexte()+" id = " + id);
         managerFactory.getTopoManager().addComment(commentaire,id);
         return ActionSupport.SUCCESS;
+    }
+
+
+    public String doLinkSiteTopo() {
+        String resultat = ActionSupport.INPUT;
+
+        if (id == null){
+            this.addActionError("Vous devez indiquer un id de topo");
+            resultat = ActionSupport.ERROR;
+        } else {
+            if (topo != null){
+                // On créé un objet CompositionSiteTopo
+                CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topo.getId(),site.getId());
+                // On sort du formulaire avec les infos sur le site associé, il faut maintenant entré envoyé ceci en back
+                managerFactory.getTopoManager().setLink(compositionSiteTopo);
+                // Il faut récupéré l'id du topo (pour la redirection)
+                topo.setId(managerFactory.getTopoManager().getId(topo));
+                resultat = ActionSupport.SUCCESS;
+            } else {
+                // On récupère la liste des site pour la boite de choix, il nous faut exlure les site déja associé a ce topo
+                listSite = managerFactory.getSiteManager().listSiteNotLinked(id);
+                topo = managerFactory.getTopoManager().get(id);
+            }
+        }
+        return resultat;
     }
 }
