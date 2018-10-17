@@ -101,6 +101,16 @@
                 <param name="id">${topo.id}</param>
             </result>
         </action>
+
+        <!-- Pour supprimer le lien -->
+        <action name="delete_link"
+                class="com.gg.proj.webapp.action.GestionTopoAction"
+                method="doDeleteLink">
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <param name="id">${topo.id}</param>
+            </result>
+        </action>
         <!-- ============================ UTILISATEURS ============================ -->
         <action name="utilisateur_new"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"

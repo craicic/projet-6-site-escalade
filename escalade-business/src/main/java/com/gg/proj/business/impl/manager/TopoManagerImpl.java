@@ -167,7 +167,10 @@ public class TopoManagerImpl implements TopoManager {
         return listSite;
     }
 
-
+    /**
+     * Cette méthode appel la dao pour création d'une entrée Composition_site_topo
+     * @param compositionSiteTopo
+     */
     @Override
     @Transactional
     public void setLink(CompositionSiteTopo compositionSiteTopo)  {
@@ -179,5 +182,17 @@ public class TopoManagerImpl implements TopoManager {
         } catch (DataIntegrityViolationException e) {
             logger.warn(e.getMessage());
         }
+    }
+
+    /**
+     * Supprime l'entrée compositionSiteTopo associée en bdd
+     * @param topoId
+     * @param siteId
+     */
+    @Override
+    public void deleteLink(Integer topoId, Integer siteId) {
+        logger.debug("Entrée dans la méthode deleteLink avec topoId : " + topoId + " et siteId : " +siteId);
+        CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topoId,siteId);
+        compositionSiteTopoDao.deleteByModel(compositionSiteTopo);
     }
 }

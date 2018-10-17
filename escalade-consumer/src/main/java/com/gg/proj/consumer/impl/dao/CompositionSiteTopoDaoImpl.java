@@ -82,4 +82,22 @@ public class CompositionSiteTopoDaoImpl extends AbstractDaoImpl implements Compo
         params.addValue("topoId", topoId);
         jdbcTemplate.update("DELETE FROM composition_site_topo WHERE topo_id = :topoId;", params);
     }
+
+    /**
+     * Méthode dao de suppression de l'entrée compositionSiteTopo
+     * @param compositionSiteTopo
+     */
+    @Override
+    public void deleteByModel(CompositionSiteTopo compositionSiteTopo) {
+        logger.debug("Entrée dans la méthode deleteByModel");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+
+        // définition des params
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", compositionSiteTopo.getTopoId());
+        params.addValue("siteId", compositionSiteTopo.getSiteId());
+
+        String SQL = "DELETE FROM composition_site_topo WHERE (topo_id,site_id) = (:topoId,:siteId);";
+        jdbcTemplate.update(SQL, params);
+    }
 }

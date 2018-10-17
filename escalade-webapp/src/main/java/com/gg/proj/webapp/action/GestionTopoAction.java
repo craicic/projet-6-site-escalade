@@ -211,4 +211,9 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 //        }
         return resultat;
     }
+
+    public String doDeleteLink() {
+        managerFactory.getTopoManager().deleteLink(topo.getId(),site.getId());
+        return ActionSupport.SUCCESS;
+    }
 }

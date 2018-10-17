@@ -30,6 +30,13 @@
         <s:param name="id" value="id"/>
         <s:property value="nom"/>
     </s:a></div>
+    <div>
+        <s:a action="delete_link">
+            <s:param name="topo.id" value="%{topo.id}"/>
+            <s:param name="site.id" value="id"/>
+            Supprimer l'association
+        </s:a>
+    </div>
 </s:iterator>
 
 <%-- todo refléchir a l'utilité de : --%>

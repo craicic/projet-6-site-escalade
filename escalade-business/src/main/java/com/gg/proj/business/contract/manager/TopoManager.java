@@ -20,4 +20,6 @@ public interface TopoManager extends CrudManager<Topo> {
     List<Site> listLinkedSite(Integer topoId);
 
     void setLink(CompositionSiteTopo compositionSiteTopo);
+
+    void deleteLink(Integer topoId, Integer siteId);
 }

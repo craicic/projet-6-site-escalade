@@ -5,4 +5,5 @@ import com.gg.proj.model.bean.CompositionSiteTopo;
 
 public interface CompositionSiteTopoDao extends CrudDao<CompositionSiteTopo> {
 
+    void deleteByModel(CompositionSiteTopo compositionSiteTopo);
 }

@@ -16,11 +16,10 @@
 
 <h2>Association du topo à un site</h2>
 
-<div>
-    <s:property value="topo.titre"/>
-</div>
+<div><s:property value="topo.titre"/></div>
+
 <s:if test="%{listSite.isEmpty()}">
-    Aucun site à associer
+    <div>Aucun site à associer</div>
 </s:if>
 <s:else>
     <s:form action="link_site_topo">
