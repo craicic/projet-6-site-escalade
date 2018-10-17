@@ -27,6 +27,7 @@
 <%-- Liste des sites associés --%>
 <s:iterator value="listSite">
     <div><s:a action="detail_site">
+        <s:param name="id" value="id"/>
         <s:property value="nom"/>
     </s:a></div>
 </s:iterator>
@@ -38,8 +39,6 @@
 <%--</s:a></div>--%>
 
 <div><s:a action="link_site_topo">
-<%--Pas sur que cette ligne servent a quelque chose --%>
-    <%--<s:param name="id" value="id"/>--%>
     <s:param name="id" value="id"/>
     Lier ce topo à un site existant
 </s:a></div>

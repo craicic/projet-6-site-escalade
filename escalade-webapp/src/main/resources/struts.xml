@@ -77,7 +77,10 @@
         <action name="add_comment_topo"
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doAddComment">
-            <result name="success" type="redirectAction">detail_topo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <param name="id">${id}</param>
+            </result>
         </action>
 
         <!-- Pour lier le topo a un site -->
@@ -258,7 +261,17 @@
         <action name="delete_commentaire"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doDelete">
-            <result name="success" type="redirectAction">detail_topo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+            </result>
+        </action>
+        <action name="delete_commentaire_on_topo"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <param name="id">${id}</param>
+            </result>
         </action>
         <!-- ============================ LOGIN / LOGOUT ============================ -->
         <action name="login"

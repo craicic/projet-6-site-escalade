@@ -189,12 +189,13 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 //            resultat = ActionSupport.ERROR;
 //        } else {
             if (topo != null){
-                // On créé un objet CompositionSiteTopo
+                // On créé un objet CompositionSiteTopoDao
                 CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topo.getId(),site.getId());
                 // On sort du formulaire avec les infos sur le site associé, il faut maintenant entré envoyé ceci en back
                 managerFactory.getTopoManager().setLink(compositionSiteTopo);
                 // Il faut récupéré l'id du topo (pour la redirection)
-                topo.setId(managerFactory.getTopoManager().getId(topo));
+                // Pas sur !
+                // topo.setId(managerFactory.getTopoManager().getId(topo));
                 resultat = ActionSupport.SUCCESS;
             } else {
                 // On récupère la liste des site pour la boite de choix, il nous faut exlure les site déja associé a ce topo

@@ -23,7 +23,7 @@
 <s:form action="link_site_topo">
     <s:select name="site.id" Label="Site"
               list="listSite" listKey="id" listValue="nom"
-              emptyOption="true"
+              emptyOption="false"
               requiredLabel="true"/>
     <s:hidden name="topo.id" value="%{id}"/>
     <s:submit value="Ok"/>

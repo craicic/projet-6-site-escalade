@@ -1,13 +1,11 @@
 package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.TopoManager;
-import com.gg.proj.consumer.contract.dao.CommentaireDao;
-import com.gg.proj.consumer.contract.dao.CommentaireSurTopoDao;
-import com.gg.proj.consumer.contract.dao.SiteDao;
-import com.gg.proj.consumer.contract.dao.TopoDao;
+import com.gg.proj.consumer.contract.dao.*;
 import com.gg.proj.model.bean.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +35,10 @@ public class TopoManagerImpl implements TopoManager {
     CommentaireSurTopoDao commentaireSurTopoDao;
 
     @Inject
-    private PlatformTransactionManager platformTransactionManager;
+    CompositionSiteTopoDao compositionSiteTopoDao;
+
+//    @Inject
+//    private PlatformTransactionManager platformTransactionManager;
 
     // todo implémenter des vérification de saisie aux updates de tout les models
     @Override
@@ -166,9 +167,17 @@ public class TopoManagerImpl implements TopoManager {
         return listSite;
     }
 
+
     @Override
     @Transactional
-    public void setLink(CompositionSiteTopo compositionSiteTopo) {
+    public void setLink(CompositionSiteTopo compositionSiteTopo)  {
         logger.debug("Entrée dans la méthode setLink");
+
+        try {
+            // On va faire appelle a la daoCompositionSiteTopo
+            compositionSiteTopoDao.create(compositionSiteTopo);
+        } catch (DataIntegrityViolationException e) {
+            logger.warn(e.getMessage());
+        }
     }
 }

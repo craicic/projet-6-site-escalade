@@ -75,7 +75,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     @Override
     public void delete(Integer id) {
-        logger.debug("Entrée dans la méthode create");
+        logger.debug("Entrée dans la méthode delete");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM topo WHERE id = ?;", id);
     }
