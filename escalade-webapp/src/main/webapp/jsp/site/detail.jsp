@@ -23,11 +23,22 @@
     <li>Profil : <s:property value="site.profil"/></li>
     <li>Roche : <s:property value="site.roche"/></li>
     <li>Type : <s:property value="site.type"/></li>
+
     <s:iterator value="listSecteur">
-        <s:property value="siteId"/>
-        <s:property value="id"/>
-        <%-- todo fixer cette condition qui ne marche pas --%>
-        <s:if test="%{siteId == id}">
+
+        <%-- Test sur les differentes valeurs --%>
+        <%--<div>siteId : <s:property value="siteId"/></div>--%>
+        <%--<div>%siteId : <s:property value="%{siteId}"/></div>--%>
+        <%--<div>secteur.siteId : <s:property value="secteur.siteId"/></div>--%>
+        <%--<div>%secteur.siteId : <s:property value="%{secteur.siteId}"/></div>--%>
+        <%--<div>site.id : <s:property value="site.id"/></div>--%>
+        <%--<div>%site.id : <s:property value="%{site.id}"/></div>--%>
+        <%--<div>id : <s:property value="id"/></div>--%>
+        <%--<div>%id : <s:property value="%{id}"/></div>--%>
+        <%--<div>secteur.id : <s:property value="secteur.id"/></div>--%>
+        <%--<div>%secteur.id : <s:property value="%{secteur.id}"/></div>--%>
+
+        <s:if test="%{siteId eq site.id}">
             <li><s:a action="detail_secteur">
                 <s:param name="id" value="id"/>
                 Secteur associé : <s:property value="nom"/>
@@ -37,7 +48,11 @@
 </ul>
 
 
-<div><s:a action="secteur_new">nouveau secteur associé</s:a></div>
+<div>
+    <s:a action="secteur_new">nouveau secteur associé
+        <s:param name="secteur.siteId" value="id"/>
+    </s:a>
+</div>
 
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_site">

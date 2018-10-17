@@ -51,7 +51,7 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doCreate() {
         String result = ActionSupport.INPUT;
-        if(secteur != null){
+        if(secteur.getNom() != null){
             managerFactory.getSecteurManager().create(secteur);
             result = ActionSupport.SUCCESS;
         } else

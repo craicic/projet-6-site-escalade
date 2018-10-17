@@ -26,11 +26,11 @@
 
 <%-- Liste des sites associés --%>
 <s:iterator value="listSite">
-    <div><s:a action="detail_site">
+    <div>
+        <s:a action="detail_site">
         <s:param name="id" value="id"/>
         <s:property value="nom"/>
-    </s:a></div>
-    <div>
+    </s:a>
         <s:a action="delete_link">
             <s:param name="topo.id" value="%{topo.id}"/>
             <s:param name="site.id" value="id"/>
