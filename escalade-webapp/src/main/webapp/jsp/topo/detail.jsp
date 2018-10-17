@@ -10,7 +10,7 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 
@@ -34,8 +34,8 @@
 
 <%-- todo refléchir a l'utilité de : --%>
 <%--<div><s:a action="site_new">--%>
-    <%--<s:param name="id" value="id"/>--%>
-    <%--Créer un nouveau site--%>
+<%--<s:param name="id" value="id"/>--%>
+<%--Créer un nouveau site--%>
 <%--</s:a></div>--%>
 
 <div><s:a action="link_site_topo">

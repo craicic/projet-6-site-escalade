@@ -86,7 +86,7 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         VoieRM voieRM = new VoieRM();
         //Préparation des paramètres
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("terme" , termeDeLaRecherche, Types.VARCHAR);
+        params.addValue("terme" , "%" + termeDeLaRecherche + "%", Types.VARCHAR);
 
         String SQL = "SELECT * FROM voie v WHERE upper(v.nom) LIKE upper(:terme) OR upper(v.description) LIKE upper(:terme);";
         return jdbcTemplate.query(SQL, params, voieRM);
