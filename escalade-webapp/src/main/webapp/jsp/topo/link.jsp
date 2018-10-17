@@ -19,15 +19,18 @@
 <div>
     <s:property value="topo.titre"/>
 </div>
-
-<s:form action="link_site_topo">
-    <s:select name="site.id" Label="Site"
-              list="listSite" listKey="id" listValue="nom"
-              emptyOption="false"
-              requiredLabel="true"/>
-    <s:hidden name="topo.id" value="%{id}"/>
-    <s:submit value="Ok"/>
-</s:form>
-
+<s:if test="%{listSite.isEmpty()}">
+    Aucun site à associer
+</s:if>
+<s:else>
+    <s:form action="link_site_topo">
+        <s:select name="site.id" Label="Site"
+                  list="listSite" listKey="id" listValue="nom"
+                  emptyOption="false"
+                  requiredLabel="true"/>
+        <s:hidden name="topo.id" value="%{id}"/>
+        <s:submit value="Ok"/>
+    </s:form>
+</s:else>
 </body>
 </html>

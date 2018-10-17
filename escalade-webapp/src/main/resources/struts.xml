@@ -90,7 +90,13 @@
 
             <result name="input">/jsp/topo/link.jsp
             </result>
+
             <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <param name="id">${topo.id}</param>
+            </result>
+
+            <result name="none" type="redirectAction">
                 <param name="actionName">detail_topo</param>
                 <param name="id">${topo.id}</param>
             </result>
@@ -265,6 +271,7 @@
                 <param name="actionName">index</param>
             </result>
         </action>
+        <!-- todo faire une séparation des actions de delete message -->
         <action name="delete_commentaire_on_topo"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doDelete">

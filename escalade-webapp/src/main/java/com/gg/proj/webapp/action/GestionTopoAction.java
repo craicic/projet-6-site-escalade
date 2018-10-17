@@ -197,7 +197,13 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 // Pas sur !
                 // topo.setId(managerFactory.getTopoManager().getId(topo));
                 resultat = ActionSupport.SUCCESS;
-            } else {
+            }
+//            else if (topo != null){
+//                // Ajout du cas NONE, c'est lorsque la liste est vide, on doit etre redirigé vers la page topo detail avec l'id et un message d'alerte
+//                this.addActionMessage("La liste des sites associable est vide, créez d'autres sites avant");
+//                resultat = ActionSupport.NONE;
+//            }
+            else {
                 // On récupère la liste des site pour la boite de choix, il nous faut exlure les site déja associé a ce topo
                 listSite = managerFactory.getSiteManager().listSiteNotLinked(id);
                 topo = managerFactory.getTopoManager().get(id);
