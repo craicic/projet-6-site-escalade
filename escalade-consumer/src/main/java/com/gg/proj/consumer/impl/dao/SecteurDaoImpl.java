@@ -3,6 +3,7 @@ package com.gg.proj.consumer.impl.dao;
 import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.consumer.impl.rowmapper.SecteurRM;
 import com.gg.proj.model.bean.Secteur;
+import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -98,4 +99,19 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         String SQL = "SELECT * FROM secteur s WHERE upper(s.nom) LIKE upper(:terme) OR upper(s.description) LIKE upper(:terme);";
         return jdbcTemplate.query(SQL, params, secteurRM);
     }
+
+    @Override
+    public Secteur getSecteurByVoieId(Integer voieId) {
+        logger.debug("Entrée dans la méthode getSecteurByVoieId avec le voieId : " + voieId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SecteurRM secteurRM = new SecteurRM();
+        // Péparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("voieId", voieId, Types.INTEGER);
+
+        String SQL = "SELECT * FROM secteur JOIN  voie ON secteur.id = voie.secteur_id WHERE voie.id = :voieId;";
+        return jdbcTemplate.queryForObject(SQL, params, secteurRM);
+    }
+
+
 }

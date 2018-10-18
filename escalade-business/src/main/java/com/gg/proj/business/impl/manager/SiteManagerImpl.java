@@ -7,7 +7,6 @@ import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurSite;
 import com.gg.proj.model.bean.Site;
-import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
@@ -127,11 +126,29 @@ public class SiteManagerImpl implements SiteManager {
         return siteDao.search(termeDeLaRecherche);
     }
 
+    /**
+     * Liste les sites qui ne sont pas déjà lié au topo d'id topoId
+     *
+     * @param topoId
+     * @return liste de sites
+     */
     @Override
     @Transactional
     public List<Site> listSiteNotLinked(Integer topoId) {
         logger.debug("Entrée dans la méthode listSiteNotLinked avec le topoId :" +topoId);
         List<Site> listSite = siteDao.getListByTopoIdReverse(topoId);
         return listSite;
+    }
+
+    /**
+     * Recupére un objet Site associé au secteurId
+     *
+     * @param secteurId
+     * @return Site
+     */
+    @Override
+    public Site getLinkedSiteBySecteurId(Integer secteurId) {
+        logger.debug("Entrée dans la méthode getLinkedSiteBySecteurId() avec le secteurId " + secteurId );
+        return siteDao.getSiteBySecteurId(secteurId);
     }
 }

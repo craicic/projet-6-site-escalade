@@ -10,7 +10,7 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 
@@ -21,7 +21,12 @@
     <li>Nom : <s:property value="secteur.nom"/></li>
     <li>Description : <s:property value="secteur.description"/></li>
     <%-- todo coord GPS --%>
-    <li>Site associé : <s:property value="secteur.siteId"/></li>
+    <li>
+        <s:a action="detail_site">
+            Site associé : <s:property value="site.nom"/>
+            <s:param name="id" value="site.id"/>
+        </s:a>
+    </li>
 </ul>
 
 <s:iterator value="listVoie">
@@ -39,10 +44,10 @@
     <%--<div>%voie.id : <s:property value="%{voie.id}"/></div>--%>
 
     <%--<s:if test="%{secteurId eq secteur.id}">--%>
-        <li><s:a action="detail_voie">
-            <s:param name="id" value="id"/>
-            Voie associée : <s:property value="nom"/>
-        </s:a></li>
+    <li><s:a action="detail_voie">
+        <s:param name="id" value="id"/>
+        Voie associée : <s:property value="nom"/>
+    </s:a></li>
     <%--</s:if>--%>
 </s:iterator>
 

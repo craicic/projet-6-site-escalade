@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface SecteurManager extends CrudDao<Secteur> {
     List<Secteur> search(String termeDeLaRecherche);
+
+    Secteur getLinkedSecteurByVoieId(Integer voieId);
 }

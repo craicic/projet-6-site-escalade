@@ -3,7 +3,6 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.SecteurManager;
 import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.model.bean.Secteur;
-import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.postgresql.geometric.PGpoint;
@@ -77,5 +76,17 @@ public class SecteurManagerImpl implements SecteurManager {
 
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
         return secteurDao.search(termeDeLaRecherche);
+    }
+
+    /**
+     * Solocite la dao pour récupération d'un secteur par voieId
+     *
+     * @param voieId
+     * @return un object Secteur
+     */
+    @Override
+    public Secteur getLinkedSecteurByVoieId(Integer voieId) {
+        logger.debug("Entrée dans la méthode getLinkedSecteurByVoieId avec le secteurId " + voieId );
+        return secteurDao.getSecteurByVoieId(voieId);
     }
 }

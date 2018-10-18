@@ -132,4 +132,25 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
                 "WHERE composition_site_topo.topo_id = :topoId);";
         return jdbcTemplate.query(SQL, params, siteRM);
     }
+
+    /**
+     *
+     * Cette méthode récupère l'objet Site par secteurId
+     *
+     * @param secteurId
+     * @return Site
+     */
+    @Override
+    public Site getSiteBySecteurId(Integer secteurId) {
+        logger.debug("Entrée dans la méthode getSiteBySecteurId avec le secteurId : " + secteurId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SiteRM siteRM = new SiteRM();
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("secteurId", secteurId, Types.INTEGER);
+
+        String SQL = "SELECT * FROM site JOIN secteur ON site.id = secteur.site_id WHERE secteur.id = :secteurId;";
+        return jdbcTemplate.queryForObject(SQL ,params,siteRM);
+    }
+
 }

@@ -74,7 +74,7 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
     }
 
     /**
-     * Fonction qui va accéder à la BDD avec une requête LIKE
+     * Méthode qui va accéder à la BDD avec une requête LIKE
      *
      * @param termeDeLaRecherche
      * @return les voies qui correspondent
@@ -92,6 +92,11 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         return jdbcTemplate.query(SQL, params, voieRM);
     }
 
+    /**
+     * Méthode qui récupère les voie associé un secteur
+     * @param secteurId
+     * @return la liste des voies liées au secteur
+     */
     @Override
     public List<Voie> listBySecteurId(Integer secteurId) {
         logger.debug("Entrée dans la méthode listBySecteurId avec le secteurId : " + secteurId);

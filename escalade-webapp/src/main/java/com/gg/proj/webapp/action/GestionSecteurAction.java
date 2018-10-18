@@ -22,6 +22,7 @@ public class GestionSecteurAction extends ActionSupport {
 
     private Integer id;
     private Secteur secteur;
+    private Site site;
     private List<Secteur> listSecteur;
     private List<Site> listSite;
     private List<Voie> listVoie;
@@ -40,6 +41,14 @@ public class GestionSecteurAction extends ActionSupport {
 
     public void setSecteur(Secteur secteur) {
         this.secteur = secteur;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 
     public List<Site> getListSite() {
@@ -68,6 +77,9 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doCreate() {
         String result = ActionSupport.INPUT;
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
         if (secteur.getNom() != null) {
             managerFactory.getSecteurManager().create(secteur);
             result = ActionSupport.SUCCESS;
@@ -83,6 +95,7 @@ public class GestionSecteurAction extends ActionSupport {
         } else {
             try {
                 secteur = managerFactory.getSecteurManager().get(id);
+                site = managerFactory.getSiteManager().getLinkedSiteBySecteurId(id);
                 listVoie = managerFactory.getVoieManager().listLinkedVoie(id);
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());

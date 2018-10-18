@@ -10,7 +10,7 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 
@@ -24,7 +24,12 @@
     <li>Nombre de longueurs : <s:property value="voie.nombreDeLongueurs"/></li>
     <li>Cotation : <s:property value="voie.cotation"/></li>
     <li>Hauteur : <s:property value="voie.hauteur"/></li>
-    <li>Secteur associé : <s:property value="voie.secteurId"/></li>
+    <li>
+        <s:a action="detail_secteur">
+        Secteur associé : <s:property value="secteur.nom"/>
+    <s:param name="id" value="secteur.id"/>
+    </s:a>
+    </li>
 </ul>
 
 <s:if test="#session.utilisateur">
