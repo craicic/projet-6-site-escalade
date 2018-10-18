@@ -310,6 +310,7 @@
         </action>
 
     </package>
+
     <package name="ajax" namespace="/async" extends="struts-default, json-default">
   <!-- todo faire les action searchAsync1 2 3 4-->
         <action name="searchAsync"
@@ -320,4 +321,5 @@
             </result>
         </action>
     </package>
+
 </struts>

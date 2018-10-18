@@ -13,4 +13,6 @@ public interface VoieManager extends CrudDao<Voie> {
     public List<Commentaire> listComments(Integer id);
 
     List<Voie> search(String termeDeLaRecherche);
+
+    List<Voie> listLinkedVoie(Integer secteurId);
 }

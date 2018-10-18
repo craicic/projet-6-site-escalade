@@ -3,6 +3,7 @@ package com.gg.proj.webapp.action;
 import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.Secteur;
 import com.gg.proj.model.bean.Site;
+import com.gg.proj.model.bean.Voie;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,35 +24,51 @@ public class GestionSecteurAction extends ActionSupport {
     private Secteur secteur;
     private List<Secteur> listSecteur;
     private List<Site> listSite;
+    private List<Voie> listVoie;
 
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Secteur getSecteur() {
         return secteur;
     }
+
     public void setSecteur(Secteur secteur) {
         this.secteur = secteur;
     }
+
     public List<Site> getListSite() {
         return listSite;
     }
+
     public void setListSite(List<Site> listSite) {
         this.listSite = listSite;
     }
+
     public List<Secteur> getListSecteur() {
         return listSecteur;
     }
+
     public void setListSecteur(List<Secteur> listSecteur) {
         this.listSecteur = listSecteur;
     }
 
+    public List<Voie> getListVoie() {
+        return listVoie;
+    }
+
+    public void setListVoie(List<Voie> listVoie) {
+        this.listVoie = listVoie;
+    }
+
     public String doCreate() {
         String result = ActionSupport.INPUT;
-        if(secteur.getNom() != null){
+        if (secteur.getNom() != null) {
             managerFactory.getSecteurManager().create(secteur);
             result = ActionSupport.SUCCESS;
         } else
@@ -65,7 +82,8 @@ public class GestionSecteurAction extends ActionSupport {
             this.addActionError("Vous devez indiquer un id de secteur");
         } else {
             try {
-        secteur = managerFactory.getSecteurManager().get(id);
+                secteur = managerFactory.getSecteurManager().get(id);
+                listVoie = managerFactory.getVoieManager().listLinkedVoie(id);
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Secteur non trouvé. ID = " + id);
@@ -82,7 +100,7 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doUpdate() {
         String resultat = ActionSupport.INPUT;
-        if(secteur != null) {
+        if (secteur != null) {
             try {
                 // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Site temporaire
                 // Ainsi l'id est non modifiable.

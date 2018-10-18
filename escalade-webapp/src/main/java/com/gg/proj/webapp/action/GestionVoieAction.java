@@ -74,7 +74,7 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
-        if(voie != null) {
+        if(voie.getNom() != null) {
                 managerFactory.getVoieManager().create(voie);
                 this.addActionMessage("Voie modifié : " + voie.getNom());
                 resultat = ActionSupport.SUCCESS;

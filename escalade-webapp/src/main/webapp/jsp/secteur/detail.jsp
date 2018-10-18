@@ -23,6 +23,34 @@
     <%-- todo coord GPS --%>
     <li>Site associé : <s:property value="secteur.siteId"/></li>
 </ul>
-<%--<p><s:a action="voie_new">nouvelle voie associée</s:a></p>--%>
+
+<s:iterator value="listVoie">
+
+    <%-- Test sur les differentes valeurs --%>
+    <%--<div>secteurId : <s:property value="secteurId"/></div>--%>
+    <%--<div>%secteurId : <s:property value="%{secteurId}"/></div>--%>
+    <%--<div>voie.secteurId : <s:property value="voie.secteurId"/></div>--%>
+    <%--<div>%voie.secteurId : <s:property value="%{voie.secteurId}"/></div>--%>
+    <%--<div>secteur.id : <s:property value="secteur.id"/></div>--%>
+    <%--<div>%secteur.id : <s:property value="%{secteur.id}"/></div>--%>
+    <%--<div>id : <s:property value="id"/></div>--%>
+    <%--<div>%id : <s:property value="%{id}"/></div>--%>
+    <%--<div>voie.id : <s:property value="voie.id"/></div>--%>
+    <%--<div>%voie.id : <s:property value="%{voie.id}"/></div>--%>
+
+    <%--<s:if test="%{secteurId eq secteur.id}">--%>
+        <li><s:a action="detail_voie">
+            <s:param name="id" value="id"/>
+            Voie associée : <s:property value="nom"/>
+        </s:a></li>
+    <%--</s:if>--%>
+</s:iterator>
+
+<div>
+    <s:a action="voie_new">nouvelle voie associée
+        <s:param name="voie.secteurId" value="id"/>
+    </s:a>
+</div>
+
 </body>
 </html>

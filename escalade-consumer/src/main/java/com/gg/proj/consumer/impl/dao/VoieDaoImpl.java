@@ -91,4 +91,19 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         String SQL = "SELECT * FROM voie v WHERE upper(v.nom) LIKE upper(:terme) OR upper(v.description) LIKE upper(:terme);";
         return jdbcTemplate.query(SQL, params, voieRM);
     }
+
+    @Override
+    public List<Voie> listBySecteurId(Integer secteurId) {
+        logger.debug("Entrée dans la méthode listBySecteurId avec le secteurId : " + secteurId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        VoieRM voieRM = new VoieRM();
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("secteurId",secteurId,Types.INTEGER);
+
+        String SQL ="SELECT * FROM voie v WHERE (v.secteur_id) = (:secteurId) ;";
+        return jdbcTemplate.query(SQL,params,voieRM);
+    }
+
+
 }

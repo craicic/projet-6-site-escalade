@@ -125,4 +125,16 @@ public class VoieManagerImpl implements VoieManager {
         logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
         return voieDao.search(termeDeLaRecherche);
     }
+
+    /**
+     * Solocite la Dao pour récupérer les voies associées à un secteur donné.
+     *
+     * @param secteurId
+     * @return la liste des voies
+     */
+    @Override
+    public List<Voie> listLinkedVoie(Integer secteurId) {
+        logger.debug("Entrée dans la méthode listLinkedVoie avec le secteurId " + secteurId);
+        return voieDao.listBySecteurId(secteurId);
+    }
 }

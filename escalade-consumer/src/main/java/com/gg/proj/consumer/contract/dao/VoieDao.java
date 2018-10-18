@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface VoieDao extends CrudDao<Voie> {
     List<Voie> search(String termeDeLaRecherche);
+
+    List<Voie> listBySecteurId(Integer secteurId);
 }

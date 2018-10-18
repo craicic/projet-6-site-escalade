@@ -25,7 +25,7 @@
             <div>Site associé : <s:property value="siteId"/></div>
             <div><s:a action="detail_secteur">
                 <s:param name="id" value="id"/>
-                détail du site
+                détail du secteur
             </s:a></div>
             <div><s:a action="update_secteur">
                 <s:param name="id" value="id"/>
