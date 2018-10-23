@@ -192,7 +192,10 @@
         <action name="add_comment_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doAddComment">
-            <result name="success" type="redirectAction">index</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_site</param>
+                <param name="id">${id}</param>
+            </result>
         </action>
 
         <!-- ============================ SECTEUR ============================ -->
@@ -246,7 +249,10 @@
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doUpdate">
             <result name="input">/jsp/voie/update.jsp</result>
-            <result name="success" type="redirectAction">list_voie</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_voie</param>
+                <param name="id">${voie.id}</param>
+            </result>
         </action>
         <action name="delete_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
@@ -258,7 +264,10 @@
         <action name="add_comment_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doAddComment">
-            <result name="success" type="redirectAction">index</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_voie</param>
+                <param name="id">${id}</param>
+            </result>
         </action>
         <!-- ============================ COMMENTAIRE ============================ -->
         <!-- todo cette action est obsolete ( a supprimer lorsque l'impl des commentaire sera complete -->
@@ -282,12 +291,28 @@
             </result>
         </action>
         <!-- todo faire une séparation des actions de delete message -->
-        <action name="delete_commentaire_on_topo"
+        <action name="delete_commentaire_topo"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_topo</param>
-                <param name="id">${id}</param>
+                <param name="id">${topo.id}</param>
+            </result>
+        </action>
+        <action name="delete_commentaire_site"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_site</param>
+                <param name="id">${site.id}</param>
+            </result>
+        </action>
+        <action name="delete_commentaire_voie"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_voie</param>
+                <param name="id">${voie.id}</param>
             </result>
         </action>
         <!-- ============================ LOGIN / LOGOUT ============================ -->

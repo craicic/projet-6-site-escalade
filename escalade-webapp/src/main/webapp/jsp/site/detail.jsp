@@ -72,8 +72,9 @@
             <div>Posté à <s:property value="dateCreation"/></div>
             <div><s:property value="contenuTexte"/></div>
             <s:if test="%{utilisateurId == #session.utilisateur.id}">
-                <s:a action="delete_commentaire">
+                <s:a action="delete_commentaire_site">
                     <s:param name="id" value="id"/>
+                    <s:param name="site.id" value="%{site.id}"/>
                     Supprimer
                 </s:a>
                 <s:a action="update_my_comment">

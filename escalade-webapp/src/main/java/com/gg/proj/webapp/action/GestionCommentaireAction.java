@@ -21,6 +21,9 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
     ManagerFactory managerFactory;
 
     private Integer id;
+    private Topo topo;
+    private Site site;
+    private Voie voie;
     private Commentaire commentaire;
     private Utilisateur utilisateur;
     private Map<String, Object> session;
@@ -36,6 +39,30 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Topo getTopo() {
+        return topo;
+    }
+
+    public void setTopo(Topo topo) {
+        this.topo = topo;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
+    }
+
+    public Voie getVoie() {
+        return voie;
+    }
+
+    public void setVoie(Voie voie) {
+        this.voie = voie;
     }
 
     public Commentaire getCommentaire() {
