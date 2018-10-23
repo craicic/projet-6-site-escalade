@@ -3,6 +3,7 @@ package com.gg.proj.webapp.action;
 import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.*;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,7 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
     private Topo topo;
     private Site site;
     private Voie voie;
+    private String actionName;
     private Commentaire commentaire;
     private Utilisateur utilisateur;
     private Map<String, Object> session;
@@ -63,6 +65,14 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
 
     public void setVoie(Voie voie) {
         this.voie = voie;
+    }
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
     }
 
     public Commentaire getCommentaire() {
@@ -124,6 +134,9 @@ public class GestionCommentaireAction extends ActionSupport implements SessionAw
             // On vérifie que l'utilisateur est connecté
             Commentaire tmpCommentaire = managerFactory.getCommentaireManager().get(this.id);
             Utilisateur tmpUtilisateur = (Utilisateur) session.get("utilisateur");
+            // On inscrit dans une variable l'action dans laquelle on se trouve.
+            // Ceci nous permettra d'appeler l'action adéquate quand nous serons dans la jsp update_my_comment (factorisation)
+            actionName = ActionContext.getContext().getName();
             if ( tmpUtilisateur.getId() == tmpCommentaire.getUtilisateurId() ) {
                 // Si le commentaire est nul, on va charger le contenu du commentaire
                 commentaire = tmpCommentaire;

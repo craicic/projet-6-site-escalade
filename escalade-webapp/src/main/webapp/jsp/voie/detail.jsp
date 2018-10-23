@@ -55,8 +55,9 @@
                     <s:param name="voie.id" value="%{voie.id}"/>
                     Supprimer
                 </s:a>
-                <s:a action="update_my_comment">
+                <s:a action="update_my_comment_voie">
                     <s:param name="id" value="id"/>
+                    <s:param name="voie.id" value="%{voie.id}"/>
                     Éditer
                 </s:a>
             </s:if>

@@ -75,13 +75,16 @@
                     <s:param name="topo.id" value="%{topo.id}"/>
                     Supprimer
                 </s:a>
-                <s:a action="update_my_comment">
+                <s:a action="update_my_comment_topo">
                     <s:param name="id" value="id"/>
+                    <s:param name="topo.id" value="%{topo.id}"/>
                     Éditer
                 </s:a>
             </s:if>
         </li>
     </s:iterator>
 </ul>
+
+
 </body>
 </html>

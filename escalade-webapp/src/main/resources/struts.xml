@@ -283,6 +283,34 @@
             <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
             <result name="success" type="redirectAction">index</result>
         </action>
+        <action name="update_my_comment_topo"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doUpdateMyComment">
+            <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_topo</param>
+                <param name="id">${topo.id}</param>
+            </result>
+        </action>
+        <action name="update_my_comment_site"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doUpdateMyComment">
+            <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_site</param>
+                <param name="id">${site.id}</param>
+            </result>
+        </action>
+        <action name="update_my_comment_voie"
+                class="com.gg.proj.webapp.action.GestionCommentaireAction"
+                method="doUpdateMyComment">
+            <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_voie</param>
+                <param name="id">${voie.id}</param>
+            </result>
+        </action>
+        <!-- Méthode obsolète -->
         <action name="delete_commentaire"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doDelete">
@@ -290,7 +318,6 @@
                 <param name="actionName">index</param>
             </result>
         </action>
-        <!-- todo faire une séparation des actions de delete message -->
         <action name="delete_commentaire_topo"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doDelete">

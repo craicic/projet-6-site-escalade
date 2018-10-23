@@ -77,8 +77,9 @@
                     <s:param name="site.id" value="%{site.id}"/>
                     Supprimer
                 </s:a>
-                <s:a action="update_my_comment">
+                <s:a action="update_my_comment_site">
                     <s:param name="id" value="id"/>
+                    <s:param name="site.id" value="%{site.id}"/>
                     Éditer
                 </s:a>
             </s:if>
