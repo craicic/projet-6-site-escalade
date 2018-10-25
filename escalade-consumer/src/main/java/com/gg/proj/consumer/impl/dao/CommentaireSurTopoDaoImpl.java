@@ -2,6 +2,7 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.CommentaireSurTopoDao;
 import com.gg.proj.model.bean.CommentaireSurTopo;
+import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;

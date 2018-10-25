@@ -44,7 +44,7 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
     }
 
     @Override
-    public List list() {
+    public List<Utilisateur> list() {
         logger.debug("Entrée dans la méthode list");
         List<Utilisateur> utilisateurs;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

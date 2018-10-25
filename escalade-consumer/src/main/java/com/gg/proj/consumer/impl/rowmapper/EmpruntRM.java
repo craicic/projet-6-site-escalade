@@ -15,6 +15,7 @@ public class EmpruntRM implements RowMapper<Emprunt> {
         emprunt.setDateEmprunt(rs.getDate("date_empreint"));
         emprunt.setDateRetour(rs.getDate("date_retour"));
         emprunt.setUtilisateurId(rs.getInt("utilisateur_id"));
+        emprunt.setTopoId(rs.getInt("topo_id"));
         return emprunt;
     }
 }

@@ -7,5 +7,6 @@ import com.gg.proj.model.bean.Utilisateur;
 import java.util.List;
 
 public interface EmpruntManager extends CrudDao<Emprunt> {
+
     List<Utilisateur> listAllOnwersByTopoId(Integer topoId);
     }

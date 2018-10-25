@@ -50,7 +50,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     @Override
-    public List list() {
+    public List<Topo> list() {
         logger.debug("Entrée dans la méthode list");
         List<Topo> topos;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());

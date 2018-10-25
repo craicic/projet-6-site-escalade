@@ -3,6 +3,7 @@ package com.gg.proj.consumer.impl.dao;
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
 import com.gg.proj.consumer.impl.rowmapper.EmpruntRM;
 import com.gg.proj.model.bean.Emprunt;
+import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,10 +48,11 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpruntDao {
     public void update(Emprunt model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE emprunt SET (date_emprunt,date_retour,utilisateur_id) = (?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE emprunt SET (date_emprunt,date_retour,utilisateur_id) = (?,?,?,?) WHERE id = ?;",
                 model.getDateEmprunt(),
                 model.getDateRetour(),
                 model.getUtilisateurId(),
+                model.getTopoId(),
                 model.getId());
     }
 

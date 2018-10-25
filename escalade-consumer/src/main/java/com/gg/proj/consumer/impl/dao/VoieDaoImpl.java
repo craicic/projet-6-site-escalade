@@ -2,6 +2,7 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.VoieDao;
 import com.gg.proj.consumer.impl.rowmapper.VoieRM;
+import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

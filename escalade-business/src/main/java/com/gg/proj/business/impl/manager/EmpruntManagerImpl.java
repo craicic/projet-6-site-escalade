@@ -4,6 +4,7 @@ import com.gg.proj.business.contract.manager.EmpruntManager;
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
 import com.gg.proj.consumer.contract.dao.ProprieteTopoDao;
 import com.gg.proj.model.bean.Emprunt;
+import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

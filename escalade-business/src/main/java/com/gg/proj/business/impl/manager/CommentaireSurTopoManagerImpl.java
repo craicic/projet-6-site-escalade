@@ -3,6 +3,7 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.CommentaireSurTopoManager;
 import com.gg.proj.consumer.contract.dao.CommentaireSurTopoDao;
 import com.gg.proj.model.bean.CommentaireSurTopo;
+import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
