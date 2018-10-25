@@ -25,11 +25,11 @@
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/db-escalade"/>
         <property name="username" value="postgres"/>
-        <!-- todo password en clair -->
+        <!-- todo password en clair => externaliser le fichier config et ne pas l'embarquer sur github -->
         <property name="password" value="test123"/>
-        <property name="defaultAutoCommit" value="true"/>
-        <!-- todo voir pourquoi defaultTransactionIsolation ne marche pas, en attendant j'ai passé defaultAutoCommit à true pour régler le probleème de (non)commit -->
-        <!--<property name="defaultTransactionIsolation" value="1" />-->
+        <property name="defaultAutoCommit" value="false"/>
+        <!-- En cas de probleme de commit, passer defaultAutoCommit a true et commenter defaultTransactionIsolation -->
+        <property name="defaultTransactionIsolation" value="1" />
 
         <property name="initialSize" value="3"/>
         <property name="maxTotal" value="10"/>

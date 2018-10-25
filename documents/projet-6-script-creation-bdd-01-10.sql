@@ -203,7 +203,7 @@ ON DELETE CASCADE
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.empreint ADD CONSTRAINT topo_empreint_fk
+ALTER TABLE public.emprunt ADD CONSTRAINT topo_empreint_fk
 FOREIGN KEY (topo_id)
 REFERENCES public.topo (id)
 ON DELETE SET NULL
@@ -217,7 +217,7 @@ ON DELETE SET NULL
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.empreint ADD CONSTRAINT utilisateur_empreint_fk
+ALTER TABLE public.emprunt ADD CONSTRAINT utilisateur_empreint_fk
 FOREIGN KEY (utilisateur_id)
 REFERENCES public.utilisateur (id)
 ON DELETE SET NULL

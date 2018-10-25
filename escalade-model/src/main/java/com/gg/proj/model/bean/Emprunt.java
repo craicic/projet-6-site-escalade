@@ -8,6 +8,7 @@ public class Emprunt implements Model{
     private Date dateEmprunt;
     private Date dateRetour;
     private Integer utilisateurId;
+    private Integer topoId;
 
     // constructeurs
     public Emprunt(){}
@@ -48,5 +49,13 @@ public class Emprunt implements Model{
 
     public void setUtilisateurId(Integer utilisateurId) {
         this.utilisateurId = utilisateurId;
+    }
+
+    public Integer getTopoId() {
+        return topoId;
+    }
+
+    public void setTopoId(Integer topoId) {
+        this.topoId = topoId;
     }
 }

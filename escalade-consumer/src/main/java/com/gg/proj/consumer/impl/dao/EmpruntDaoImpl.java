@@ -1,6 +1,6 @@
 package com.gg.proj.consumer.impl.dao;
 
-import com.gg.proj.consumer.contract.dao.EmpreintDao;
+import com.gg.proj.consumer.contract.dao.EmpruntDao;
 import com.gg.proj.consumer.impl.rowmapper.EmpruntRM;
 import com.gg.proj.model.bean.Emprunt;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +11,7 @@ import javax.inject.Named;
 import java.util.List;
 
 @Named
-public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
+public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpruntDao {
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -19,10 +19,11 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
     public void create(Emprunt model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
-        jdbcTempplate.update("INSERT INTO empreint (date_empreint, date_retour, utilisateur_id) VALUES(?, ?, ?);",
+        jdbcTempplate.update("INSERT INTO emprunt (date_emprunt, date_retour, utilisateur_id, topo_id) VALUES(?, ?, ?, ?);",
                 model.getDateEmprunt(),
                 model.getDateRetour(),
-                model.getUtilisateurId()
+                model.getUtilisateurId(),
+                model.getTopoId()
         );
     }
 
@@ -31,7 +32,7 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         EmpruntRM empruntRM = new EmpruntRM();
-        return jdbcTemplate.queryForObject("SELECT * FROM empreint WHERE id = ?;", empruntRM, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM emprunt WHERE id = ?;", empruntRM, id);
     }
 
     @Override
@@ -39,14 +40,14 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
         logger.debug("Entrée dans la méthode list");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         EmpruntRM empruntRM = new EmpruntRM();
-        return jdbcTemplate.query("SELECT * FROM empreint;", empruntRM);
+        return jdbcTemplate.query("SELECT * FROM emprunt;", empruntRM);
     }
 
     @Override
     public void update(Emprunt model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE empreint SET (date_empreint,date_retour,utilisateur_id) = (?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE emprunt SET (date_emprunt,date_retour,utilisateur_id) = (?,?,?) WHERE id = ?;",
                 model.getDateEmprunt(),
                 model.getDateRetour(),
                 model.getUtilisateurId(),
@@ -57,6 +58,6 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpreintDao {
     public void delete(Integer id) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("DELETE FROM empreint WHERE id = ?;", id);
+        jdbcTemplate.update("DELETE FROM emprunt WHERE id = ?;", id);
     }
 }

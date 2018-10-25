@@ -35,7 +35,7 @@
             <interceptor-ref name="store">
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="defaultStack"/>
 
             <result name="success">/jsp/topo/detail.jsp</result>
         </action>
@@ -48,7 +48,7 @@
             <interceptor-ref name="store">
                 <param name="operationMode">STORE</param>
             </interceptor-ref>
-            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="defaultStack"/>
 
             <result name="input">/jsp/topo/new.jsp</result>
             <result name="success" type="redirectAction">
@@ -347,7 +347,7 @@
                 class="com.gg.proj.webapp.action.LoginAction"
                 method="doLogin">
             <result name="input">jsp/login.jsp</result>
-            <result name="success" type ="redirectAction">index</result>
+            <result name="success" type="redirectAction">index</result>
         </action>
         <action name="logout"
                 class="com.gg.proj.webapp.action.LoginAction"
@@ -361,10 +361,31 @@
             <result>jsp/search.jsp</result>
         </action>
 
+        <!-- ============================ EMPRUNT DE TOPOS ============================ -->
+        <!-- Interface d'emprunt de topo -->
+        <action name="borrow"
+                class="com.gg.proj.webapp.action.GestionEmpruntAction"
+                method="doBorrow">
+            <result name="success">jsp/emprunt/borrow.jsp</result>
+        </action>
+        <!-- Le calendrier -->
+        <action name="fill_calendar"
+                class="com.gg.proj.webapp.action.GestionEmpruntAction"
+                method="doSetBorrowingTime">
+            <result name="success">jsp/emprunt/calendar.jsp</result>
+        </action>
+        <!-- Panneau de controle des prêts et emprunt de chaque utilisateur -->
+        <action name="check_borrow_and_loan"
+                class="com.gg.proj.webapp.action.GestionEmpruntAction"
+                method="doCheck">
+            <result name="success">jsp/emprunt/manager.jsp</result>
+        </action>
     </package>
 
+    <!-- ============================ RECHERCHE ASYNCHRONE ============================ -->
+
     <package name="ajax" namespace="/async" extends="struts-default, json-default">
-  <!-- todo faire les action searchAsync1 2 3 4-->
+        <!-- todo faire les action searchAsync1 2 3 4-->
         <action name="searchAsync"
                 class="com.gg.proj.webapp.action.RechercheAction"
                 method="doSearchAsync">

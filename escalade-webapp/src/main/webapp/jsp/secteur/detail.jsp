@@ -8,6 +8,13 @@
 
 <head>
     <%@include file="../_include/head.jsp" %>
+    <style>
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;  /* The height is 400 pixels */
+            width: 100%;  /* The width is the width of the web page */
+        }
+    </style>
 </head>
 
 <%@ include file="../_include/header.jsp" %>
@@ -31,18 +38,7 @@
 
 <s:iterator value="listVoie">
 
-    <%-- Test sur les differentes valeurs --%>
-    <%--<div>secteurId : <s:property value="secteurId"/></div>--%>
-    <%--<div>%secteurId : <s:property value="%{secteurId}"/></div>--%>
-    <%--<div>voie.secteurId : <s:property value="voie.secteurId"/></div>--%>
-    <%--<div>%voie.secteurId : <s:property value="%{voie.secteurId}"/></div>--%>
-    <%--<div>secteur.id : <s:property value="secteur.id"/></div>--%>
-    <%--<div>%secteur.id : <s:property value="%{secteur.id}"/></div>--%>
-    <%--<div>id : <s:property value="id"/></div>--%>
-    <%--<div>%id : <s:property value="%{id}"/></div>--%>
-    <%--<div>voie.id : <s:property value="voie.id"/></div>--%>
-    <%--<div>%voie.id : <s:property value="%{voie.id}"/></div>--%>
-
+    <%-- sur secteur, au lieu de testé chaque secteur et site.secteurId, une requete plus précise est faite en BDD --%>
     <%--<s:if test="%{secteurId eq secteur.id}">--%>
     <li><s:a action="detail_voie">
         <s:param name="id" value="id"/>
@@ -56,6 +52,30 @@
         <s:param name="voie.secteurId" value="id"/>
     </s:a>
 </div>
+
+<h3>My Google Maps Demo</h3>
+<!--The div element for the map -->
+<div id="map"></div>
+<script>
+    // Initialize and add the map
+    function initMap() {
+        // The location of Uluru
+        var uluru = {lat: -25.344, lng: 131.036};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 4, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
+    }
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp5GFe0VeiTP-Jigfi9tXautoDekjHRFY&callback=initMap">
+</script>
 
 </body>
 </html>

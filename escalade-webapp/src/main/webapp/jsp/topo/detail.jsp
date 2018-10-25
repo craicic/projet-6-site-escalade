@@ -39,7 +39,6 @@
     </div>
 </s:iterator>
 
-<%-- todo refléchir a l'utilité de : --%>
 <%--<div><s:a action="site_new">--%>
 <%--<s:param name="id" value="id"/>--%>
 <%--Créer un nouveau site--%>

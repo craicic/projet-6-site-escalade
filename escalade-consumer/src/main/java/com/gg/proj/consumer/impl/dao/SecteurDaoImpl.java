@@ -80,7 +80,6 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         return jdbcTemplate.query("SELECT * FROM secteur WHERE site_id = ?;", secteurRM, siteId);
     }
 
-//    todo corriger la colonne description de secteur en BDD (orthographié decription)
     /**
      * Fonction qui va accéder à la BDD avec une requête LIKE
      *
