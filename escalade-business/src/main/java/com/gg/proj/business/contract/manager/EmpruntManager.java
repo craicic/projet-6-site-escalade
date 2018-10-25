@@ -9,4 +9,7 @@ import java.util.List;
 public interface EmpruntManager extends CrudDao<Emprunt> {
 
     List<Utilisateur> listAllOnwersByTopoId(Integer topoId);
-    }
+
+    void setTopoOwner(Integer topoId, Integer utilisateurId);
+
+}

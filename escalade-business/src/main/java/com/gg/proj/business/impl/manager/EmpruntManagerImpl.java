@@ -4,6 +4,7 @@ import com.gg.proj.business.contract.manager.EmpruntManager;
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
 import com.gg.proj.consumer.contract.dao.ProprieteTopoDao;
 import com.gg.proj.model.bean.Emprunt;
+import com.gg.proj.model.bean.EnumStatus;
 import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
@@ -69,5 +70,20 @@ public class EmpruntManagerImpl implements EmpruntManager {
     public List<Utilisateur> listAllOnwersByTopoId(Integer topoId){
         logger.debug("Entrée dans la méthode listAllOnwersByTopoId avec le topoId : " + topoId);
         return proprieteTopoDao.listAllOnwersByTopoId(topoId);
+    }
+
+    @Override
+    @Transactional
+    public void setTopoOwner(Integer topoId, Integer utilisateurId){
+        logger.debug("Entrée dans la méthode setTopoOwner avec le topoId : " + topoId + " et l'utilisateurId : " + utilisateurId);
+        // Mettre status à disponible
+        ProprieteTopo proprieteTopo = new ProprieteTopo();
+        proprieteTopo.setEnumStatus(EnumStatus.AVAILABLE);
+        proprieteTopo.setStatus(EnumStatus.AVAILABLE.toString());
+        // Créer le bean complet
+        proprieteTopo.setTopoId(topoId);
+        proprieteTopo.setUtilisateurId(utilisateurId);
+        // Appel à la dao pour écriture en base de donnée
+        proprieteTopoDao.create(proprieteTopo);
     }
 }

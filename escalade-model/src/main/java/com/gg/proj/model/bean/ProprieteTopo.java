@@ -4,6 +4,7 @@ public class ProprieteTopo {
     private Integer topoId;
     private Integer utilisateurId;
     private String status;
+    private EnumStatus enumStatus;
 
     public ProprieteTopo(){}
 
@@ -29,5 +30,13 @@ public class ProprieteTopo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public EnumStatus getEnumStatus() {
+        return enumStatus;
+    }
+
+    public void setEnumStatus(EnumStatus enumStatus) {
+        this.enumStatus = enumStatus;
     }
 }

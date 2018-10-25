@@ -2,7 +2,9 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.ProprieteTopoDao;
 import com.gg.proj.consumer.impl.rowmapper.ProprieteTopoRM;
+import com.gg.proj.consumer.impl.rowmapper.UtilisateurRM;
 import com.gg.proj.model.bean.ProprieteTopo;
+import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -107,4 +109,24 @@ public class ProprieteTopoDaoImpl extends AbstractDaoImpl implements ProprieteTo
     }
 
 
+    /**
+     * Méthode de récupération des utilisateurs possedant le topo d'id topoId
+     * @param topoId
+     * @return Liste de possesseurs
+     */
+    @Override
+    public List<Utilisateur> listAllOnwersByTopoId(Integer topoId) {
+        logger.debug("Entrée dans la méthode listAllOnwersByTopoId " + topoId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        // Préparation des paramètres
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", topoId);
+        // RowMapper
+        ProprieteTopoRM pRM = new ProprieteTopoRM();
+        UtilisateurRM uRM = new UtilisateurRM();
+        // SQL
+        String SQL = "SELECT * FROM utilisateur WHERE utilisateur.id IN (SELECT propriete_topo.utilisateur_id FROM propriete_topo WHERE propriete_topo.topo_id = :topoId ); ";
+        // Update
+        return jdbcTemplate.query(SQL, params, uRM);
+    }
 }
