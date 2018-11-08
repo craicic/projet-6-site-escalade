@@ -55,7 +55,7 @@
 
 <h3>My Google Maps Demo</h3>
 <!--The div element for the map -->
-<div id="map"></div>
+<%--<div id="map"></div>--%>
 <script>
     // Initialize and add the map
     function initMap() {

@@ -1,6 +1,8 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
+import com.gg.proj.model.bean.EmpruntInfo;
+import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,6 +24,9 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     private Topo topo;
     private List<Utilisateur> listPossesseur;
     private Map<String,Object> session;
+    private List<Topo> listLoanedTopo;
+    private List<Topo> listBorrowedTopo;
+    private List<EmpruntInfo> listEmpruntInfo;
 
     // Getters & Setters
     @Override
@@ -80,6 +85,17 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doManageMyLoan() {
+        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+
+        // On récupère les liste de topo en prèt et en emprunt
+//        listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());
+//        listEmprunt = managerFactory.getEmpruntManager().listEmprunt(utilisateurEnSession.getId());
+//        listEmpruntInfo = managerFactory.getEmpruntManager().getEmpruntInfo(utilisateurEnSession.getId());
+//        listLoanedTopo = managerFactory.getEmpruntManager().getLoanedTopo(utilisateurEnSession.getId());
+//        listProprieteTopo =
+//        // On récupère les date de fin de prêt
+//        listEmprunt = managerFactory.getEmpruntManager().listEmpruntByUserId(utilisateurEnSession.getId());
+
         return ActionSupport.SUCCESS;
     }
 

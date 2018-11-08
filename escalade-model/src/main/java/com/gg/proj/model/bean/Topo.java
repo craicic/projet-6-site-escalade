@@ -4,9 +4,11 @@ public class Topo implements Model {
 
     // propriétés
     private Integer id;
+    private Integer proprietaireId;
     private String auteur;
     private String titre;
     private String description;
+
     private boolean empreintable;
 
     // constructeurs
@@ -25,6 +27,14 @@ public class Topo implements Model {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getProprietaireId() {
+        return proprietaireId;
+    }
+
+    public void setProprietaireId(Integer proprietaireId) {
+        this.proprietaireId = proprietaireId;
     }
 
     public String getAuteur() {
