@@ -67,7 +67,7 @@ public class EmpruntManagerImpl implements EmpruntManager {
     // todo verifier la pertinance de cette méthode listAllOnwersByTopoId
     @Override
     @Transactional
-    public List<Utilisateur> listAllOnwersByTopoId(Integer topoId){
+    public List<Utilisateur> listAllOnwersByTopoId(Integer topoId) {
         logger.debug("Entrée dans la méthode listAllOnwersByTopoId avec le topoId : " + topoId);
         return null;
     }
@@ -75,18 +75,33 @@ public class EmpruntManagerImpl implements EmpruntManager {
     // todo verifier la pertinance de cette méthode setTopoOwner
     @Override
     @Transactional
-    public void setTopoOwner(Integer topoId, Integer utilisateurId){
+    public void setTopoOwner(Integer topoId, Integer utilisateurId) {
         logger.debug("Entrée dans la méthode setTopoOwner avec le topoId : " + topoId + " et l'utilisateurId : " + utilisateurId);
 
     }
 
     /**
      * Cette méthode solicite la dao pour récupérer la liste des topos disponibles à l'emprunt
+     *
      * @return la liste de topo disponible
      */
     @Override
     public List<Topo> listAvailableTopo() {
         logger.debug("Entrée dans la méthode listAvailableTopo");
-        return topoDao.listAvailableTopo();
+        List<Topo> listTopo = topoDao.listAvailableTopo();
+        for (Topo topo : listTopo) {
+            // On raccourci la description à 50 caractère.
+            topo.setDescription(shortenDescription(topo.getDescription()));
+        }
+        return listTopo;
+    }
+
+    private String shortenDescription(String descritpion) {
+        if (descritpion.length() <= 50)
+            return descritpion;
+        else {
+            return descritpion.substring(0, 49);
+        }
+
     }
 }
