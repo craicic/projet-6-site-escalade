@@ -362,6 +362,12 @@
         </action>
 
         <!-- ============================ EMPRUNT DE TOPOS ============================ -->
+        <!-- Interface d'affichage des topos disponible a l'empreint -->
+        <action name="list_available_topo"
+                class="com.gg.proj.webapp.action.GestionEmpruntAction"
+                method="doListAvailable">
+            <result name="success">jsp/emprunt/list_available.jsp</result>
+        </action>
         <!-- Interface d'emprunt de topo -->
         <action name="borrow"
                 class="com.gg.proj.webapp.action.GestionEmpruntAction"

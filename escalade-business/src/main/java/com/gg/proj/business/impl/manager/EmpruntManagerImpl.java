@@ -2,8 +2,10 @@ package com.gg.proj.business.impl.manager;
 
 import com.gg.proj.business.contract.manager.EmpruntManager;
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
-import com.gg.proj.consumer.contract.dao.ProprieteTopoDao;
-import com.gg.proj.model.bean.*;
+import com.gg.proj.consumer.contract.dao.TopoDao;
+import com.gg.proj.model.bean.Emprunt;
+import com.gg.proj.model.bean.Topo;
+import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +23,7 @@ public class EmpruntManagerImpl implements EmpruntManager {
     EmpruntDao empruntDao;
 
     @Inject
-    ProprieteTopoDao proprieteTopoDao;
+    TopoDao topoDao;
 
     @Override
     @Transactional
@@ -62,25 +64,29 @@ public class EmpruntManagerImpl implements EmpruntManager {
         empruntDao.delete(id);
     }
 
+    // todo verifier la pertinance de cette méthode listAllOnwersByTopoId
     @Override
     @Transactional
     public List<Utilisateur> listAllOnwersByTopoId(Integer topoId){
         logger.debug("Entrée dans la méthode listAllOnwersByTopoId avec le topoId : " + topoId);
-        return proprieteTopoDao.listAllOnwersByTopoId(topoId);
+        return null;
     }
 
+    // todo verifier la pertinance de cette méthode setTopoOwner
     @Override
     @Transactional
     public void setTopoOwner(Integer topoId, Integer utilisateurId){
         logger.debug("Entrée dans la méthode setTopoOwner avec le topoId : " + topoId + " et l'utilisateurId : " + utilisateurId);
-        // Mettre status à disponible
-        ProprieteTopo proprieteTopo = new ProprieteTopo();
-        proprieteTopo.setEnumStatus(EnumStatus.AVAILABLE);
-        proprieteTopo.setStatus(EnumStatus.AVAILABLE.toString());
-        // Créer le bean complet
-        proprieteTopo.setTopoId(topoId);
-        proprieteTopo.setUtilisateurId(utilisateurId);
-        // Appel à la dao pour écriture en base de donnée
-        proprieteTopoDao.create(proprieteTopo);
+
+    }
+
+    /**
+     * Cette méthode solicite la dao pour récupérer la liste des topos disponibles à l'emprunt
+     * @return la liste de topo disponible
+     */
+    @Override
+    public List<Topo> listAvailableTopo() {
+        logger.debug("Entrée dans la méthode listAvailableTopo");
+        return topoDao.listAvailableTopo();
     }
 }

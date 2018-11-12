@@ -8,4 +8,7 @@ public interface TopoDao extends CrudDao<Topo> {
     public Integer getId(Topo topo);
 
     List<Topo> search(String termeDeLaRecherche);
+
+    List<Topo> listAvailableTopo();
+
 }

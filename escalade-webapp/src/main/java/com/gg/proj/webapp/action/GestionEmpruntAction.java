@@ -1,10 +1,9 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
-import com.gg.proj.model.bean.EmpruntInfo;
-import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,11 +21,10 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     private Integer id;
     private Topo topo;
-    private List<Utilisateur> listPossesseur;
     private Map<String,Object> session;
+    private List<Topo> listAvailableTopo;
     private List<Topo> listLoanedTopo;
     private List<Topo> listBorrowedTopo;
-    private List<EmpruntInfo> listEmpruntInfo;
 
     // Getters & Setters
     @Override
@@ -50,12 +48,28 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
         this.topo = topo;
     }
 
-    public List<Utilisateur> getListPossesseur() {
-        return listPossesseur;
+    public List<Topo> getListAvailableTopo() {
+        return listAvailableTopo;
     }
 
-    public void setListPossesseur(List<Utilisateur> listPossesseur) {
-        this.listPossesseur = listPossesseur;
+    public void setListAvailableTopo(List<Topo> listAvailableTopo) {
+        this.listAvailableTopo = listAvailableTopo;
+    }
+
+    public List<Topo> getListLoanedTopo() {
+        return listLoanedTopo;
+    }
+
+    public void setListLoanedTopo(List<Topo> listLoanedTopo) {
+        this.listLoanedTopo = listLoanedTopo;
+    }
+
+    public List<Topo> getListBorrowedTopo() {
+        return listBorrowedTopo;
+    }
+
+    public void setListBorrowedTopo(List<Topo> listBorrowedTopo) {
+        this.listBorrowedTopo = listBorrowedTopo;
     }
 
     public String doCreate() {
@@ -78,9 +92,13 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
         return ActionSupport.SUCCESS;
     }
 
+    public String doListAvailable(){
+        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo();
+        return ActionSupport.SUCCESS;
+    }
+
     public String doBorrow() {
         String result = ActionSupport.SUCCESS;
-        listPossesseur = managerFactory.getEmpruntManager().listAllOnwersByTopoId(topo.getId());
         return result;
     }
 

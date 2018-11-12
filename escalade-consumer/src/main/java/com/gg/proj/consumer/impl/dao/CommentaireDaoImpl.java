@@ -4,7 +4,6 @@ import com.gg.proj.consumer.contract.dao.CommentaireDao;
 import com.gg.proj.consumer.impl.rowmapper.CommentaireFullRM;
 import com.gg.proj.consumer.impl.rowmapper.CommentaireRM;
 import com.gg.proj.model.bean.Commentaire;
-import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;

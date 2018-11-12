@@ -87,8 +87,12 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
 
         if (this.topo != null) {
             try {
+                // On récupère l'id de l'utilisateur en session...
+                Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+                // ... Afin de l'affecter à proprietaireId.
+                topo.setProprietaireId(utilisateurEnSession.getId());
                 managerFactory.getTopoManager().create(this.topo);
-        // Il nous faut récupéré l'id
+                // Il nous faut récupéré l'id
                 topo.setId(managerFactory.getTopoManager().getId(this.topo));
                 this.addActionMessage("Topo ajouté.");
                 resultat = ActionSupport.SUCCESS;

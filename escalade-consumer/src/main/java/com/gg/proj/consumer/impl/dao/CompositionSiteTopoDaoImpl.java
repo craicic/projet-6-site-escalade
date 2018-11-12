@@ -3,7 +3,6 @@ package com.gg.proj.consumer.impl.dao;
 import com.gg.proj.consumer.contract.dao.CompositionSiteTopoDao;
 import com.gg.proj.consumer.impl.rowmapper.CompositionSiteTopoRM;
 import com.gg.proj.model.bean.CompositionSiteTopo;
-import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;

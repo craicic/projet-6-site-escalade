@@ -2,7 +2,6 @@ package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.*;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;

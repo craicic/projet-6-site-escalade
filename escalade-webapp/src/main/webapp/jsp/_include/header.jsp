@@ -22,7 +22,9 @@
             <%--<li class="nav-item">--%>
             <%--<a class="nav-link" href="#">Link</a>--%>
             <%--</li>--%>
-
+            <li class="nav-item">
+                <s:a class="nav-link" action="list_available_topo">Topos disponibles</s:a>
+            </li>
 
             <%-- Dropdown--%>
             <li class="nav-item dropdown">
@@ -74,7 +76,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <s:a class="dropdown-item" action="detail_my_account">Détail de mon compte</s:a>
                         <s:a class="dropdown-item" action="update_password">Changer de mot de passe</s:a>
-                        <s:a class="dropdown-item" action="update_my_account">Editer mon compte</s:a>
+                        <s:a class="dropdown-item" action="update_my_account">Éditer mon compte</s:a>
                         <div class="dropdown-divider"></div>
                         <s:a class="dropdown-item" action="logout">Se déconnecter</s:a>
                     </div>

@@ -3,7 +3,7 @@ package com.gg.proj.consumer.impl.dao;
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
 import com.gg.proj.consumer.impl.rowmapper.EmpruntRM;
 import com.gg.proj.model.bean.Emprunt;
-import com.gg.proj.model.bean.ProprieteTopo;
+import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;

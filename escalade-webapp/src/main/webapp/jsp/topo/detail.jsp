@@ -51,14 +51,6 @@
 
 <%-- ==== Commentaires ==== --%>
 <s:if test="#session.utilisateur">
-    <%-- Je peut preter ce topo--%>
-    <%-- todo n'afficher ce bouton si aucune entrée en bdd --%>
-    <div>Je possède ce topo, et décide de le prêter
-        <s:a action="mark_my_topo_as_reservable">
-            <s:param name="topo.id" value="%{topo.id}"/>
-            <button type="button" class="btn btn-success">Prêter ce topo</button>
-        </s:a>
-    </div>
 
     <%-- Poster un commantaire --%>
     <s:form action="add_comment_topo">

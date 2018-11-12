@@ -3,7 +3,6 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.CommentaireManager;
 import com.gg.proj.consumer.contract.dao.CommentaireDao;
 import com.gg.proj.model.bean.Commentaire;
-import com.gg.proj.model.bean.ProprieteTopo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;

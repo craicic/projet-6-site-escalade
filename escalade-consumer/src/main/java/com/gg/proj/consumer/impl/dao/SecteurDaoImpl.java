@@ -2,7 +2,6 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.consumer.impl.rowmapper.SecteurRM;
-import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Secteur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

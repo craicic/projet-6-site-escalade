@@ -1,7 +1,6 @@
 package com.gg.proj.model.bean;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Commentaire implements Model {
 

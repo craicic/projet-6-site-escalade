@@ -13,4 +13,5 @@ public interface EmpruntManager extends CrudDao<Emprunt> {
 
     void setTopoOwner(Integer topoId, Integer utilisateurId);
 
+    List<Topo> listAvailableTopo();
 }

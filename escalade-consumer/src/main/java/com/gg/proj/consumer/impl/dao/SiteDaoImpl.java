@@ -2,7 +2,6 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.consumer.impl.rowmapper.SiteRM;
-import com.gg.proj.model.bean.ProprieteTopo;
 import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
