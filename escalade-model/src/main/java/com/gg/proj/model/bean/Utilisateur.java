@@ -25,6 +25,11 @@ public class Utilisateur implements Model {
 
     public Utilisateur(String pseudo) {this.pseudo = pseudo; }
 
+    public Utilisateur(Integer id, String pseudo){
+        this.id = id;
+        this.pseudo = pseudo;
+    }
+
     // setters & getters
     @Override
     public Integer getId() {

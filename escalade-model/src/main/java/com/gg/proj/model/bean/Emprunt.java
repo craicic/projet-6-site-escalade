@@ -9,6 +9,9 @@ public class Emprunt implements Model{
     private Date dateRetour;
     private Integer utilisateurId;
     private Integer topoId;
+    private Topo topo;
+    private Utilisateur emprunteur;
+    private Utilisateur proprietaire;
 
     // constructeurs
     public Emprunt(){}
@@ -57,5 +60,29 @@ public class Emprunt implements Model{
 
     public void setTopoId(Integer topoId) {
         this.topoId = topoId;
+    }
+
+    public Topo getTopo() {
+        return topo;
+    }
+
+    public void setTopo(Topo topo) {
+        this.topo = topo;
+    }
+
+    public Utilisateur getEmprunteur() {
+        return emprunteur;
+    }
+
+    public void setEmprunteur(Utilisateur emtpruteur) {
+        this.emprunteur = emtpruteur;
+    }
+
+    public Utilisateur getProprietaire() {
+        return proprietaire;
+    }
+
+    public void setProprietaire(Utilisateur proprietaire) {
+        this.proprietaire = proprietaire;
     }
 }

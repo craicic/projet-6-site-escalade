@@ -13,4 +13,6 @@
 
 <%@ include file="../_include/header.jsp"%>
 
+<h5>Historique de réservation</h5>
+<%-- todo lister les date de réservation sur ce topo --%>
 </html>
