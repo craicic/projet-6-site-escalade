@@ -22,9 +22,6 @@
             <%--<li class="nav-item">--%>
             <%--<a class="nav-link" href="#">Link</a>--%>
             <%--</li>--%>
-            <li class="nav-item">
-                <s:a class="nav-link" action="list_available_topo">Topos disponibles</s:a>
-            </li>
 
             <%-- Dropdown--%>
             <li class="nav-item dropdown">
@@ -68,10 +65,21 @@
 
 
             <s:if test="#session.utilisateur">
+                <%--Liste des topos disponibles --%>
+                <li class="nav-item">
+                    <s:a class="nav-link" action="list_available_topo">Topos disponibles</s:a>
+                </li>
+
+                <%-- Gestionnaire des emprunts/prets --%>
+                <li class="nav-item">
+                    <s:a class="nav-link" action="check_borrow_and_loan">Mes prêts et emprunts</s:a>
+                </li>
+
+                <%-- Controle utilistateur --%>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <s:property value="#session.utilisateur.pseudo"/>
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <s:property value="#session.utilisateur.pseudo"/>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <s:a class="dropdown-item" action="detail_my_account">Détail de mon compte</s:a>

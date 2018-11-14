@@ -92,7 +92,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
         return ActionSupport.SUCCESS;
     }
 
-    public String doListAvailable(){
+    public String doListAvailable() {
         listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo();
         return ActionSupport.SUCCESS;
     }
@@ -114,16 +114,8 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 //        // On récupère les date de fin de prêt
 //        listEmprunt = managerFactory.getEmpruntManager().listEmpruntByUserId(utilisateurEnSession.getId());
 
-        return ActionSupport.SUCCESS;
-    }
-
-    public String doSetBorrowingTime() {
-        return ActionSupport.SUCCESS;
-    }
-
-    public String doMarkAsReservable() {
-        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
-        managerFactory.getEmpruntManager().setTopoOwner(topo.getId(), utilisateurEnSession.getId() );
+        listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());
+        listLoanedTopo = managerFactory.getEmpruntManager().listLoanedTopo(utilisateurEnSession.getId());
         return ActionSupport.SUCCESS;
     }
 }

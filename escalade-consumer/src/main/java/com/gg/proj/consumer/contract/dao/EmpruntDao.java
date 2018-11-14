@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface EmpruntDao extends CrudDao<Emprunt> {
 
+    List<Emprunt> getEmpruntByTopoId(Integer topoId);
 }

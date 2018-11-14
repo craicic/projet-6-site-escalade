@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import javax.inject.Named;
 import java.sql.Types;
 import java.util.List;
+import java.util.Map;
 
 @Named
 //@Singleton
@@ -123,14 +124,57 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         return jdbcTemplate.query(SQL, params, topoRM);
     }
 
+    /**
+     * Cette méthode renvoi la liste des topo qui ne sont pas en cour d'emprunt
+     * @return liste de topos
+     */
     @Override
     public List<Topo> listAvailableTopo() {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         TopoRM tRM = new TopoRM();
-        String rSQL = "SELECT t.titre, t.auteur FROM topo t" +
+        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id, t.empreintable FROM topo t" +
                 "   LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
-                "   WHERE emprunt.date_retour < CURRENT_DATE ;";
+                "   WHERE emprunt.topo_id IS NULL" +
+                "   OR emprunt.date_retour < CURRENT_DATE ;";
         return jdbcTemplate.query(rSQL, tRM);
     }
+
+    /**
+     * Récupère les topos qui ont été empruntés par l'utilisateur d'id borrowerId
+     * @param borrowerId
+     * @return liste de topos
+     */
+    @Override
+    public List<Topo> listTopoByBorrowerId(Integer borrowerId){
+        logger.debug("Entrée dans la méthode getTopoByBorrowerId");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        TopoRM tRM = new TopoRM();
+        // préparation des params
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("borrowerId", borrowerId, Types.INTEGER);
+
+        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description FROM topo t INNER JOIN emprunt e ON t.id = e.topo_id " +
+                "WHERE e.utilisateur_id = :borrowerId;";
+        return jdbcTemplate.query(rSQL, params, tRM);
+    }
+
+    /**
+     * Récupère les topos qui ont été prétés par l'utilisateur d'id loanerId
+     * @param loanerId
+     * @return liste de topos
+     */
+    @Override
+    public List<Topo> listTopoByLoanerId(Integer loanerId){
+        logger.debug("Entrée dans la méthode getTopoByBorrowerId");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        TopoRM tRM = new TopoRM();
+        // préparation des params
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("loanerId", loanerId, Types.INTEGER);
+
+        String rSQL = "SELECT * FROM topo WHERE proprietaire_id = :loanerId;";
+        return jdbcTemplate.query(rSQL, params, tRM);
+    }
+
 }

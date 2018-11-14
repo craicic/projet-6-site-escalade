@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Named
@@ -72,20 +75,13 @@ public class EmpruntManagerImpl implements EmpruntManager {
         return null;
     }
 
-    // todo verifier la pertinance de cette méthode setTopoOwner
-    @Override
-    @Transactional
-    public void setTopoOwner(Integer topoId, Integer utilisateurId) {
-        logger.debug("Entrée dans la méthode setTopoOwner avec le topoId : " + topoId + " et l'utilisateurId : " + utilisateurId);
-
-    }
-
     /**
      * Cette méthode solicite la dao pour récupérer la liste des topos disponibles à l'emprunt
      *
      * @return la liste de topo disponible
      */
     @Override
+    @Transactional
     public List<Topo> listAvailableTopo() {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         List<Topo> listTopo = topoDao.listAvailableTopo();
@@ -96,12 +92,41 @@ public class EmpruntManagerImpl implements EmpruntManager {
         return listTopo;
     }
 
-    private String shortenDescription(String descritpion) {
-        if (descritpion.length() <= 50)
-            return descritpion;
-        else {
-            return descritpion.substring(0, 49);
-        }
-
+    //todo javadoc
+    @Override
+    @Transactional
+    public List<Topo> listBorrowedTopo(Integer borrowerId) {
+        logger.debug("Entrée dans la méthode listBorrowedTopo avec le borrowerId" + borrowerId);
+        return topoDao.listTopoByBorrowerId(borrowerId);
     }
+
+    // todo javadoc
+    @Override
+    @Transactional
+    public List<Topo> listLoanedTopo(Integer loanerId) {
+        logger.debug("Entrée dans la méthode listLoanedTopo avec le loanerId" + loanerId);
+        return topoDao.listTopoByLoanerId(loanerId);
+    }
+
+    // todo javadoc
+    @Override
+    @Transactional
+    public boolean isReserved(Integer topoId) {
+        logger.debug("Entrée dans la méthode isReserved avec le topoId" + topoId);
+        List<Emprunt> listEmprunt = empruntDao.getEmpruntByTopoId(topoId);
+        for (Emprunt e : listEmprunt) {
+            if (e.getDateRetour().after(Date.from(Instant.now())))
+                return true;
+        }
+        return false;
+    }
+
+    // todo javadoc
+    private String shortenDescription(String description) {
+        if (description.length() > 50) {
+            description = description.substring(0, 46) + "...";
+        }
+        return description;
+    }
+
 }

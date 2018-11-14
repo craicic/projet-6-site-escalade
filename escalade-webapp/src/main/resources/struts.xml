@@ -374,24 +374,11 @@
                 method="doBorrow">
             <result name="success">jsp/emprunt/borrow.jsp</result>
         </action>
-        <!-- Le calendrier -->
-        <action name="fill_calendar"
-                class="com.gg.proj.webapp.action.GestionEmpruntAction"
-                method="doSetBorrowingTime">
-            <result name="success">jsp/emprunt/calendar.jsp</result>
-        </action>
         <!-- Panneau de controle des prêts et emprunt de chaque utilisateur -->
         <action name="check_borrow_and_loan"
                 class="com.gg.proj.webapp.action.GestionEmpruntAction"
                 method="doManageMyLoan">
             <result name="success">jsp/emprunt/manager.jsp</result>
-        </action>
-        <!-- Déclaration d'un topo comme réservable -->
-        <action name="mark_my_topo_as_reservable"
-                class="com.gg.proj.webapp.action.GestionEmpruntAction"
-                method="doMarkAsReservable">
-            <!-- todo redirection -->
-            <result name="success">jsp/emprunt/instruction.jsp</result>
         </action>
     </package>
 
@@ -407,5 +394,4 @@
             </result>
         </action>
     </package>
-
 </struts>

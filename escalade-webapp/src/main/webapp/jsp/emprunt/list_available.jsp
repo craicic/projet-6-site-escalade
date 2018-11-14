@@ -18,7 +18,7 @@
         <li>
             <div>Titre : <s:property value="titre"/></div>
             <div>Auteur : <s:property value="auteur"/></div>
-            <div>Description : <s:property value="descriptionShort"/></div>
+            <div>Description : <s:property value="description"/></div>
             <div><s:a action="detail_topo">
                 <s:param name="id" value="id"/>
                 Détail du topo

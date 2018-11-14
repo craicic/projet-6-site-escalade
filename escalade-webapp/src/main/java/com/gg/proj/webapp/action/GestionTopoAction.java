@@ -25,6 +25,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     private List<Topo> listTopo;
     private Topo topo;
     private Site site;
+    private boolean reservedFlag;
     private Commentaire commentaire;
     private List<Commentaire> listCommentaire;
     private List<Site> listSite;
@@ -53,6 +54,12 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     }
     public void setSite(Site site) {
         this.site = site;
+    }
+    public boolean isReservedFlag() {
+        return reservedFlag;
+    }
+    public void setReservedFlag(boolean reservedFlag) {
+        this.reservedFlag = reservedFlag;
     }
     public Commentaire getCommentaire() {
         return commentaire;
@@ -117,9 +124,13 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
             try {
 
                 topo = managerFactory.getTopoManager().get(id);
+                // Status emprunt
+                // Récupération du status
+                reservedFlag = managerFactory.getEmpruntManager().isReserved(id);
                 // La liste des sites associés au topo d'id topoId
                 listSite = managerFactory.getTopoManager().listLinkedSite(id);
                 listCommentaire = managerFactory.getTopoManager().listComments(id);
+
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Topo non trouvé. ID = " + id);
@@ -183,7 +194,6 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
         managerFactory.getTopoManager().addComment(commentaire,id);
         return ActionSupport.SUCCESS;
     }
-
 
     public String doLinkSiteTopo() {
         String resultat = ActionSupport.INPUT;

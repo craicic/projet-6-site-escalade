@@ -7,8 +7,12 @@ import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
+import javax.naming.Name;
+import java.sql.Types;
 import java.util.List;
 
 @Named
@@ -61,5 +65,16 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpruntDao {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         jdbcTemplate.update("DELETE FROM emprunt WHERE id = ?;", id);
+    }
+
+    @Override
+    public List<Emprunt> getEmpruntByTopoId(Integer topoId){
+        logger.debug("Entrée dans la méthode getEmpruntByTopoId avec le topoId " + topoId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        EmpruntRM eRM = new EmpruntRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", topoId, Types.INTEGER);
+        String rSQL = "SELECT * FROM emprunt WHERE emprunt.topo_id = :topoId;";
+        return jdbcTemplate.query(rSQL, params, eRM);
     }
 }

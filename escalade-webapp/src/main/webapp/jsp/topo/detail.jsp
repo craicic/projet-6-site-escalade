@@ -49,8 +49,17 @@
     Lier ce topo à un site existant
 </s:a></div>
 
-<%-- ==== Commentaires ==== --%>
+<%-- ==== Pour les users connectés ==== --%>
+<%-- ==== Commentaires & Reservation ==== --%>
 <s:if test="#session.utilisateur">
+
+    <%-- Réservation --%>
+    <s:if test="%{reservedFlag eq true}">
+        <div>Réservé</div>
+    </s:if>
+    <s:else>
+        <div><s:a action="borrow">Réserver ce topo</s:a></div>
+    </s:else>
 
     <%-- Poster un commantaire --%>
     <s:form action="add_comment_topo">
