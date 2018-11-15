@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class EmpruntRM implements RowMapper<Emprunt> {
 
@@ -12,8 +13,8 @@ public class EmpruntRM implements RowMapper<Emprunt> {
     public Emprunt mapRow(ResultSet rs, int rowNum) throws SQLException {
         Emprunt emprunt = new Emprunt();
         emprunt.setId(rs.getInt("id"));
-        emprunt.setDateEmprunt(rs.getDate("date_empreint"));
-        emprunt.setDateRetour(rs.getDate("date_retour"));
+        emprunt.setDateEmprunt(rs.getObject("date_empreint", LocalDate.class));
+        emprunt.setDateRetour(rs.getObject("date_retour", LocalDate.class));
         emprunt.setUtilisateurId(rs.getInt("utilisateur_id"));
         emprunt.setTopoId(rs.getInt("topo_id"));
         return emprunt;

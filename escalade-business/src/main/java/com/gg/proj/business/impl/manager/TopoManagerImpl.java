@@ -189,9 +189,11 @@ public class TopoManagerImpl implements TopoManager {
      * @param siteId
      */
     @Override
+    @Transactional
     public void deleteLink(Integer topoId, Integer siteId) {
         logger.debug("Entrée dans la méthode deleteLink avec topoId : " + topoId + " et siteId : " +siteId);
         CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topoId,siteId);
         compositionSiteTopoDao.deleteByModel(compositionSiteTopo);
     }
+
 }

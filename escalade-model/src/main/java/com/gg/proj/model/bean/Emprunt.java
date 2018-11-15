@@ -1,12 +1,12 @@
 package com.gg.proj.model.bean;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Emprunt implements Model{
     // propriétés
     private Integer id;
-    private Date dateEmprunt;
-    private Date dateRetour;
+    private LocalDate dateEmprunt;
+    private LocalDate dateRetour;
     private Integer utilisateurId;
     private Integer topoId;
     private Topo topo;
@@ -30,19 +30,19 @@ public class Emprunt implements Model{
         this.id = id;
     }
 
-    public Date getDateEmprunt() {
+    public LocalDate getDateEmprunt() {
         return dateEmprunt;
     }
 
-    public void setDateEmprunt(Date dateEmprunt) {
+    public void setDateEmprunt(LocalDate dateEmprunt) {
         this.dateEmprunt = dateEmprunt;
     }
 
-    public Date getDateRetour() {
+    public LocalDate getDateRetour() {
         return dateRetour;
     }
 
-    public void setDateRetour(Date dateRetour) {
+    public void setDateRetour(LocalDate dateRetour) {
         this.dateRetour = dateRetour;
     }
 

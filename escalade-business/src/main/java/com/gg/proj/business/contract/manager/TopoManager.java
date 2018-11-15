@@ -1,6 +1,7 @@
 package com.gg.proj.business.contract.manager;
 
 import com.gg.proj.business.contract.CrudManager;
+import com.gg.proj.consumer.contract.dao.TopoDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CompositionSiteTopo;
 import com.gg.proj.model.bean.Site;
@@ -22,4 +23,6 @@ public interface TopoManager extends CrudManager<Topo> {
     void setLink(CompositionSiteTopo compositionSiteTopo);
 
     void deleteLink(Integer topoId, Integer siteId);
+
+
 }

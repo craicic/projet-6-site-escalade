@@ -18,4 +18,6 @@ public interface EmpruntManager extends CrudDao<Emprunt> {
     List<Topo> listLoanedTopo(Integer loanerId);
 
     boolean isReserved(Integer topoId);
+
+    List<Emprunt> listEmpruntByTopoId(Integer topoId);
 }

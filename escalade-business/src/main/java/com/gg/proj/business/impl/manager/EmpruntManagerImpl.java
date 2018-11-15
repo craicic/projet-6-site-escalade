@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,13 +28,13 @@ public class EmpruntManagerImpl implements EmpruntManager {
 
     @Override
     @Transactional
-    public void create(Emprunt model) {
+    public void create(Emprunt emprunt) {
         logger.debug("Entrée dans la méthode create");
-        if (model.getUtilisateurId() != null) {
-            if (model.getDateEmprunt() != null && model.getDateRetour() != null)
-                empruntDao.create(model);
-            else
-                logger.warn("Les dates empreint et retour doivent être spécifiées");
+        if (emprunt.getUtilisateurId() != null) {
+            LocalDate date = LocalDate.now();
+            emprunt.setDateEmprunt(date);
+            emprunt.setDateRetour(date.plusWeeks(3));
+            empruntDao.create(emprunt);
         } else
             logger.warn("Un empreint doit être lié a un utilisateur par utilisateur_id");
     }
@@ -115,10 +113,16 @@ public class EmpruntManagerImpl implements EmpruntManager {
         logger.debug("Entrée dans la méthode isReserved avec le topoId" + topoId);
         List<Emprunt> listEmprunt = empruntDao.getEmpruntByTopoId(topoId);
         for (Emprunt e : listEmprunt) {
-            if (e.getDateRetour().after(Date.from(Instant.now())))
+            if (e.getDateRetour().isAfter(LocalDate.now()))
                 return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public List<Emprunt> listEmpruntByTopoId(Integer topoId) {
+        return empruntDao.getFullEmpruntByTopoId(topoId);
     }
 
     // todo javadoc

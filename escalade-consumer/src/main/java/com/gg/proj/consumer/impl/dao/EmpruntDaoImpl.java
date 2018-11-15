@@ -77,4 +77,20 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpruntDao {
         String rSQL = "SELECT * FROM emprunt WHERE emprunt.topo_id = :topoId;";
         return jdbcTemplate.query(rSQL, params, eRM);
     }
+
+    @Override
+    public List<Emprunt> getFullEmpruntByTopoId(Integer topoId) {
+        logger.debug("Entrée dans la méthode getFullEmpruntByTopoId avec le topoId " + topoId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        EmpruntRM eRM = new EmpruntRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("topoId", topoId, Types.INTEGER);
+        String rSQL = "SELECT e.date_emprunt, e.date_retour, e.utilisateur_id, u1.pseudo as emprunteur_pseudo, u2.pseudo as proprietaire_pseudo " +
+                " FROM emprunt e " +
+                "INNER JOIN utilisateur u1 ON e.utilisateur_id = u1.id " +
+                "INNER JOIN topo t ON e.topo_id = t.id" +
+                " INNER JOIN utilisateur u2 ON t.proprietaire_id = u2.id" +
+                "   WHERE e.topo_id = :topoId;";
+        return jdbcTemplate.query(rSQL, params, eRM);
+    }
 }

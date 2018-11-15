@@ -372,7 +372,8 @@
         <action name="borrow"
                 class="com.gg.proj.webapp.action.GestionEmpruntAction"
                 method="doBorrow">
-            <result name="success">jsp/emprunt/borrow.jsp</result>
+            <result name="input">jsp/emprunt/borrow.jsp</result>
+            <result name="success">jsp/emprunt/confirmation.jsp</result>
         </action>
         <!-- Panneau de controle des prêts et emprunt de chaque utilisateur -->
         <action name="check_borrow_and_loan"

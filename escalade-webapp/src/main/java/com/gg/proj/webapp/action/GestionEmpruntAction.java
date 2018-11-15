@@ -1,9 +1,9 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
+import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +21,12 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     private Integer id;
     private Topo topo;
+    private boolean post;
     private Map<String,Object> session;
     private List<Topo> listAvailableTopo;
     private List<Topo> listLoanedTopo;
     private List<Topo> listBorrowedTopo;
+    private List<Emprunt> listEmprunt;
 
     // Getters & Setters
     @Override
@@ -46,6 +48,14 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     public void setTopo(Topo topo) {
         this.topo = topo;
+    }
+
+    public boolean isPost() {
+        return post;
+    }
+
+    public void setPost(boolean post) {
+        this.post = post;
     }
 
     public List<Topo> getListAvailableTopo() {
@@ -70,6 +80,14 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     public void setListBorrowedTopo(List<Topo> listBorrowedTopo) {
         this.listBorrowedTopo = listBorrowedTopo;
+    }
+
+    public List<Emprunt> getListEmprunt() {
+        return listEmprunt;
+    }
+
+    public void setListEmprunt(List<Emprunt> listEmprunt) {
+        this.listEmprunt = listEmprunt;
     }
 
     public String doCreate() {
@@ -98,21 +116,24 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doBorrow() {
-        String result = ActionSupport.SUCCESS;
+        String result = ActionSupport.INPUT;
+        if (isPost()) {
+            listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
+            result = ActionSupport.SUCCESS;
+        } else {
+            Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+
+            Emprunt emprunt = new Emprunt();
+            emprunt.setUtilisateurId(utilisateurEnSession.getId());
+            // todo gestion topoId
+            emprunt.setTopoId(topo.getId());
+            managerFactory.getEmpruntManager().create(emprunt);
+        }
         return result;
     }
 
     public String doManageMyLoan() {
         Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
-
-        // On récupère les liste de topo en prèt et en emprunt
-//        listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());
-//        listEmprunt = managerFactory.getEmpruntManager().listEmprunt(utilisateurEnSession.getId());
-//        listEmpruntInfo = managerFactory.getEmpruntManager().getEmpruntInfo(utilisateurEnSession.getId());
-//        listLoanedTopo = managerFactory.getEmpruntManager().getLoanedTopo(utilisateurEnSession.getId());
-//        listProprieteTopo =
-//        // On récupère les date de fin de prêt
-//        listEmprunt = managerFactory.getEmpruntManager().listEmpruntByUserId(utilisateurEnSession.getId());
 
         listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());
         listLoanedTopo = managerFactory.getEmpruntManager().listLoanedTopo(utilisateurEnSession.getId());
