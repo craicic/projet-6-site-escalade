@@ -17,15 +17,17 @@ import java.util.List;
 public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 
     private static final Logger logger = LogManager.getLogger();
-
+    
+    // TODO gestion des coordonnées
     @Override
     public void create(Secteur model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
-        jdbcTempplate.update("INSERT INTO secteur (nom, description, coordonnees_gps, site_id)  VALUES(?, ?, ?, ?);",
+        jdbcTempplate.update("INSERT INTO secteur (nom, description, coordonnee_x,coordonnee_y, site_id)  VALUES(?, ?, ?, ?, ?);",
                 model.getNom(),
                 model.getDescription(),
-                model.getCoordonneesGPS(),
+                model.getCoordonneeX(),
+                model.getCoordonneeY(),
                 model.getSiteId()
         );
     }
@@ -50,10 +52,11 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     public void update(Secteur model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE secteur SET (nom,description,coordonnees_gps,site_id) = (?,?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE secteur SET (nom,description,coordonnee_x,coordonnee_y,site_id) = (?,?,?,?,?) WHERE id = ?;",
                 model.getNom(),
                 model.getDescription(),
-                model.getCoordonneesGPS(),
+                model.getCoordonneeX(),
+                model.getCoordonneeY(),
                 model.getSiteId(),
                 model.getId());
     }
@@ -110,6 +113,4 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         String SQL = "SELECT * FROM secteur JOIN  voie ON secteur.id = voie.secteur_id WHERE voie.id = :voieId;";
         return jdbcTemplate.queryForObject(SQL, params, secteurRM);
     }
-
-
 }

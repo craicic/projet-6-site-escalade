@@ -1,7 +1,6 @@
 package com.gg.proj.consumer.impl.rowmapper;
 
 import com.gg.proj.model.bean.Secteur;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,8 +14,8 @@ public class SecteurRM implements RowMapper<Secteur> {
         secteur.setId(rs.getInt("id"));
         secteur.setNom(rs.getString("nom"));
         secteur.setDescription(rs.getString("description"));
-        secteur.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
-        secteur.setSiteId(rs.getInt("site_id"));
+        secteur.setCoordonneeX(rs.getDouble("coordonnee_x"));
+        secteur.setCoordonneeY(rs.getDouble("coordonnee_y"));
         return secteur;
     }
 }

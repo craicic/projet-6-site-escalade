@@ -77,10 +77,7 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doCreate() {
         String result = ActionSupport.INPUT;
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        if (secteur.getNom() != null) {
+        if (secteur != null) {
             managerFactory.getSecteurManager().create(secteur);
             result = ActionSupport.SUCCESS;
         } else
@@ -120,7 +117,8 @@ public class GestionSecteurAction extends ActionSupport {
                 Secteur tmpSecteur = managerFactory.getSecteurManager().get(secteur.getId());
                 tmpSecteur.setNom(secteur.getNom());
                 tmpSecteur.setDescription(secteur.getDescription());
-                tmpSecteur.setCoordonneesGPS(secteur.getCoordonneesGPS());
+                tmpSecteur.setCoordonneeX(secteur.getCoordonneeX());
+                tmpSecteur.setCoordonneeY(secteur.getCoordonneeY());
                 tmpSecteur.setSiteId(secteur.getSiteId());
                 managerFactory.getSecteurManager().update(tmpSecteur);
                 this.addActionMessage("Secteur modifié : " + secteur.getNom());

@@ -154,7 +154,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("borrowerId", borrowerId, Types.INTEGER);
 
-        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description FROM topo t INNER JOIN emprunt e ON t.id = e.topo_id " +
+        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description, t.empreintable FROM topo t INNER JOIN emprunt e ON t.id = e.topo_id " +
                 "WHERE e.utilisateur_id = :borrowerId;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }

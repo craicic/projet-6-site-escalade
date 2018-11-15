@@ -1,7 +1,6 @@
 package com.gg.proj.consumer.impl.rowmapper;
 
 import com.gg.proj.model.bean.Site;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -18,7 +17,8 @@ public class SiteRM implements RowMapper<Site> {
         site.setProfil(rs.getString("profil"));
         site.setRoche(rs.getString("roche"));
         site.setType(rs.getString("type"));
-        site.setCoordonneesGPS((PGpoint) rs.getObject("coordonnees_gps"));
+        site.setCoordonneeX(rs.getDouble("coordonnee_x"));
+        site.setCoordonneeY(rs.getDouble("coordonnee_y"));
         return site;
     }
 }

@@ -11,10 +11,12 @@ public class Site implements Model {
     private String profil;
     private String roche;
     private String type;
-    private PGpoint coordonneesGPS;
+    private double coordonneeX;
+    private double coordonneeY;
 
     // constructeurs
-    public Site(){}
+    public Site() {
+    }
 
     public Site(Integer id) {
         this.id = id;
@@ -70,11 +72,19 @@ public class Site implements Model {
         this.type = type;
     }
 
-    public PGpoint getCoordonneesGPS() {
-        return coordonneesGPS;
+    public double getCoordonneeX() {
+        return coordonneeX;
     }
 
-    public void setCoordonneesGPS(PGpoint coordonneesGPS) {
-        this.coordonneesGPS = coordonneesGPS;
+    public void setCoordonneeX(double coordonneeX) {
+        this.coordonneeX = coordonneeX;
+    }
+
+    public double getCoordonneeY() {
+        return coordonneeY;
+    }
+
+    public void setCoordonneeY(double coordonneeY) {
+        this.coordonneeY = coordonneeY;
     }
 }

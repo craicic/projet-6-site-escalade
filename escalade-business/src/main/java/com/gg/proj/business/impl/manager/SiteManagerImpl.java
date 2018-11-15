@@ -6,10 +6,10 @@ import com.gg.proj.consumer.contract.dao.CommentaireSurSiteDao;
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurSite;
+import com.gg.proj.model.bean.Coordonnees;
 import com.gg.proj.model.bean.Site;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -38,7 +38,8 @@ public class SiteManagerImpl implements SiteManager {
         logger.debug("Entrée dans la méthode create");
         if (!model.getNom().isEmpty()) {
             // todo retirer ce fix de coordonnéesGPS
-            model.setCoordonneesGPS(new PGpoint(1, 1));
+            model.setCoordonneeX(1.0);
+            model.setCoordonneeY(1.0);
             siteDao.create(model);
         } else
             logger.warn("Le champ nom doit être renseigné");
@@ -61,7 +62,8 @@ public class SiteManagerImpl implements SiteManager {
     public void update(Site model) {
         logger.debug("Entrée dans la méthode update");
         // todo retirer ce fix de coordonnéesGPS
-        model.setCoordonneesGPS(new PGpoint(1, 1));
+        model.setCoordonneeX(1.0);
+        model.setCoordonneeY(1.0);
         siteDao.update(model);
     }
 

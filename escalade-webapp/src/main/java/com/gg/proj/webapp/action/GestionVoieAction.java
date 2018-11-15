@@ -84,7 +84,7 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        if(voie.getNom() != null) {
+        if(voie != null) {
                 managerFactory.getVoieManager().create(voie);
                 this.addActionMessage("Voie modifié : " + voie.getNom());
                 resultat = ActionSupport.SUCCESS;

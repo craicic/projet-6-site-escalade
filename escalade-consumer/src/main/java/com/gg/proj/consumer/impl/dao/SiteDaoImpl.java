@@ -17,17 +17,19 @@ import java.util.List;
 public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     private static final Logger logger = LogManager.getLogger();
 
+    // TODO gestion des coordonnées
     @Override
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("INSERT INTO site (nom, description, profil, roche, type, coordonnees_gps) VALUES (?,?,?,?,?,?);",
+        jdbcTemplate.update("INSERT INTO site (nom, description, profil, roche, type, coordonnee_x,coordonnee_y) VALUES (?,?,?,?,?,?,?);",
                 model.getNom(),
                 model.getDescription(),
                 model.getProfil(),
                 model.getRoche(),
                 model.getType(),
-                model.getCoordonneesGPS()
+                model.getCoordonneeX(),
+                model.getCoordonneeY()
         );
     }
 
@@ -51,13 +53,14 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     public void update(Site model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE site SET (nom,description,profil,roche,type,coordonnees_gps) = (?,?,?,?,?,?) WHERE id = ?;",
+        jdbcTemplate.update("UPDATE site SET (nom,description,profil,roche,type,coordonnee_x,coordonnee_y) = (?,?,?,?,?,?,?) WHERE id = ?;",
                 model.getNom(),
                 model.getDescription(),
                 model.getProfil(),
                 model.getRoche(),
                 model.getType(),
-                model.getCoordonneesGPS(),
+                model.getCoordonneeX(),
+                model.getCoordonneeY(),
                 model.getId()
         );
     }

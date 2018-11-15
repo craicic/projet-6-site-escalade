@@ -5,7 +5,6 @@ import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.model.bean.Secteur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -29,7 +28,8 @@ public class SecteurManagerImpl implements SecteurManager {
             // puis on vérifie que getNom soit non null
             if(model.getNom() != null){
                 // todo retirer ce fix de coordonnéesGPS
-                model.setCoordonneesGPS(new PGpoint(1,1));
+                model.setCoordonneeX(1.0);
+                model.setCoordonneeY(1.0);
                 secteurDao.create(model);
             } else
                 logger.warn("Secteur doit posséder un nom");
@@ -53,7 +53,8 @@ public class SecteurManagerImpl implements SecteurManager {
     @Transactional
     public void update(Secteur model) {
         logger.debug("Entrée dans la méthode update");
-        model.setCoordonneesGPS(new PGpoint(1,1));
+        model.setCoordonneeX(1.0);
+        model.setCoordonneeY(1.0);
         secteurDao.update(model);
     }
 

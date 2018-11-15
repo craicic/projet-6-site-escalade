@@ -117,7 +117,8 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
                 tmpSite.setProfil(site.getProfil());
                 tmpSite.setRoche(site.getRoche());
                 tmpSite.setType(site.getType());
-                tmpSite.setCoordonneesGPS(site.getCoordonneesGPS());
+                tmpSite.setCoordonneeX(site.getCoordonneeX());
+                tmpSite.setCoordonneeY(site.getCoordonneeY());
                 managerFactory.getSiteManager().update(tmpSite);
                 this.addActionMessage("Site modifié : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;

@@ -7,7 +7,8 @@ public class Secteur implements Model {
     private Integer id;
     private String nom;
     private String description;
-    private PGpoint coordonneesGPS;
+    private double coordonneeX;
+    private double coordonneeY;
     private Integer siteId;
 
 
@@ -44,12 +45,20 @@ public class Secteur implements Model {
         this.description = description;
     }
 
-    public PGpoint getCoordonneesGPS() {
-        return coordonneesGPS;
+    public double getCoordonneeX() {
+        return coordonneeX;
     }
 
-    public void setCoordonneesGPS(PGpoint coordonneesGPS) {
-        this.coordonneesGPS = coordonneesGPS;
+    public void setCoordonneeX(double coordonneeX) {
+        this.coordonneeX = coordonneeX;
+    }
+
+    public double getCoordonneeY() {
+        return coordonneeY;
+    }
+
+    public void setCoordonneeY(double coordonneeY) {
+        this.coordonneeY = coordonneeY;
     }
 
     public Integer getSiteId() {
