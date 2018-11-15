@@ -116,11 +116,11 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doBorrow() {
-        String result = ActionSupport.INPUT;
-        if (isPost()) {
+        String result = ActionSupport.SUCCESS;
+/*        if (!isPost()) {
             listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
             result = ActionSupport.SUCCESS;
-        } else {
+        } else {*/
             Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
 
             Emprunt emprunt = new Emprunt();
@@ -128,7 +128,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
             // todo gestion topoId
             emprunt.setTopoId(topo.getId());
             managerFactory.getEmpruntManager().create(emprunt);
-        }
+/*        }*/
         return result;
     }
 

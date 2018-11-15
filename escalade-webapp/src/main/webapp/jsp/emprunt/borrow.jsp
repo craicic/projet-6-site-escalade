@@ -15,11 +15,6 @@
 
 <h5>Historique de réservation</h5>
 <%-- todo lister les date de réservation sur ce topo --%>
-
-<h5>Reserver ce topo</h5>
-<s:a action="borrow">
-    <s:param name="post" value="true"/>
-    Emprunt 3 semaines
-</s:a>
+<h5>Vous avez emprunter ce topo jusqu'au <b>TODO</b></h5>
 
 </html>

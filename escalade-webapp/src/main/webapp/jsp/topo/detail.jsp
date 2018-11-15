@@ -58,7 +58,9 @@
         <div>Réservé</div>
     </s:if>
     <s:else>
-        <div><s:a action="borrow">Réserver ce topo</s:a></div>
+        <div><s:a action="borrow">
+            <s:param name="topo.id" value="%{id}"/>
+            Réserver ce topo</s:a></div>
     </s:else>
 
     <%-- Poster un commantaire --%>
