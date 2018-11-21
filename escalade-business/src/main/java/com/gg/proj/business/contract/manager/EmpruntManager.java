@@ -12,7 +12,7 @@ import java.util.List;
 public interface EmpruntManager extends CrudDao<Emprunt> {
 
     @Transactional
-    void create(Emprunt emprunt, Date date);
+    void create(Emprunt emprunt, Date date) throws Exception;
 
     List<Utilisateur> listAllOnwersByTopoId(Integer topoId);
 

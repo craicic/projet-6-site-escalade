@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -43,15 +44,20 @@ public class EmpruntManagerImpl implements EmpruntManager {
 
     @Override
     @Transactional
-    public void create(Emprunt emprunt, Date date){
+    public void create(Emprunt emprunt, Date date) throws Exception {
         logger.debug("Entrée dans la méthode create avec Date en paramêtre");
         ConvertisseurDate cDate = new ConvertisseurDate();
         LocalDate dateRetour = cDate.convertToLocalDateViaInstant(date);
         LocalDate dateEmprunt = LocalDate.now();
-        emprunt.setDateEmprunt(dateEmprunt);
-        emprunt.setDateRetour(dateRetour);
 
-        empruntDao.create(emprunt);
+        if (dateEmprunt.isAfter(dateRetour)) {
+            throw new Exception("La date de retour doit être ultérieur à la date d'emprunt");
+        } else {
+            emprunt.setDateEmprunt(dateEmprunt);
+            emprunt.setDateRetour(dateRetour);
+
+            empruntDao.create(emprunt);
+        }
     }
 
     @Override

@@ -13,7 +13,7 @@ public class EmpruntRM implements RowMapper<Emprunt> {
     public Emprunt mapRow(ResultSet rs, int rowNum) throws SQLException {
         Emprunt emprunt = new Emprunt();
         emprunt.setId(rs.getInt("id"));
-        emprunt.setDateEmprunt(rs.getObject("date_empreint", LocalDate.class));
+        emprunt.setDateEmprunt(rs.getObject("date_emprunt", LocalDate.class));
         emprunt.setDateRetour(rs.getObject("date_retour", LocalDate.class));
         emprunt.setUtilisateurId(rs.getInt("utilisateur_id"));
         emprunt.setTopoId(rs.getInt("topo_id"));

@@ -5,11 +5,13 @@ import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
 import com.opensymphony.xwork2.ActionSupport;
+import freemarker.template.utility.DateUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
+import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -140,9 +142,14 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
             // todo gestion topoId
             emprunt.setTopoId(topo.getId());
 
-            managerFactory.getEmpruntManager().create(emprunt, date);
+            try {
+                managerFactory.getEmpruntManager().create(emprunt, date);
 
-            result = ActionSupport.SUCCESS;
+                result = ActionSupport.SUCCESS;
+            } catch (Exception dtE){
+                addActionError(dtE.getMessage());
+                result = ActionSupport.ERROR;
+            }
         } else {
             listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
         }
