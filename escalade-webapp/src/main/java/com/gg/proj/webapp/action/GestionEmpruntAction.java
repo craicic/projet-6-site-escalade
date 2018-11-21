@@ -4,6 +4,7 @@ import com.gg.proj.business.contract.ManagerFactory;
 import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
+import com.gg.proj.technical.exceptions.DateInputException;
 import com.opensymphony.xwork2.ActionSupport;
 import freemarker.template.utility.DateUtil;
 import org.apache.logging.log4j.LogManager;
@@ -123,31 +124,29 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doListAvailable() {
-        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo();
+        Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
+
+        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo(utilisateurEnSession.getId());
         return ActionSupport.SUCCESS;
     }
 
     public String doBorrow() {
         String result = ActionSupport.INPUT;
-/*        if (!isPost()) {
-            listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
-            result = ActionSupport.SUCCESS;
-        } else {*/
 
         if (date != null) {
             Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
 
             Emprunt emprunt = new Emprunt();
             emprunt.setUtilisateurId(utilisateurEnSession.getId());
-            // todo gestion topoId
+
             emprunt.setTopoId(topo.getId());
 
             try {
                 managerFactory.getEmpruntManager().create(emprunt, date);
 
                 result = ActionSupport.SUCCESS;
-            } catch (Exception dtE){
-                addActionError(dtE.getMessage());
+            } catch (DateInputException dIE){
+                addActionError(dIE.getMessage());
                 result = ActionSupport.ERROR;
             }
         } else {

@@ -7,6 +7,7 @@ import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
 import com.gg.proj.technical.ConvertisseurDate;
+import com.gg.proj.technical.exceptions.DateInputException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,14 +46,14 @@ public class EmpruntManagerImpl implements EmpruntManager {
 
     @Override
     @Transactional
-    public void create(Emprunt emprunt, Date date) throws Exception {
+    public void create(Emprunt emprunt, Date date) throws DateInputException {
         logger.debug("Entrée dans la méthode create avec Date en paramêtre");
         ConvertisseurDate cDate = new ConvertisseurDate();
         LocalDate dateRetour = cDate.convertToLocalDateViaInstant(date);
         LocalDate dateEmprunt = LocalDate.now();
 
         if (dateEmprunt.isAfter(dateRetour)) {
-            throw new Exception("La date de retour doit être ultérieur à la date d'emprunt");
+            throw new DateInputException("La date de retour doit être ultérieur à la date d'emprunt");
         } else {
             emprunt.setDateEmprunt(dateEmprunt);
             emprunt.setDateRetour(dateRetour);
@@ -101,14 +103,20 @@ public class EmpruntManagerImpl implements EmpruntManager {
      */
     @Override
     @Transactional
-    public List<Topo> listAvailableTopo() {
+    public List<Topo> listAvailableTopo(Integer utilisateurId) {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         List<Topo> listTopo = topoDao.listAvailableTopo();
+        List<Topo> listTopoWithExcluded = new ArrayList<Topo>();
         for (Topo topo : listTopo) {
-            // On raccourci la description à 50 caractère.
+            // On raccourci la description à 50 caractère...
             topo.setDescription(shortenDescription(topo.getDescription()));
+            // ... et on exclus les topos dont le propriétaire est identique à l'utilisateur qui fait la requête
+            if (!topo.getProprietaireId().equals(utilisateurId)){
+                listTopoWithExcluded.add(topo);
+            }
         }
-        return listTopo;
+
+        return listTopoWithExcluded;
     }
 
     //todo javadoc
