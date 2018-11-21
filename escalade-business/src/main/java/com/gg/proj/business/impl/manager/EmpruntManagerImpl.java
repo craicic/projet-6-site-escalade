@@ -6,6 +6,7 @@ import com.gg.proj.consumer.contract.dao.TopoDao;
 import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
+import com.gg.proj.technical.ConvertisseurDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -37,6 +39,19 @@ public class EmpruntManagerImpl implements EmpruntManager {
             empruntDao.create(emprunt);
         } else
             logger.warn("Un empreint doit être lié a un utilisateur par utilisateur_id");
+    }
+
+    @Override
+    @Transactional
+    public void create(Emprunt emprunt, Date date){
+        logger.debug("Entrée dans la méthode create avec Date en paramêtre");
+        ConvertisseurDate cDate = new ConvertisseurDate();
+        LocalDate dateRetour = cDate.convertToLocalDateViaInstant(date);
+        LocalDate dateEmprunt = LocalDate.now();
+        emprunt.setDateEmprunt(dateEmprunt);
+        emprunt.setDateRetour(dateRetour);
+
+        empruntDao.create(emprunt);
     }
 
     @Override

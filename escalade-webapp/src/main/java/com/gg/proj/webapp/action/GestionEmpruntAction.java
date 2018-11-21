@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     private Integer id;
     private Topo topo;
     private boolean post;
+    private Date date;
     private Map<String,Object> session;
     private List<Topo> listAvailableTopo;
     private List<Topo> listLoanedTopo;
@@ -56,6 +58,14 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     public void setPost(boolean post) {
         this.post = post;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<Topo> getListAvailableTopo() {
@@ -116,19 +126,26 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doBorrow() {
-        String result = ActionSupport.SUCCESS;
+        String result = ActionSupport.INPUT;
 /*        if (!isPost()) {
             listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
             result = ActionSupport.SUCCESS;
         } else {*/
+
+        if (date != null) {
             Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
 
             Emprunt emprunt = new Emprunt();
             emprunt.setUtilisateurId(utilisateurEnSession.getId());
             // todo gestion topoId
             emprunt.setTopoId(topo.getId());
-            managerFactory.getEmpruntManager().create(emprunt);
-/*        }*/
+
+            managerFactory.getEmpruntManager().create(emprunt, date);
+
+            result = ActionSupport.SUCCESS;
+        } else {
+            listEmprunt = managerFactory.getEmpruntManager().listEmpruntByTopoId(topo.getId());
+        }
         return result;
     }
 

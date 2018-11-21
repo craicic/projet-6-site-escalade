@@ -101,6 +101,11 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         return jdbcTemplate.query(SQL, params, secteurRM);
     }
 
+    /**
+     *
+     * @param voieId
+     * @return
+     */
     @Override
     public Secteur getSecteurByVoieId(Integer voieId) {
         logger.debug("Entrée dans la méthode getSecteurByVoieId avec le voieId : " + voieId);

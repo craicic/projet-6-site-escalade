@@ -14,17 +14,6 @@
 
     <name>escalade-webapp Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
-
-    <properties>
-        <application.name>Site communautaire d'escalade</application.name>
-        <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
-        <build.timestamp>${maven.build.timestamp}</build.timestamp>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <!-- modules -->
         <dependency>
@@ -55,20 +44,20 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>javax.ws.rs</groupId>-->
-            <!--<artifactId>javax.ws.rs-api</artifactId>-->
+        <!--<groupId>javax.ws.rs</groupId>-->
+        <!--<artifactId>javax.ws.rs-api</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.glassfish.jersey.containers</groupId>-->
-            <!--<artifactId>jersey-container-servlet</artifactId>-->
+        <!--<groupId>org.glassfish.jersey.containers</groupId>-->
+        <!--<artifactId>jersey-container-servlet</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.glassfish.jersey.media</groupId>-->
-            <!--<artifactId>jersey-media-moxy</artifactId>-->
+        <!--<groupId>org.glassfish.jersey.media</groupId>-->
+        <!--<artifactId>jersey-media-moxy</artifactId>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.glassfish.jersey.inject</groupId>-->
-            <!--<artifactId>jersey-hk2</artifactId>-->
+        <!--<groupId>org.glassfish.jersey.inject</groupId>-->
+        <!--<artifactId>jersey-hk2</artifactId>-->
         <!--</dependency>-->
 
         <dependency>
@@ -82,10 +71,15 @@
             <artifactId>struts2-spring-plugin</artifactId>
         </dependency>
 
-         <!--Framework Apache Struts -->
+        <!--Framework Apache Struts -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-dojo-plugin</artifactId>
         </dependency>
 
         <dependency>
@@ -111,6 +105,17 @@
         </dependency>
 
     </dependencies>
+
+    <url>http://www.example.com</url>
+
+    <properties>
+        <application.name>Site communautaire d'escalade</application.name>
+        <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
 
     <build>
         <finalName>escalade-webapp</finalName>

@@ -14,5 +14,5 @@
 <%@ include file="../_include/header.jsp"%>
 
 <p>Votre réservation a été enregistrée</p>
-
+<p>Vous avez emprunter ce topo jusqu'au <b>TODO</b></p>
 </html>
