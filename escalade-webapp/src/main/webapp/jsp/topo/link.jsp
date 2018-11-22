@@ -20,6 +20,9 @@
 
 <s:if test="%{listSite.isEmpty()}">
     <div>Aucun site à associer</div>
+    <s:a action="site_new">
+        Créer un nouveau site.
+    </s:a>
 </s:if>
 <s:else>
     <s:form action="link_site_topo">

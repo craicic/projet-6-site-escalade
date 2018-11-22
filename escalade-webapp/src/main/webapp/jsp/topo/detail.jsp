@@ -25,24 +25,24 @@
 </ul>
 
 <%-- Liste des sites associés --%>
-<s:iterator value="listSite">
-    <div>
-        <s:a action="detail_site">
-        <s:param name="id" value="id"/>
-        <s:property value="nom"/>
-    </s:a>
-        <s:a action="delete_link">
-            <s:param name="topo.id" value="%{topo.id}"/>
-            <s:param name="site.id" value="id"/>
-            Supprimer l'association
-        </s:a>
-    </div>
-</s:iterator>
-
-<%--<div><s:a action="site_new">--%>
-<%--<s:param name="id" value="id"/>--%>
-<%--Créer un nouveau site--%>
-<%--</s:a></div>--%>
+<s:if test="%{listSite.isEmpty()}">
+    Ce topo n'est lié a aucun site.
+</s:if>
+<s:else>
+    <s:iterator value="listSite">
+        <div>
+            <s:a action="detail_site">
+                <s:param name="id" value="id"/>
+                <s:property value="nom"/>
+            </s:a>
+            <s:a action="delete_link">
+                <s:param name="topo.id" value="%{topo.id}"/>
+                <s:param name="site.id" value="id"/>
+                Supprimer l'association
+            </s:a>
+        </div>
+    </s:iterator>
+</s:else>
 
 <div><s:a action="link_site_topo">
     <s:param name="id" value="id"/>

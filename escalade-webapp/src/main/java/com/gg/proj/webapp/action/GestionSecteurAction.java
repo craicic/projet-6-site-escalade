@@ -23,6 +23,7 @@ public class GestionSecteurAction extends ActionSupport {
     private Integer id;
     private Secteur secteur;
     private Site site;
+    private Integer siteId;
     private List<Secteur> listSecteur;
     private List<Site> listSite;
     private List<Voie> listVoie;
@@ -49,6 +50,14 @@ public class GestionSecteurAction extends ActionSupport {
 
     public void setSite(Site site) {
         this.site = site;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
     public List<Site> getListSite() {
@@ -78,7 +87,7 @@ public class GestionSecteurAction extends ActionSupport {
     public String doCreate() {
         String result = ActionSupport.INPUT;
         if (secteur != null) {
-            managerFactory.getSecteurManager().create(secteur);
+            managerFactory.getSecteurManager().create(secteur, siteId);
             result = ActionSupport.SUCCESS;
         } else
             // On rempli listSite afin de remplir la combobox de la page create

@@ -20,7 +20,7 @@
     <s:textfield name="secteur.nom" label="Nom" requiredLabel="true"/>
     <s:textarea name="secteur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
     <!-- todo coordonnees GPS dans JSP -->
-    <s:select name="secteur.siteId" Label="Site"
+    <s:select name="siteId" Label="Site"
               list="listSite" listKey="id" listValue="nom"
               emptyOption="false"
               requiredLabel="true"/>

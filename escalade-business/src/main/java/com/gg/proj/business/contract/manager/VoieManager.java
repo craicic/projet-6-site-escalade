@@ -14,4 +14,6 @@ public interface VoieManager extends CrudDao<Voie> {
     List<Voie> search(String termeDeLaRecherche);
 
     List<Voie> listLinkedVoie(Integer secteurId);
+
+    void create(Voie voie, Integer secteurId);
 }

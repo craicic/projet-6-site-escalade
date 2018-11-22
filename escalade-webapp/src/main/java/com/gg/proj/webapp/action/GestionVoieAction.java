@@ -26,6 +26,7 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     private Integer id;
     private Voie voie;
     private Secteur secteur;
+    private Integer secteurId;
     private List<Voie> listVoie;
     private List<Secteur> listSecteur;
     private List<Commentaire> listCommentaire;
@@ -49,6 +50,12 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     }
     public void setSecteur(Secteur secteur) {
         this.secteur = secteur;
+    }
+    public Integer getSecteurId() {
+        return secteurId;
+    }
+    public void setSecteurId(Integer secteurId) {
+        this.secteurId = secteurId;
     }
     public List<Voie> getListVoie() {
         return listVoie;
@@ -81,12 +88,10 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION AU NULL POINTEUR
         if(voie != null) {
-                managerFactory.getVoieManager().create(voie);
-                this.addActionMessage("Voie modifié : " + voie.getNom());
+
+                managerFactory.getVoieManager().create(voie, secteurId);
+                this.addActionMessage("Voie créée : " + voie.getNom());
                 resultat = ActionSupport.SUCCESS;
         } else {
             // On rempli listSecteur pour le menu Select

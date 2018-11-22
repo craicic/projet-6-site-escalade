@@ -38,7 +38,7 @@
 
 <s:iterator value="listVoie">
 
-    <%-- sur secteur, au lieu de testé chaque secteur et site.secteurId, une requete plus précise est faite en BDD --%>
+    <%-- sur secteur, au lieu de tester chaque secteur et site.secteurId, une requete plus précise est faite en BDD --%>
     <%--<s:if test="%{secteurId eq secteur.id}">--%>
     <li><s:a action="detail_voie">
         <s:param name="id" value="id"/>
@@ -48,34 +48,34 @@
 </s:iterator>
 
 <div>
-    <s:a action="voie_new">nouvelle voie associée
-        <s:param name="voie.secteurId" value="id"/>
+    <s:a action="voie_new">Nouvelle voie associée
+        <s:param name="secteurId" value="id"/>
     </s:a>
 </div>
 
-<h3>My Google Maps Demo</h3>
-<!--The div element for the map -->
-<%--<div id="map"></div>--%>
-<script>
-    // Initialize and add the map
-    function initMap() {
-        // The location of Uluru
-        var uluru = {lat: ${secteur.getCoordonneeX()}, lng: ${secteur.getCoordonneeY()}};
-        // The map, centered at Uluru
-        var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 4, center: uluru});
-        // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: uluru, map: map});
-    }
-</script>
-<!--Load the API from the specified URL
-* The async attribute allows the browser to render the page while the API loads
-* The key parameter will contain your own API key (which is not needed for this tutorial)
-* The callback parameter executes the initMap() function
--->
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp5GFe0VeiTP-Jigfi9tXautoDekjHRFY&callback=initMap">
-</script>
+<%--<h3>My Google Maps Demo</h3>--%>
+<%--<!--The div element for the map -->--%>
+<%--&lt;%&ndash;<div id="map"></div>&ndash;%&gt;--%>
+<%--<script>--%>
+    <%--// Initialize and add the map--%>
+    <%--function initMap() {--%>
+        <%--// The location of Uluru--%>
+        <%--var uluru = {lat: ${secteur.getCoordonneeX()}, lng: ${secteur.getCoordonneeY()}};--%>
+        <%--// The map, centered at Uluru--%>
+        <%--var map = new google.maps.Map(--%>
+            <%--document.getElementById('map'), {zoom: 4, center: uluru});--%>
+        <%--// The marker, positioned at Uluru--%>
+        <%--var marker = new google.maps.Marker({position: uluru, map: map});--%>
+    <%--}--%>
+<%--</script>--%>
+<%--<!--Load the API from the specified URL--%>
+<%--* The async attribute allows the browser to render the page while the API loads--%>
+<%--* The key parameter will contain your own API key (which is not needed for this tutorial)--%>
+<%--* The callback parameter executes the initMap() function--%>
+<%---->--%>
+<%--<script async defer--%>
+        <%--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp5GFe0VeiTP-Jigfi9tXautoDekjHRFY&callback=initMap">--%>
+<%--</script>--%>
 
 </body>
 </html>

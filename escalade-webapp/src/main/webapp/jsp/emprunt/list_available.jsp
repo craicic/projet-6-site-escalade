@@ -11,20 +11,25 @@
 
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
-<ul>
-    <s:iterator value="listAvailableTopo">
-        <li>
-            <div>Titre : <s:property value="titre"/></div>
-            <div>Auteur : <s:property value="auteur"/></div>
-            <div>Description : <s:property value="description"/></div>
-            <div><s:a action="detail_topo">
-                <s:param name="id" value="id"/>
-                Détail du topo
-            </s:a></div>
-        </li>
-    </s:iterator>
-</ul>
+<s:if test="%{listAvailableTopo.isEmpty()}">
+    <p>Aucun topo disponible à l'heure actuelle.</p>
+</s:if>
+<s:else>
+    <ul>
+        <s:iterator value="listAvailableTopo">
+            <li>
+                <div>Titre : <s:property value="titre"/></div>
+                <div>Auteur : <s:property value="auteur"/></div>
+                <div>Description : <s:property value="description"/></div>
+                <div><s:a action="detail_topo">
+                    <s:param name="id" value="id"/>
+                    Détail du topo
+                </s:a></div>
+            </li>
+        </s:iterator>
+    </ul>
+</s:else>
 
 </html>

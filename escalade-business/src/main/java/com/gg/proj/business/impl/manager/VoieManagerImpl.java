@@ -47,6 +47,13 @@ public class VoieManagerImpl implements VoieManager {
     }
 
     @Override
+    @Transactional
+    public void create(Voie voie, Integer secteurId) {
+        logger.debug("Entrée dans la méthode create surchargée par secteurId " + secteurId);
+        voie.setSecteurId(secteurId);
+        voieDao.create(voie);
+    }
+    @Override
     public Voie get(int id) {
         logger.debug("Entrée dans la méthode getByUserPseudo avec l'id " + id);
         return voieDao.get(id);
@@ -132,8 +139,10 @@ public class VoieManagerImpl implements VoieManager {
      * @return la liste des voies
      */
     @Override
+    @Transactional
     public List<Voie> listLinkedVoie(Integer secteurId) {
         logger.debug("Entrée dans la méthode listLinkedVoie avec le secteurId " + secteurId);
         return voieDao.listBySecteurId(secteurId);
     }
+
 }

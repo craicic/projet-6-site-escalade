@@ -9,4 +9,8 @@ public interface SecteurManager extends CrudDao<Secteur> {
     List<Secteur> search(String termeDeLaRecherche);
 
     Secteur getLinkedSecteurByVoieId(Integer voieId);
+
+    void create(Secteur secteur, Integer siteId);
+
+    List<Secteur> listLinkedSecteurBySiteId(Integer siteId);
 }

@@ -25,6 +25,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
     private Integer id;
     private Site site;
+    private Integer siteId;
     private List<Site> listSite;
     private List<Secteur> listSecteur;
     private Commentaire commentaire;
@@ -42,6 +43,12 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     }
     public void setSite(Site site) {
         this.site = site;
+    }
+    public Integer getSiteId() {
+        return siteId;
+    }
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
     public List<Site> getListSite() {
         return listSite;
@@ -90,7 +97,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     public String doDetail() {
         if (id != null){
             site = managerFactory.getSiteManager().get(id);
-            listSecteur = managerFactory.getSecteurManager().list();
+            listSecteur = managerFactory.getSecteurManager().listLinkedSecteurBySiteId(id);
             listCommentaire = managerFactory.getSiteManager().listComments(id);
             return ActionSupport.SUCCESS;
         } else {

@@ -23,7 +23,7 @@
     <s:textfield name="voie.nombreDeLongueurs" label="Nombre de longueurs" requiredLabel="true"/>
     <s:textfield name="voie.cotation" label="Cotation" requiredLabel="true"/>
     <s:textfield name="voie.hauteur" label="Hauteur" requiredLabel="true"/>
-    <s:select name="voie.secteurId" Label="Secteur"
+    <s:select name="secteurId" Label="Secteur"
               list="listSecteur" listKey="id" listValue="nom"
               emptyOption="false"
               requiredLabel="true"/>

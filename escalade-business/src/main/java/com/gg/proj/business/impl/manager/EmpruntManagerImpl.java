@@ -88,14 +88,6 @@ public class EmpruntManagerImpl implements EmpruntManager {
         empruntDao.delete(id);
     }
 
-    // todo verifier la pertinance de cette méthode listAllOnwersByTopoId
-    @Override
-    @Transactional
-    public List<Utilisateur> listAllOnwersByTopoId(Integer topoId) {
-        logger.debug("Entrée dans la méthode listAllOnwersByTopoId avec le topoId : " + topoId);
-        return null;
-    }
-
     /**
      * Cette méthode solicite la dao pour récupérer la liste des topos disponibles à l'emprunt
      *
@@ -106,17 +98,16 @@ public class EmpruntManagerImpl implements EmpruntManager {
     public List<Topo> listAvailableTopo(Integer utilisateurId) {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         List<Topo> listTopo = topoDao.listAvailableTopo();
-        List<Topo> listTopoWithExcluded = new ArrayList<Topo>();
+        List<Topo> listTopoWithoutExcluded = new ArrayList<Topo>();
         for (Topo topo : listTopo) {
             // On raccourci la description à 50 caractère...
             topo.setDescription(shortenDescription(topo.getDescription()));
             // ... et on exclus les topos dont le propriétaire est identique à l'utilisateur qui fait la requête
             if (!topo.getProprietaireId().equals(utilisateurId)){
-                listTopoWithExcluded.add(topo);
+                listTopoWithoutExcluded.add(topo);
             }
         }
-
-        return listTopoWithExcluded;
+        return listTopoWithoutExcluded;
     }
 
     //todo javadoc
@@ -148,6 +139,7 @@ public class EmpruntManagerImpl implements EmpruntManager {
         return false;
     }
 
+    // todo javadoc
     @Override
     @Transactional
     public List<Emprunt> listEmpruntByTopoId(Integer topoId) {

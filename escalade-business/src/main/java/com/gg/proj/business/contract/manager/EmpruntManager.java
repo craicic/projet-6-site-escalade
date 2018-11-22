@@ -15,8 +15,6 @@ public interface EmpruntManager extends CrudDao<Emprunt> {
     @Transactional
     void create(Emprunt emprunt, Date date) throws DateInputException;
 
-    List<Utilisateur> listAllOnwersByTopoId(Integer topoId);
-
     List<Topo> listAvailableTopo(Integer utilisateurId);
 
     List<Topo> listBorrowedTopo(Integer borrowerId);
