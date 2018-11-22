@@ -117,7 +117,7 @@
 <%--</script>--%>
 
 <%--<script async defer--%>
-        <%--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp5GFe0VeiTP-Jigfi9tXautoDekjHRFY&callback=initMap">--%>
+        <%--src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&callback=initMap">--%>
 <%--</script>--%>
 </body>
 </html>
