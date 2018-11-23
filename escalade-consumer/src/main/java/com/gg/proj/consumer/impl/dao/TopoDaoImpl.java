@@ -126,6 +126,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     /**
      * Cette méthode renvoi la liste des topo qui ne sont pas en cour d'emprunt
+     *
      * @return liste de topos
      */
     @Override
@@ -142,11 +143,12 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     /**
      * Récupère les topos qui ont été empruntés par l'utilisateur d'id borrowerId
+     *
      * @param borrowerId
      * @return liste de topos
      */
     @Override
-    public List<Topo> listTopoByBorrowerId(Integer borrowerId){
+    public List<Topo> listTopoByBorrowerId(Integer borrowerId) {
         logger.debug("Entrée dans la méthode getTopoByBorrowerId");
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         TopoRM tRM = new TopoRM();
@@ -161,11 +163,12 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
     /**
      * Récupère les topos qui ont été prétés par l'utilisateur d'id loanerId
+     *
      * @param loanerId
      * @return liste de topos
      */
     @Override
-    public List<Topo> listTopoByLoanerId(Integer loanerId){
+    public List<Topo> listTopoByLoanerId(Integer loanerId) {
         logger.debug("Entrée dans la méthode getTopoByBorrowerId");
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         TopoRM tRM = new TopoRM();
@@ -174,6 +177,19 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         params.addValue("loanerId", loanerId, Types.INTEGER);
 
         String rSQL = "SELECT * FROM topo WHERE proprietaire_id = :loanerId;";
+        return jdbcTemplate.query(rSQL, params, tRM);
+    }
+
+    @Override
+    public List<Topo> listTopoBySiteId(Integer siteId) {
+        logger.debug("Entrée dans la méthode listTopoBySiteId avec le siteId : " + siteId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        TopoRM tRM = new TopoRM();
+        // préparation des params
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("siteId", siteId, Types.INTEGER);
+
+        String rSQL = "SELECT t.* FROM topo t INNER JOIN composition_site_topo c on t.id = c.topo_id INNER JOIN site s on c.site_id = s.id WHERE site_id = :siteId;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 

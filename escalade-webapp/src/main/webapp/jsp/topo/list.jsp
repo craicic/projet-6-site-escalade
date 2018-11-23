@@ -15,9 +15,9 @@
 <body>
 <h2>Liste des topos</h2>
 
-<ul>
+<ul class="list-group">
     <s:iterator value="listTopo">
-        <li>
+        <li class="list-group-item">
             <div>ID : <s:property value="id"/></div>
             <div>Titre : <s:property value="titre"/></div>
             <div>Auteur : <s:property value="auteur"/></div>

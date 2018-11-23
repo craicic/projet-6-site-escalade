@@ -20,8 +20,8 @@
     <li>ID : <s:property value="topo.id"/></li>
     <li>Titre : <s:property value="topo.titre"/></li>
     <li>Auteur : <s:property value="topo.auteur"/></li>
+    </li>
     <li>Description : <s:property value="topo.description"/></li>
-    <li>Dispo à l'emprunt : <s:property value="topo.empreintable"/></li>
 </ul>
 
 <%-- Liste des sites associés --%>
@@ -29,6 +29,7 @@
     Ce topo n'est lié a aucun site.
 </s:if>
 <s:else>
+    <div>Sites liés à ce topo :</div>
     <s:iterator value="listSite">
         <div>
             <s:a action="detail_site">
@@ -73,6 +74,7 @@
 <s:else>
     <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
 </s:else>
+
 <%-- Liste des commentaires --%>
 <ul>
     <s:iterator value="listCommentaire">

@@ -25,4 +25,5 @@ public interface TopoManager extends CrudManager<Topo> {
     void deleteLink(Integer topoId, Integer siteId);
 
 
+    List<Topo> listTopoBySiteId(Integer siteId);
 }

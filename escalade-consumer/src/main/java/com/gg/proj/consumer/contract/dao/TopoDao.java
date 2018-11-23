@@ -16,4 +16,5 @@ public interface TopoDao extends CrudDao<Topo> {
     List<Topo> listTopoByLoanerId(Integer loanerId);
 
 
+    List<Topo> listTopoBySiteId(Integer siteId);
 }

@@ -9,6 +9,7 @@ import com.gg.proj.model.bean.CommentaireSurVoie;
 import com.gg.proj.model.bean.Voie;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.expression.ExpressionException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
@@ -33,12 +34,15 @@ public class VoieManagerImpl implements VoieManager {
 
     @Override
     @Transactional
-    public void create(Voie model) {
+    public void create(Voie model) throws ExpressionException {
         logger.debug("Entrée dans la méthode create");
         // On vérifie que le model contienne bien l'id d'un site
         if (model.getSecteurId() != null) {
             // puis on vérifie que getNom soit non null
             if (model.getNom() != null) {
+                String expression = model.getCotation();
+                if(!expression.matches("^[1-9][a-cA-C][-+]?$"))
+                    throw new ExpressionException("La cotation doit respecter les standarts français, le ? et le a/b ne sont pas pris en compte");
                 voieDao.create(model);
             } else
                 logger.warn("Voie doit posséder un nom");
@@ -48,9 +52,12 @@ public class VoieManagerImpl implements VoieManager {
 
     @Override
     @Transactional
-    public void create(Voie voie, Integer secteurId) {
+    public void create(Voie voie, Integer secteurId) throws ExpressionException {
         logger.debug("Entrée dans la méthode create surchargée par secteurId " + secteurId);
         voie.setSecteurId(secteurId);
+        String expression = voie.getCotation();
+        if(!expression.matches("^[1-9][a-cA-C][-+]?$"))
+            throw new ExpressionException("La cotation doit respecter les standarts français, le ? et le a/b ne sont pas pris en compte");
         voieDao.create(voie);
     }
     @Override
@@ -67,8 +74,11 @@ public class VoieManagerImpl implements VoieManager {
 
     @Override
     @Transactional
-    public void update(Voie model) {
+    public void update(Voie model) throws ExpressionException {
         logger.debug("Entrée dans la méthode update");
+        String expression = model.getCotation();
+        if(!expression.matches("^[1-9][a-cA-C][-+]?$"))
+            throw new ExpressionException("La cotation doit respecter les standarts français, le ? et le a/b ne sont pas pris en compte");
         voieDao.update(model);
     }
 

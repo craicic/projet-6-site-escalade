@@ -9,12 +9,12 @@
 <head>
     <%@include file="../_include/head.jsp" %>
     <%--<style>--%>
-        <%--/* Always set the map height explicitly to define the size of the div--%>
-         <%--* element that contains the map. */--%>
-        <%--#map {--%>
-            <%--height: 400px;  /* The height is 400 pixels */--%>
-            <%--width: 100%;  /* The width is the width of the web page */--%>
-        <%--}--%>
+    <%--/* Always set the map height explicitly to define the size of the div--%>
+    <%--* element that contains the map. */--%>
+    <%--#map {--%>
+    <%--height: 400px;  /* The height is 400 pixels */--%>
+    <%--width: 100%;  /* The width is the width of the web page */--%>
+    <%--}--%>
     <%--</style>--%>
 </head>
 
@@ -31,23 +31,40 @@
     <li>Profil : <s:property value="site.profil"/></li>
     <li>Roche : <s:property value="site.roche"/></li>
     <li>Type : <s:property value="site.type"/></li>
-
-    <s:iterator value="listSecteur">
-        <%--<s:if test="%{siteId eq site.id}">--%>
-            <li><s:a action="detail_secteur">
-                <s:param name="id" value="id"/>
-                Secteur associé : <s:property value="nom"/>
-            </s:a></li>
-        <%--</s:if>--%>
-    </s:iterator>
+    <li>Coordonnée GPS X : <s:property value="site.coordonneeX"/></li>
+    <li>Coordonnée GPS Y : <s:property value="site.coordonneeY"/></li>
 </ul>
 
+<s:if test="%{!listSecteur.isEmpty()}">
+    <div>Secteurs associés</div>
+    <s:iterator value="listSecteur">
+        <div><s:a action="detail_secteur">
+            <s:param name="id" value="id"/>
+            <s:property value="nom"/>
+        </s:a></div>
+    </s:iterator>
+</s:if>
+<s:else>Aucun secteur associé</s:else>
 
 <div>
-    <s:a action="secteur_new">nouveau secteur associé
+    <s:a action="secteur_new">Nouveau secteur associé
         <s:param name="siteId" value="id"/>
     </s:a>
 </div>
+
+<s:if test="%{!listTopo.isEmpty()}">
+    <div>Topos relatant ce site :</div>
+    <s:iterator value="listTopo">
+        <div><s:a action="detail_topo">
+            <s:param name="id" value="id"/>
+            <s:property value="titre"/>
+        </s:a>
+
+        </div>
+
+    </s:iterator>
+</s:if>
+
 
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_site">
@@ -86,38 +103,38 @@
 <%--<!--The div element for the map -->--%>
 <%--<div id="map"></div>--%>
 <%--<script>--%>
-    <%--var map;--%>
-    <%--function initMap() {--%>
-        <%--map = new google.maps.Map(document.getElementById('map'), {--%>
-            <%--zoom: 2,--%>
-            <%--center: new google.maps.LatLng(${site.getCoordonneeX()},${site.getCoordonneeY()}),--%>
-            <%--mapTypeId: 'terrain'--%>
-        <%--});--%>
+<%--var map;--%>
+<%--function initMap() {--%>
+<%--map = new google.maps.Map(document.getElementById('map'), {--%>
+<%--zoom: 2,--%>
+<%--center: new google.maps.LatLng(${site.getCoordonneeX()},${site.getCoordonneeY()}),--%>
+<%--mapTypeId: 'terrain'--%>
+<%--});--%>
 
-        <%--// Create a <script> tag and set the USGS URL as the source.--%>
-        <%--var script = document.createElement('script');--%>
-        <%--// This example uses a local copy of the GeoJSON stored at--%>
-        <%--// http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp--%>
-        <%--script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';--%>
-        <%--document.getElementsByTagName('head')[0].appendChild(script);--%>
-    <%--}--%>
+<%--// Create a <script> tag and set the USGS URL as the source.--%>
+<%--var script = document.createElement('script');--%>
+<%--// This example uses a local copy of the GeoJSON stored at--%>
+<%--// http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp--%>
+<%--script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';--%>
+<%--document.getElementsByTagName('head')[0].appendChild(script);--%>
+<%--}--%>
 
-    <%--// Loop through the results array and place a marker for each--%>
-    <%--// set of coordinates.--%>
-    <%--window.eqfeed_callback = function(results) {--%>
-        <%--for (var i = 0; i < results.features.length; i++) {--%>
-            <%--var coords = results.features[i].geometry.coordinates;--%>
-            <%--var latLng = new google.maps.LatLng(coords[1],coords[0]);--%>
-            <%--var marker = new google.maps.Marker({--%>
-                <%--position: latLng,--%>
-                <%--map: map--%>
-            <%--});--%>
-        <%--}--%>
-    <%--}--%>
+<%--// Loop through the results array and place a marker for each--%>
+<%--// set of coordinates.--%>
+<%--window.eqfeed_callback = function(results) {--%>
+<%--for (var i = 0; i < results.features.length; i++) {--%>
+<%--var coords = results.features[i].geometry.coordinates;--%>
+<%--var latLng = new google.maps.LatLng(coords[1],coords[0]);--%>
+<%--var marker = new google.maps.Marker({--%>
+<%--position: latLng,--%>
+<%--map: map--%>
+<%--});--%>
+<%--}--%>
+<%--}--%>
 <%--</script>--%>
 
 <%--<script async defer--%>
-        <%--src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&callback=initMap">--%>
+<%--src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&callback=initMap">--%>
 <%--</script>--%>
 </body>
 </html>

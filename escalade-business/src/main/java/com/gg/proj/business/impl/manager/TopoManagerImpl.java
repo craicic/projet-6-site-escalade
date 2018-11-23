@@ -196,4 +196,16 @@ public class TopoManagerImpl implements TopoManager {
         compositionSiteTopoDao.deleteByModel(compositionSiteTopo);
     }
 
+    /**
+     * Solicite la dao et retourne les topos lié au site d'id siteId
+     *
+     * @param siteId
+     * @return
+     */
+    @Override
+    @Transactional
+    public List<Topo> listTopoBySiteId(Integer siteId) {
+        return topoDao.listTopoBySiteId(siteId);
+    }
+
 }

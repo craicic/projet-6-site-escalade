@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.expression.ExpressionException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -89,10 +90,14 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
         if(voie != null) {
-
-                managerFactory.getVoieManager().create(voie, secteurId);
-                this.addActionMessage("Voie créée : " + voie.getNom());
-                resultat = ActionSupport.SUCCESS;
+                try {
+                    managerFactory.getVoieManager().create(voie, secteurId);
+                    this.addActionMessage("Voie créée : " + voie.getNom());
+                    resultat = ActionSupport.SUCCESS;
+                } catch (ExpressionException e){
+                    this.addActionError(e.getMessage());
+                    resultat = ActionSupport.ERROR;
+                }
         } else {
             // On rempli listSecteur pour le menu Select
             listSecteur = managerFactory.getSecteurManager().list();
@@ -141,6 +146,9 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
                 this.addActionMessage("Voie modifié : " + voie.getNom());
                 resultat = ActionSupport.SUCCESS;
 
+            } catch (ExpressionException eE) {
+              this.addActionError(eE.getMessage());
+              resultat = ActionSupport.ERROR;
             } catch (Exception e) {
                 this.addActionError(e.getMessage());
             }

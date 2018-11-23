@@ -24,13 +24,13 @@
     <li>Nombre de longueurs : <s:property value="voie.nombreDeLongueurs"/></li>
     <li>Cotation : <s:property value="voie.cotation"/></li>
     <li>Hauteur : <s:property value="voie.hauteur"/></li>
-    <li>
-        <s:a action="detail_secteur">
-        Secteur associé : <s:property value="secteur.nom"/>
-    <s:param name="id" value="secteur.id"/>
-    </s:a>
-    </li>
 </ul>
+
+<div>Secteur associé :</div>
+<s:a action="detail_secteur">
+    <div><s:property value="secteur.nom"/></div>
+    <s:param name="id" value="secteur.id"/>
+</s:a>
 
 <s:if test="#session.utilisateur">
     <s:form action="add_comment_voie">
@@ -64,7 +64,6 @@
         </li>
     </s:iterator>
 </ul>
-
 
 </body>
 </html>

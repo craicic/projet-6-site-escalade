@@ -15,9 +15,9 @@
 <body>
 <h2>Liste des Voies</h2>
 
-<ul>
+<ul class="list-group">
     <s:iterator value="listVoie">
-        <li>
+        <li class="list-group-item">
             <div>ID : <s:property value="id"/></div>
             <div>Nom : <s:property value="nom"/></div>
             <div>Description : <s:property value="description"/></div>

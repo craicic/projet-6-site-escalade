@@ -1,10 +1,7 @@
 package com.gg.proj.webapp.action;
 
 import com.gg.proj.business.contract.ManagerFactory;
-import com.gg.proj.model.bean.Commentaire;
-import com.gg.proj.model.bean.Secteur;
-import com.gg.proj.model.bean.Site;
-import com.gg.proj.model.bean.Utilisateur;
+import com.gg.proj.model.bean.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +25,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     private Integer siteId;
     private List<Site> listSite;
     private List<Secteur> listSecteur;
+    private List<Topo> listTopo;
     private Commentaire commentaire;
     private List<Commentaire> listCommentaire;
     private Map<String, Object> session;
@@ -61,6 +59,12 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
     }
     public void setListSecteur(List<Secteur> listSecteur) {
         this.listSecteur = listSecteur;
+    }
+    public List<Topo> getListTopo() {
+        return listTopo;
+    }
+    public void setListTopo(List<Topo> listTopo) {
+        this.listTopo = listTopo;
     }
     public Commentaire getCommentaire() {
         return commentaire;
@@ -98,6 +102,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
         if (id != null){
             site = managerFactory.getSiteManager().get(id);
             listSecteur = managerFactory.getSecteurManager().listLinkedSecteurBySiteId(id);
+            listTopo = managerFactory.getTopoManager().listTopoBySiteId(id);
             listCommentaire = managerFactory.getSiteManager().listComments(id);
             return ActionSupport.SUCCESS;
         } else {
