@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Détail d'un voie</h2>
 
 <ul>
@@ -64,6 +64,6 @@
         </li>
     </s:iterator>
 </ul>
-
+</div>
 </body>
 </html>

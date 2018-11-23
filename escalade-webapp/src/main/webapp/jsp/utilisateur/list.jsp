@@ -12,7 +12,7 @@
 
 <%@ include file="../_include/header.jsp"%>
 <body>
-
+<div class="container-fluid">
 <h2>Liste des utilisateurs</h2>
 
 <ul>
@@ -42,5 +42,6 @@
         </li>
     </s:iterator>
 </ul>
+</div>
 </body>
 </html>

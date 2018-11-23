@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Édition de mon commentaire</h2>
 
 <%-- actionName est défini dans GestionCommentaireAction --%>
@@ -25,6 +25,6 @@
     <s:hidden name="voie.id" value="%{voie.id}"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

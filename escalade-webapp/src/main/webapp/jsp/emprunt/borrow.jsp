@@ -13,7 +13,9 @@
 </head>
 
 <%@ include file="../_include/header.jsp"%>
+<body>
 
+<div class="container-fluid">
 <h5>Historique de réservation</h5>
 <%-- todo lister les date de réservation sur ce topo --%>
 
@@ -25,4 +27,7 @@
     <s:hidden name="topo.id" value="%{topo.id}"/>
     <s:submit value="Ok"/>
 </s:form>
+</div>
+
+</body>
 </html>

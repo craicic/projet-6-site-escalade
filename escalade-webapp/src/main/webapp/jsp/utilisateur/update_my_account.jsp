@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Modifier mon compte</h2>
 
 <s:form action="update_my_account">
@@ -26,5 +26,6 @@
     <s:submit value="Ok"/>
 </s:form>
 
+</div>
 </body>
 </html>

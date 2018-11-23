@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Modifier le mot de passe</h2>
 
 <s:form action="update_password">
@@ -24,6 +24,6 @@
     <s:hidden name="utilisateur.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

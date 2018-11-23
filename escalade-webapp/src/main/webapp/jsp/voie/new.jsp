@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Saisie d'un nouvelle voie</h2>
 
 <s:form action="voie_new">
@@ -29,6 +29,6 @@
               requiredLabel="true"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

@@ -13,6 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
+<div class="container-fluid">
 <h2>Liste des sites</h2>
 
 <ul class="list-group">
@@ -39,5 +40,6 @@
         </li>
     </s:iterator>
 </ul>
+</div>
 </body>
 </html>

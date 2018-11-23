@@ -12,7 +12,7 @@
 
 <%@ include file="../_include/header.jsp" %>
 <body>
-
+<div class="container-fluid">
 <h2>Détail de mon compte</h2>
 
 <ul>
@@ -26,5 +26,6 @@
     <li>Date d'inscription : <s:property value="utilisateur.dateInscription"/></li>
     <li>UUID : <s:property value="utilisateur.uuid"/></li>
 </ul>
+</div>
 </body>
 </html>

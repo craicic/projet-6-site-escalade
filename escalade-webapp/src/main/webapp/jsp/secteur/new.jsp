@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Saisie d'un nouveau secteur</h2>
 
 <s:form action="secteur_new">
@@ -27,6 +27,6 @@
 
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

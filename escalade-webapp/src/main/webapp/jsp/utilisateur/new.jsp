@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Saisie d'un nouvel utilisateur</h2>
 
 <s:form action="utilisateur_new">
@@ -27,6 +27,6 @@
     <s:textarea name="utilisateur.adresse" label="Adresse" requiredLabel="false" cols="32" rows="9"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

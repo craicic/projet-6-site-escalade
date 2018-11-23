@@ -13,12 +13,12 @@
 <%@ include file="./_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Index</h2>
 
 <p>
     Vous êtes à l'index
 </p>
+</div>
 </body>
-
 </html>

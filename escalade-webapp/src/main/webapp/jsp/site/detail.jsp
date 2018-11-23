@@ -21,7 +21,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Détail d'un site</h2>
 
 <ul>
@@ -136,5 +136,6 @@
 <%--<script async defer--%>
 <%--src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&callback=initMap">--%>
 <%--</script>--%>
+</div>
 </body>
 </html>

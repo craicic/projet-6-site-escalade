@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Saisie d'un nouveau topo</h2>
 
 <s:form action="topo_new">
@@ -23,6 +23,6 @@
     <s:checkbox name="topo.empreintable" label="Empreintable" requiredLabel="true"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

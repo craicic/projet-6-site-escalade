@@ -115,7 +115,12 @@ public class EmpruntManagerImpl implements EmpruntManager {
     @Transactional
     public List<Topo> listBorrowedTopo(Integer borrowerId) {
         logger.debug("Entrée dans la méthode listBorrowedTopo avec le borrowerId" + borrowerId);
-        return topoDao.listTopoByBorrowerId(borrowerId);
+        List<Topo> listTopo = topoDao.listTopoByBorrowerId(borrowerId);
+        for (Topo topo : listTopo) {
+            // On raccourci la description à 50 caractère...
+            topo.setDescription(shortenDescription(topo.getDescription()));
+        }
+        return listTopo;
     }
 
     // todo javadoc
@@ -123,7 +128,12 @@ public class EmpruntManagerImpl implements EmpruntManager {
     @Transactional
     public List<Topo> listLoanedTopo(Integer loanerId) {
         logger.debug("Entrée dans la méthode listLoanedTopo avec le loanerId" + loanerId);
-        return topoDao.listTopoByLoanerId(loanerId);
+        List<Topo> listTopo = topoDao.listTopoByLoanerId(loanerId);
+        for (Topo topo : listTopo) {
+            // On raccourci la description à 50 caractère...
+            topo.setDescription(shortenDescription(topo.getDescription()));
+        }
+        return listTopo;
     }
 
     // todo javadoc

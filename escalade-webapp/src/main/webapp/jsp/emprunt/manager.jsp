@@ -13,10 +13,12 @@
 
 <%@ include file="../_include/header.jsp" %>
 
+<body>
+<div class="container-fluid">
 <h3>Mes emprunts</h3>
-<ul>
+<ul class="list-group">
     <s:iterator value="listBorrowedTopo">
-        <li>
+        <li class="list-group-item">
             <div>Titre du topo : <s:property value="titre"/></div>
             <div>Description : <s:property value="description"/></div>
         </li>
@@ -24,14 +26,14 @@
 </ul>
 
 <h3>Mes prêts</h3>
-<ul>
+<ul class="list-group">
     <s:iterator value="listLoanedTopo">
-        <li>
+        <li class="list-group-item">
             <div>Titre du topo : <s:property value="titre"/></div>
             <div>Description : <s:property value="description"/></div>
         </li>
     </s:iterator>
 </ul>
-
-
+</div>
+</body>
 </html>

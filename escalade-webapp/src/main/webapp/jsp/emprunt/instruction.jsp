@@ -14,9 +14,11 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
+<div class="container-fluid">
 <h3>Ouverture au prêt enregistrée</h3>
 <p class="lead">Votre topo est désormais accessible au prêt. </p>
 <p>Pour consulter son status, rendez dans votre interface de gestion de prêt. Vous y trouverez les controles pour accepter un prêt,
 pour retirer vos topo du prêt.</p>
+</div>
 </body>
 </html>

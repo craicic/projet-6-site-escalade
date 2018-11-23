@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Modifier un topo</h2>
 
 
@@ -25,6 +25,6 @@
     <s:hidden name="topo.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

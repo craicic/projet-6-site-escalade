@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp"%>
 
 <body>
-
+<div class="container-fluid">
 <h2>Modifier un secteur</h2>
 
 <s:form action="update_secteur">
@@ -26,6 +26,6 @@
     <s:hidden name="secteur.id" value="%{id}"/>
     <s:submit value="Ok"/>
 </s:form>
-
+</div>
 </body>
 </html>

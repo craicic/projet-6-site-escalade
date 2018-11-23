@@ -13,13 +13,15 @@
 
 <%@ include file="../_include/header.jsp" %>
 
+<body>
+<div class="container-fluid">
 <s:if test="%{listAvailableTopo.isEmpty()}">
     <p>Aucun topo disponible à l'heure actuelle.</p>
 </s:if>
 <s:else>
-    <ul>
+    <ul class="list-group">
         <s:iterator value="listAvailableTopo">
-            <li>
+            <li class="list-group-item">
                 <div>Titre : <s:property value="titre"/></div>
                 <div>Auteur : <s:property value="auteur"/></div>
                 <div>Description : <s:property value="description"/></div>
@@ -31,5 +33,6 @@
         </s:iterator>
     </ul>
 </s:else>
-
+</div>
+</body>
 </html>

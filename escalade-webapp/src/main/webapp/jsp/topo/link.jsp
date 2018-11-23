@@ -13,7 +13,7 @@
 <%@ include file="../_include/header.jsp" %>
 
 <body>
-
+<div class="container-fluid">
 <h2>Association du topo à un site</h2>
 
 <div><s:property value="topo.titre"/></div>
@@ -34,5 +34,6 @@
         <s:submit value="Ok"/>
     </s:form>
 </s:else>
+</div>
 </body>
 </html>
