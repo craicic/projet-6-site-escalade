@@ -24,4 +24,6 @@ public interface EmpruntManager extends CrudDao<Emprunt> {
     boolean isReserved(Integer topoId);
 
     List<Emprunt> listEmpruntByTopoId(Integer topoId);
+
+    Emprunt getCurrentByTopoId(Integer topoId);
 }

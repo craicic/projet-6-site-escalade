@@ -56,7 +56,7 @@
 
     <%-- Réservation --%>
     <s:if test="%{reservedFlag eq true}">
-        <div>Réservé</div>
+        <div>Réservé jusqu'au <s:property value="emprunt.dateRetour"/></div>
     </s:if>
     <s:else>
         <div><s:a action="borrow">

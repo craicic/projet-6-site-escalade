@@ -96,7 +96,7 @@
             </s:else>
 
         </ul>
-        <s:form class="form-inline my-2 my-lg-0" action="search">
+        <s:form class="form-inline my-2 my-lg-0" action="search" method="GET">
             <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" name="termeDeLaRecherche" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
         </s:form>

@@ -103,7 +103,7 @@ public class EmpruntManagerImpl implements EmpruntManager {
             // On raccourci la description à 50 caractère...
             topo.setDescription(shortenDescription(topo.getDescription()));
             // ... et on exclus les topos dont le propriétaire est identique à l'utilisateur qui fait la requête
-            if (!topo.getProprietaireId().equals(utilisateurId)){
+            if (!topo.getProprietaireId().equals(utilisateurId)) {
                 listTopoWithoutExcluded.add(topo);
             }
         }
@@ -154,6 +154,26 @@ public class EmpruntManagerImpl implements EmpruntManager {
     @Transactional
     public List<Emprunt> listEmpruntByTopoId(Integer topoId) {
         return empruntDao.getFullEmpruntByTopoId(topoId);
+    }
+
+    /**
+     * Cette méthode retourne le bean emprunt, pour l'emprunt en cour concernant un topo
+     *
+     * @param topoId
+     * @return
+     */
+    // todo meilleur avec un while
+    @Override
+    @Transactional
+    public Emprunt getCurrentByTopoId(Integer topoId) {
+        Emprunt emprunt = new Emprunt();
+        List<Emprunt> listEmprunt = empruntDao.getEmpruntByTopoId(topoId);
+        for (Emprunt e : listEmprunt) {
+            if (e.getDateRetour().isAfter(LocalDate.now())) {
+                emprunt = e;
+            }
+        }
+        return emprunt;
     }
 
     // todo javadoc

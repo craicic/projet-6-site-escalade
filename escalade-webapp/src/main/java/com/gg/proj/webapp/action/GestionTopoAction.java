@@ -25,6 +25,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     private List<Topo> listTopo;
     private Topo topo;
     private Site site;
+    private Emprunt emprunt;
     private boolean reservedFlag;
     private Commentaire commentaire;
     private List<Commentaire> listCommentaire;
@@ -54,6 +55,12 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     }
     public void setSite(Site site) {
         this.site = site;
+    }
+    public Emprunt getEmprunt() {
+        return emprunt;
+    }
+    public void setEmprunt(Emprunt emprunt) {
+        this.emprunt = emprunt;
     }
     public boolean isReservedFlag() {
         return reservedFlag;
@@ -127,6 +134,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 // Status emprunt
                 // Récupération du status
                 reservedFlag = managerFactory.getEmpruntManager().isReserved(id);
+                emprunt = managerFactory.getEmpruntManager().getCurrentByTopoId(id);
                 // La liste des sites associés au topo d'id topoId
                 listSite = managerFactory.getTopoManager().listLinkedSite(id);
                 listCommentaire = managerFactory.getTopoManager().listComments(id);
