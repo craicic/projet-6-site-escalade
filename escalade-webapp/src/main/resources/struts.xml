@@ -358,7 +358,8 @@
         <action name="search"
                 class="com.gg.proj.webapp.action.RechercheAction"
                 method="doSearch">
-            <result>jsp/search.jsp</result>
+            <result name="input">jsp/search.jsp</result>
+            <result name="success">jsp/search.jsp</result>
         </action>
 
         <!-- ============================ EMPRUNT DE TOPOS ============================ -->

@@ -3,6 +3,7 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.TopoManager;
 import com.gg.proj.consumer.contract.dao.*;
 import com.gg.proj.model.bean.*;
+import com.gg.proj.technical.GenerateurDeDifficulte;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -138,7 +140,7 @@ public class TopoManagerImpl implements TopoManager {
     @Override
     @Transactional
     public List<Topo> search(String termeDeLaRecherche) {
-        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        logger.debug("Entrée dans la méthode search avec le terme de recherche : " +termeDeLaRecherche);
         List<Topo> listTopo = topoDao.search(termeDeLaRecherche);
 
         if (!listTopo.isEmpty()){
@@ -150,6 +152,25 @@ public class TopoManagerImpl implements TopoManager {
             logger.debug("liste vide");
         }
         return listTopo;
+    }
+
+    /**
+     * Cette fonction reçoit deux difficultés de grimpe, elle génère une liste des difficultés intermédiaires et envoit
+     * la liste à la dao topoDao pour traitement.
+     * @param minDiff la difficulté minimale à rechercher
+     * @param maxDiff la difficulté maximale à rechercher
+     * @return un liste des topos.
+     */
+    @Override
+    @Transactional
+    public List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, List<Topo> listRetrievedTopo){
+        logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
+        List<Integer> listTopoId = new ArrayList<>();
+        for (Topo t :
+                listRetrievedTopo) {
+            listTopoId.add(t.getId());
+        }
+        return topoDao.listTopoByDifficulty(GenerateurDeDifficulte.Generateur(minDiff,maxDiff), listTopoId);
     }
 
     /**

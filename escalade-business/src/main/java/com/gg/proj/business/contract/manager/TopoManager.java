@@ -10,20 +10,21 @@ import com.gg.proj.model.bean.Topo;
 import java.util.List;
 
 public interface TopoManager extends CrudManager<Topo> {
-    public void addComment(Commentaire commentaire, Integer topoId);
+    void addComment(Commentaire commentaire, Integer topoId);
 
-    public List<Commentaire> listComments (Integer topoId);
+    List<Commentaire> listComments (Integer topoId);
 
-    public Integer getId(Topo topo);
+    Integer getId(Topo topo);
 
     List<Topo> search(String termeDeLaRecherche);
+
+    List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, List<Topo> listRetrievedTopo);
 
     List<Site> listLinkedSite(Integer topoId);
 
     void setLink(CompositionSiteTopo compositionSiteTopo);
 
     void deleteLink(Integer topoId, Integer siteId);
-
 
     List<Topo> listTopoBySiteId(Integer siteId);
 }

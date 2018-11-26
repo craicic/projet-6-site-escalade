@@ -11,62 +11,75 @@
 
 <body>
 <div class="container-fluid">
-<h2>Resultat</h2>
+    <h2>Resultat</h2>
 
-<p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
+    <p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
 
-<ul class="list-group">
-    <h5>Topos trouvés : <s:property value="listTopo.size()"/></h5>
-<s:iterator value="listTopo">
-    <li class="list-group-item">
-        <div>Id : <s:property value="id"/></div>
-        <div>Titre : <s:property value="titre"/></div>
-        <div>Auteur : <s:property value="auteur"/></div>
-        <div>Description : <s:property value="description"/></div>
-    </li>
-</s:iterator>
-</ul>
+    <s:form action="search">
 
-<ul class="list-group">
-    <h5>Sites trouvés : ${listSite.size()}</h5>
-    <s:iterator value="listSite">
-        <li class="list-group-item">
-            <div>Id : <s:property value="id"/></div>
-            <div>Nom : <s:property value="nom"/></div>
-            <div>Description : <s:property value="description"/></div>
-            <div>Roche : <s:property value="roche"/></div>
-            <div>Profil : <s:property value="profil"/></div>
-            <div>Type : <s:property value="type"/></div>
-        </li>
-    </s:iterator>
-</ul>
+        <s:select name="difficulteMin" Label="Difficulté minimum"
+                  list="listDifficulte" value="difficulteMin"
+                  emptyOption="false"/>
 
-<ul class="list-group">
-    <h5>Secteurs trouvés : ${listSecteur.size()}</h5>
-    <s:iterator value="listSecteur">
-        <li class="list-group-item">
-            <div>Id : <s:property value="id"/></div>
-            <div>Nom : <s:property value="nom"/></div>
-            <div>Description : <s:property value="description"/></div>
-        </li>
-    </s:iterator>
-</ul>
+        <s:select name="difficulteMax" Label="Difficulté minimum"
+                  list="listDifficulte" value="difficulteMax"
+                  emptyOption="false"/>
 
-<ul class="list-group">
-    <h5>Voies trouvés : ${listVoie.size()}</h5>
-    <s:iterator value="listVoie">
-        <li class="list-group-item">
-            <div>Id : <s:property value="id"/></div>
-            <div>Nom : <s:property value="nom"/></div>
-            <div>Description : <s:property value="description"/></div>
-            <div>Nombre de points : <s:property value="nombreDePoints"/></div>
-            <div>Nombre de longueurs : <s:property value="nombreDeLongueurs"/></div>
-            <div>Cotation : <s:property value="cotation"/></div>
-            <div>Hauteur : <s:property value="hauteur"/></div>
-            <div>Id du secteur associé <s:property value ="secteurId"/></div>
-        </li>
-    </s:iterator>
-</ul>
+        <s:submit value="Filtrer"/>
+    </s:form>
+
+    <ul class="list-group">
+        <h5>Topos trouvés : <s:property value="listTopo.size()"/></h5>
+        <s:iterator value="listTopo">
+            <li class="list-group-item">
+                <div>Id : <s:property value="id"/></div>
+                <div>Titre : <s:property value="titre"/></div>
+                <div>Auteur : <s:property value="auteur"/></div>
+                <div>Description : <s:property value="description"/></div>
+            </li>
+        </s:iterator>
+    </ul>
+
+    <ul class="list-group">
+        <h5>Sites trouvés : ${listSite.size()}</h5>
+        <s:iterator value="listSite">
+            <li class="list-group-item">
+                <div>Id : <s:property value="id"/></div>
+                <div>Nom : <s:property value="nom"/></div>
+                <div>Description : <s:property value="description"/></div>
+                <div>Roche : <s:property value="roche"/></div>
+                <div>Profil : <s:property value="profil"/></div>
+                <div>Type : <s:property value="type"/></div>
+            </li>
+        </s:iterator>
+    </ul>
+
+    <ul class="list-group">
+        <h5>Secteurs trouvés : ${listSecteur.size()}</h5>
+        <s:iterator value="listSecteur">
+            <li class="list-group-item">
+                <div>Id : <s:property value="id"/></div>
+                <div>Nom : <s:property value="nom"/></div>
+                <div>Description : <s:property value="description"/></div>
+            </li>
+        </s:iterator>
+    </ul>
+
+    <ul class="list-group">
+        <h5>Voies trouvés : ${listVoie.size()}</h5>
+        <s:iterator value="listVoie">
+            <li class="list-group-item">
+                <div>Id : <s:property value="id"/></div>
+                <div>Nom : <s:property value="nom"/></div>
+                <div>Description : <s:property value="description"/></div>
+                <div>Nombre de points : <s:property value="nombreDePoints"/></div>
+                <div>Nombre de longueurs : <s:property value="nombreDeLongueurs"/></div>
+                <div>Cotation : <s:property value="cotation"/></div>
+                <div>Hauteur : <s:property value="hauteur"/></div>
+                <div>Id du secteur associé <s:property value="secteurId"/></div>
+            </li>
+        </s:iterator>
+    </ul>
 </div>
 </body>
 </html>

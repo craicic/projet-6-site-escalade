@@ -33,6 +33,9 @@ public class ManagerFactoryImpl implements ManagerFactory {
     @Inject
     private VoieManager voieManager;
 
+    @Inject
+    private RechercheManager rechercheManager;
+
     @Override
     public CommentaireManager getCommentaireManager() {
         return commentaireManager;
@@ -71,5 +74,10 @@ public class ManagerFactoryImpl implements ManagerFactory {
     @Override
     public VoieManager getVoieManager() {
         return voieManager;
+    }
+
+    @Override
+    public RechercheManager getRechercheManager(){
+        return rechercheManager;
     }
 }

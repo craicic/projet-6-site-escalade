@@ -193,5 +193,24 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 
+    @Override
+    public List<Topo> listTopoByDifficulty(List<String> listDifficultes, List<Integer> listTopoId) {
+        logger.debug("Entrée dans la méthode listTopoByDifficulty");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        // préparation des params
+        TopoRM tRM = new TopoRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue("listDifficultes",listDifficultes, Types.JAVA_OBJECT);
+            params.addValue("listTopoId",listTopoId, Types.JAVA_OBJECT);
+
+        String rSQL = "SELECT t.* FROM topo t INNER JOIN composition_site_topo c on t.id = c.topo_id" +
+                " INNER JOIN site s ON c.site_id = s.id" +
+                " INNER JOIN secteur se ON s.id = se.site_id" +
+                " INNER JOIN voie v ON se.id = v.secteur_id" +
+                " WHERE v.cotation IN (:listDifficultes) " +
+                " AND t.id IN (:listTopoId);";
+        return jdbcTemplate.query(rSQL, params, tRM);
+    }
+
 
 }

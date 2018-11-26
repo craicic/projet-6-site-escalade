@@ -5,6 +5,7 @@ import com.gg.proj.model.bean.Secteur;
 import com.gg.proj.model.bean.Site;
 import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Voie;
+import com.gg.proj.technical.GenerateurDeDifficulte;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,9 @@ public class RechercheAction extends ActionSupport {
     private List<Secteur> listSecteur;
     private List<Voie> listVoie;
     private String termeDeLaRecherche;
+    private List<String> listDifficulte;
+    private String difficulteMin;
+    private String difficulteMax;
 
     public List<Topo> getListTopo() {
         return listTopo;
@@ -55,13 +59,38 @@ public class RechercheAction extends ActionSupport {
     public void setTermeDeLaRecherche(String termeDeLaRecherche) {
         this.termeDeLaRecherche = termeDeLaRecherche;
     }
+    public List<String> getListDifficulte() {
+        return listDifficulte;
+    }
+    public void setListDifficulte(List<String> listDifficulte) {
+        this.listDifficulte = listDifficulte;
+    }
+    public String getDifficulteMin() {
+        return difficulteMin;
+    }
+    public void setDifficulteMin(String difficulteMin) {
+        this.difficulteMin = difficulteMin;
+    }
+    public String getDifficulteMax() {
+        return difficulteMax;
+    }
+    public void setDifficulteMax(String difficulteMax) {
+        this.difficulteMax = difficulteMax;
+    }
 
     public String doSearch() {
+        String result = ActionSupport.INPUT;
 
-        listTopo = managerFactory.getTopoManager().search(termeDeLaRecherche);
-        listSite = managerFactory.getSiteManager().search(termeDeLaRecherche);
-        listSecteur = managerFactory.getSecteurManager().search(termeDeLaRecherche);
-        listVoie = managerFactory.getVoieManager().search(termeDeLaRecherche);
+        if(difficulteMin == null && difficulteMax == null) {
+
+            listDifficulte = managerFactory.getRechercheManager().generateList();
+            listTopo = managerFactory.getTopoManager().search(termeDeLaRecherche);
+            listSite = managerFactory.getSiteManager().search(termeDeLaRecherche);
+            listSecteur = managerFactory.getSecteurManager().search(termeDeLaRecherche);
+            listVoie = managerFactory.getVoieManager().search(termeDeLaRecherche);
+        } else {
+            listTopo = managerFactory.getTopoManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,listTopo);
+        }
 
         return ActionSupport.SUCCESS;
     }

@@ -1,9 +1,14 @@
 package com.gg.proj.technical;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenerateurDeDifficulte {
+
+    private static final Logger logger = LogManager.getLogger();
 
     public static final String[] difficultes = new String[]{
             "1a-", "1a", "1a+", "1b-", "1b", "1b+", "1c-", "1c", "1c+",
@@ -18,10 +23,10 @@ public class GenerateurDeDifficulte {
     };
 
     public static List<String> Generateur(String difficulteMin, String difficulteMax) {
-
-        boolean write = false;
+        logger.debug("Entrée dans la méthode statique Generateur, avec difficulteMin = " + difficulteMin + " et difficulteMax = " + difficulteMax);
+//        boolean write = false;
         List<String> listDifficultes = new ArrayList<>();
-
+        logger.debug("list créé");
 //        for (int i = 0; difficultes[i].equals(difficulteMax); i++) {
 //            if(difficultes[i].equals(difficulteMin))
 //                write = true;
@@ -31,14 +36,20 @@ public class GenerateurDeDifficulte {
 //        }
 
         int j = 0;
-
-        for (int i = 0; difficultes[i].equals(difficulteMin); i++) {
+        for (int i = 0; !difficultes[i].equals(difficulteMin); i++) {
             j = i;
+            logger.debug("j = " + j);
         }
 
-        for (int k = j; difficultes[k].equals(difficulteMax); k++) {
-            listDifficultes.add(difficultes[k + 1]);
+        int l = 0;
+        for (int k = j; !difficultes[k].equals(difficulteMax); k++) {
+            listDifficultes.add(difficultes[k]);
+            logger.debug("valeur ajoutée : " + difficultes[k + 1]);
+            l = k;
         }
+
+        listDifficultes.add(difficultes[l+1]);
+
         return listDifficultes;
     }
 }
