@@ -15,22 +15,20 @@
 
     <p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
 
-    <s:if test="%{actionName eq search}">
-    <s:form action="filter" method="GET">
+    <%--<s:form action="search">--%>
 
-        <s:select name="difficulteMin" Label="Difficulte minimum"
-                  list="listDifficulte"
-                  emptyOption="false"/>
+        <%--<s:select name="difficulteMin" Label="Difficulte minimum"--%>
+                  <%--list="listDifficulte"--%>
+                  <%--emptyOption="false"/>--%>
 
-        <s:select name="difficulteMax" Label="Difficulte minimum"
-                  list="listDifficulte"
-                  emptyOption="false"/>
+        <%--<s:select name="difficulteMax" Label="Difficulte minimum"--%>
+                  <%--list="listDifficulte"--%>
+                  <%--emptyOption="false"/>--%>
 
-        <s:hidden name="termeDeLaRecherche" value="%{termeDeLaRecherche}"/>
+        <%--<s:hidden name="termeDeLaRecherche" value="%{termeDeLaRecherche}"/>--%>
 
-        <s:submit value="Filtrer"/>
-    </s:form>
-    </s:if>
+        <%--<s:submit value="Filtrer"/>--%>
+    <%--</s:form>--%>
 
     <ul class="list-group">
         <h5>Topos trouvés : <s:property value="listTopo.size()"/></h5>

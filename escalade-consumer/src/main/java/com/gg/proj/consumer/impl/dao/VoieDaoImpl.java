@@ -2,7 +2,11 @@ package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.VoieDao;
 import com.gg.proj.consumer.impl.rowmapper.VoieRM;
+import com.gg.proj.model.bean.Secteur;
+import com.gg.proj.model.bean.Site;
+import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Voie;
+import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -86,7 +90,7 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         VoieRM voieRM = new VoieRM();
         //Préparation des paramètres
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("terme" , "%" + termeDeLaRecherche + "%", Types.VARCHAR);
+        params.addValue("terme", "%" + termeDeLaRecherche + "%", Types.VARCHAR);
 
         String SQL = "SELECT * FROM voie v WHERE upper(v.nom) LIKE upper(:terme) OR upper(v.description) LIKE upper(:terme);";
         return jdbcTemplate.query(SQL, params, voieRM);
@@ -94,6 +98,7 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
 
     /**
      * Méthode qui récupère les voie associé un secteur
+     *
      * @param secteurId
      * @return la liste des voies liées au secteur
      */
@@ -104,11 +109,37 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         VoieRM voieRM = new VoieRM();
         // Préparation des paramètres
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("secteurId",secteurId,Types.INTEGER);
+        params.addValue("secteurId", secteurId, Types.INTEGER);
 
-        String SQL ="SELECT * FROM voie v WHERE (v.secteur_id) = (:secteurId) ;";
-        return jdbcTemplate.query(SQL,params,voieRM);
+        String SQL = "SELECT * FROM voie v WHERE (v.secteur_id) = (:secteurId) ;";
+        return jdbcTemplate.query(SQL, params, voieRM);
     }
 
-
+//    public Pair<String, String> getDifficultyByEntityId(Integer id, Object entity) {
+//        Pair<String, String> extremumDifficulties;
+//        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+//        VoieRM voieRM = new VoieRM();
+//        // Préparation des paramètres
+//        MapSqlParameterSource params = new MapSqlParameterSource();
+//        params.addValue("id", id, Types.INTEGER);
+//
+//        String rSQLmin = "";
+//        String rSQLmax = "";
+//
+//        if (entity.getClass() == Topo.class) {
+//            rSQLmin="SELECT voie.cotation FROM voie;";
+//        }
+//        if (entity.getClass() == Site.class) {
+//        }
+//        if (entity.getClass() == Secteur.class) {
+//        }
+//        if (entity.getClass() == Voie.class) {
+//        }
+//
+//        jdbcTemplate.query(rSQLmin, params, voieRM);
+//
+//        jdbcTemplate.queryForObject(rSQLmax, params, voieRM);
+//
+//        return
+//    }
 }

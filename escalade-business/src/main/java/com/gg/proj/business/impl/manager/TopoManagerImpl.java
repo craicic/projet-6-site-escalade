@@ -14,6 +14,7 @@ import javax.inject.Named;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Named
@@ -25,7 +26,7 @@ public class TopoManagerImpl implements TopoManager {
     @Inject
     TopoDao topoDao;
 
-//   Injection de la siteDao pour la méthode listLinkedSite()
+    //   Injection de la siteDao pour la méthode listLinkedSite()
     @Inject
     SiteDao siteDao;
 
@@ -85,12 +86,13 @@ public class TopoManagerImpl implements TopoManager {
     /**
      * Cette méthode permet l'ajout d'un commentaire lié à un topo en BDD. Cette méthode se charger d'ajouté le timestamp sur l'objet commentaire.
      * Elle ajoute un commentaire en bdd et ajoute également une ligne dans la table commentaire_sur_topo.
+     *
      * @param commentaire un objet commentaire dont la propriété contenuTexte est non null
-     * @param topoId l'id du topo associé
+     * @param topoId      l'id du topo associé
      */
     @Override
     @Transactional
-    public void addComment(Commentaire commentaire, Integer topoId){
+    public void addComment(Commentaire commentaire, Integer topoId) {
         logger.debug("Entrée dans la méthode addComment avec le topoId : " + topoId);
         // Ajout du timestamp de la création du commentaire
         commentaire.setDateCreation(Timestamp.from(Instant.now()));
@@ -114,7 +116,7 @@ public class TopoManagerImpl implements TopoManager {
      */
     @Override
     @Transactional
-    public List<Commentaire> listComments (Integer topoId){
+    public List<Commentaire> listComments(Integer topoId) {
         logger.debug("Entrée dans la méthode listComments avec l'id " + topoId);
         return commentaireDao.getCommentsByTopoId(topoId);
     }
@@ -127,7 +129,7 @@ public class TopoManagerImpl implements TopoManager {
      */
     @Override
     @Transactional
-    public Integer getId(Topo topo){
+    public Integer getId(Topo topo) {
         return topoDao.getId(topo);
     }
 
@@ -140,10 +142,10 @@ public class TopoManagerImpl implements TopoManager {
     @Override
     @Transactional
     public List<Topo> search(String termeDeLaRecherche) {
-        logger.debug("Entrée dans la méthode search avec le terme de recherche : " +termeDeLaRecherche);
+        logger.debug("Entrée dans la méthode search avec le terme de recherche : " + termeDeLaRecherche);
         List<Topo> listTopo = topoDao.search(termeDeLaRecherche);
 
-        if (!listTopo.isEmpty()){
+        if (!listTopo.isEmpty()) {
             logger.debug("liste remplie");
             for (Topo topo : listTopo) {
                 logger.debug(topo.getTitre());
@@ -157,20 +159,26 @@ public class TopoManagerImpl implements TopoManager {
     /**
      * Cette fonction reçoit deux difficultés de grimpe, elle génère une liste des difficultés intermédiaires et envoit
      * la liste à la dao topoDao pour traitement.
+     *
      * @param minDiff la difficulté minimale à rechercher
      * @param maxDiff la difficulté maximale à rechercher
      * @return un liste des topos.
      */
     @Override
     @Transactional
-    public List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, List<Topo> listRetrievedTopo){
+    public List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche) throws InputMismatchException {
         logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
-        List<Integer> listTopoId = new ArrayList<>();
-        for (Topo t :
-                listRetrievedTopo) {
-            listTopoId.add(t.getId());
+
+        if (GenerateurDeDifficulte.isOrdinate(minDiff,maxDiff)) {
+            List<Topo> listRetrievedTopo = topoDao.search(termeDeLaRecherche);
+            List<Integer> listTopoId = new ArrayList<>();
+            for (Topo t : listRetrievedTopo) {
+                listTopoId.add(t.getId());
+            }
+            return topoDao.listTopoByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listTopoId);
+        } else {
+            throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }
-        return topoDao.listTopoByDifficulty(GenerateurDeDifficulte.Generateur(minDiff,maxDiff), listTopoId);
     }
 
     /**
@@ -182,18 +190,19 @@ public class TopoManagerImpl implements TopoManager {
     @Override
     @Transactional
     public List<Site> listLinkedSite(Integer topoId) {
-        logger.debug("Entrée dans la méthode listLinkedSite avec le topoId : "+ topoId);
+        logger.debug("Entrée dans la méthode listLinkedSite avec le topoId : " + topoId);
         List<Site> listSite = siteDao.getListByTopoId(topoId);
         return listSite;
     }
 
     /**
      * Cette méthode appel la dao pour création d'une entrée Composition_site_topo
+     *
      * @param compositionSiteTopo
      */
     @Override
     @Transactional
-    public void setLink(CompositionSiteTopo compositionSiteTopo)  {
+    public void setLink(CompositionSiteTopo compositionSiteTopo) {
         logger.debug("Entrée dans la méthode setLink");
 
         try {
@@ -206,14 +215,15 @@ public class TopoManagerImpl implements TopoManager {
 
     /**
      * Supprime l'entrée compositionSiteTopo associée en bdd
+     *
      * @param topoId
      * @param siteId
      */
     @Override
     @Transactional
     public void deleteLink(Integer topoId, Integer siteId) {
-        logger.debug("Entrée dans la méthode deleteLink avec topoId : " + topoId + " et siteId : " +siteId);
-        CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topoId,siteId);
+        logger.debug("Entrée dans la méthode deleteLink avec topoId : " + topoId + " et siteId : " + siteId);
+        CompositionSiteTopo compositionSiteTopo = new CompositionSiteTopo(topoId, siteId);
         compositionSiteTopoDao.deleteByModel(compositionSiteTopo);
     }
 

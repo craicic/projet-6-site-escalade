@@ -358,10 +358,20 @@
         <action name="search"
                 class="com.gg.proj.webapp.action.RechercheAction"
                 method="doSearch">
-            <result name="input">jsp/search.jsp</result>
             <result name="success">jsp/search.jsp</result>
+            <!--<result name="success" type="redirectAction">-->
+                <!--<param name="actionName">filter</param>-->
+                <!--<param name="termeDeLaRecherche">${termeDeLaRecherche}</param>-->
+                <!--<param name="difficulteMax">${difficulteMax}</param>-->
+                <!--<param name="difficulteMin">${difficulteMin}</param>-->
+            <!--</result>-->
         </action>
 
+        <action name="filter"
+                class="com.gg.proj.webapp.action.RechercheAction"
+                method="doFilter">
+            <result name="success">jsp/filter.jsp</result>
+        </action>
         <!-- ============================ EMPRUNT DE TOPOS ============================ -->
         <!-- Interface d'affichage des topos disponible a l'empreint -->
         <action name="list_available_topo"
@@ -389,7 +399,7 @@
     <!-- ============================ RECHERCHE ASYNCHRONE ============================ -->
 
     <package name="ajax" namespace="/async" extends="struts-default, json-default">
-    <!-- todo faire les action searchAsync1 2 3 4-->
+        <!-- todo faire les action searchAsync1 2 3 4-->
         <action name="searchAsync"
                 class="com.gg.proj.webapp.action.RechercheAction"
                 method="doSearchAsync">

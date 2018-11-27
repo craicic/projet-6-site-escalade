@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class RechercheAction extends ActionSupport {
@@ -79,23 +80,40 @@ public class RechercheAction extends ActionSupport {
     }
 
     public String doSearch() {
-        String result = ActionSupport.INPUT;
+//        String result = ActionSupport.INPUT;
 
-        if(difficulteMin == null && difficulteMax == null) {
+//        if(difficulteMin == null && difficulteMax == null) {
 
-            listDifficulte = managerFactory.getRechercheManager().generateList();
-            listTopo = managerFactory.getTopoManager().search(termeDeLaRecherche);
-            listSite = managerFactory.getSiteManager().search(termeDeLaRecherche);
-            listSecteur = managerFactory.getSecteurManager().search(termeDeLaRecherche);
-            listVoie = managerFactory.getVoieManager().search(termeDeLaRecherche);
-        } else {
-            listTopo = managerFactory.getTopoManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,listTopo);
-        }
+        listDifficulte = managerFactory.getRechercheManager().generateList();
+        listTopo = managerFactory.getTopoManager().search(termeDeLaRecherche);
+        listSite = managerFactory.getSiteManager().search(termeDeLaRecherche);
+        listSecteur = managerFactory.getSecteurManager().search(termeDeLaRecherche);
+        listVoie = managerFactory.getVoieManager().search(termeDeLaRecherche);
+//            result = ActionSupport.SUCCESS;
+//        } else {
+//            logger.debug(difficulteMin);
+//            logger.debug(difficulteMax);
+//            listTopo = managerFactory.getTopoManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,termeDeLaRecherche);
+//
+//        }
 
+//        return result;
         return ActionSupport.SUCCESS;
     }
-    public String doSearchAsync(){
+
+    public String doSearchAsync() {
         listTopo = managerFactory.getTopoManager().search("m");
         return ActionSupport.SUCCESS;
+    }
+
+    public String doFilter() {
+        String result = ActionSupport.SUCCESS;
+        try {
+            listTopo = managerFactory.getTopoManager().advancedSearchByDifficulty(difficulteMin, difficulteMax, termeDeLaRecherche);
+        } catch (InputMismatchException e) {
+            addActionError(e.getMessage());
+            result = ActionSupport.ERROR;
+        }
+        return result;
     }
 }

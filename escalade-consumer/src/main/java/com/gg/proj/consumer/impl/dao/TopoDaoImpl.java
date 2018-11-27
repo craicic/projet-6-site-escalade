@@ -200,8 +200,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         // préparation des params
         TopoRM tRM = new TopoRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
-            params.addValue("listDifficultes",listDifficultes, Types.JAVA_OBJECT);
-            params.addValue("listTopoId",listTopoId, Types.JAVA_OBJECT);
+            params.addValue("listDifficultes",listDifficultes);
+            params.addValue("listTopoId",listTopoId);
 
         String rSQL = "SELECT t.* FROM topo t INNER JOIN composition_site_topo c on t.id = c.topo_id" +
                 " INNER JOIN site s ON c.site_id = s.id" +

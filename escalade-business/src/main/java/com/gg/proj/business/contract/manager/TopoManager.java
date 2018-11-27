@@ -18,7 +18,7 @@ public interface TopoManager extends CrudManager<Topo> {
 
     List<Topo> search(String termeDeLaRecherche);
 
-    List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, List<Topo> listRetrievedTopo);
+    List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche);
 
     List<Site> listLinkedSite(Integer topoId);
 

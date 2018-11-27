@@ -24,16 +24,9 @@ public class GenerateurDeDifficulte {
 
     public static List<String> Generateur(String difficulteMin, String difficulteMax) {
         logger.debug("Entrée dans la méthode statique Generateur, avec difficulteMin = " + difficulteMin + " et difficulteMax = " + difficulteMax);
-//        boolean write = false;
         List<String> listDifficultes = new ArrayList<>();
         logger.debug("list créé");
-//        for (int i = 0; difficultes[i].equals(difficulteMax); i++) {
-//            if(difficultes[i].equals(difficulteMin))
-//                write = true;
-//            if(write){
-//                listDifficultes.add(difficultes[i]);
-//            }
-//        }
+
 
         int j = 0;
         for (int i = 0; !difficultes[i].equals(difficulteMin); i++) {
@@ -48,8 +41,24 @@ public class GenerateurDeDifficulte {
             l = k;
         }
 
-        listDifficultes.add(difficultes[l+1]);
+        listDifficultes.add(difficultes[l + 1]);
 
         return listDifficultes;
+    }
+
+    public static boolean isOrdinate(String difficulteMin, String difficulteMax) {
+        int valueDiffMin = 0, valueDiffMax = 0;
+        int i = -1;
+        do {
+            i++;
+            valueDiffMin = i;
+        } while (!difficulteMin.equals(difficultes[i]));
+        i = -1;
+        do {
+            i++;
+            valueDiffMax = i;
+        } while (!difficulteMax.equals(difficultes[i]));
+
+        return valueDiffMax >= valueDiffMin;
     }
 }
