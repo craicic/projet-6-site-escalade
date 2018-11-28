@@ -115,31 +115,19 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         return jdbcTemplate.query(SQL, params, voieRM);
     }
 
-//    public Pair<String, String> getDifficultyByEntityId(Integer id, Object entity) {
-//        Pair<String, String> extremumDifficulties;
-//        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-//        VoieRM voieRM = new VoieRM();
-//        // Préparation des paramètres
-//        MapSqlParameterSource params = new MapSqlParameterSource();
-//        params.addValue("id", id, Types.INTEGER);
-//
-//        String rSQLmin = "";
-//        String rSQLmax = "";
-//
-//        if (entity.getClass() == Topo.class) {
-//            rSQLmin="SELECT voie.cotation FROM voie;";
-//        }
-//        if (entity.getClass() == Site.class) {
-//        }
-//        if (entity.getClass() == Secteur.class) {
-//        }
-//        if (entity.getClass() == Voie.class) {
-//        }
-//
-//        jdbcTemplate.query(rSQLmin, params, voieRM);
-//
-//        jdbcTemplate.queryForObject(rSQLmax, params, voieRM);
-//
-//        return
-//    }
+    @Override
+    public List<Voie> listVoieByDifficulty(List<String> listDifficultes, List<Integer> listVoieId) {
+        logger.debug("Entrée dans la méthode listVoieByDifficulty");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        // préparation des params
+        VoieRM seRM = new VoieRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("listDifficultes",listDifficultes);
+        params.addValue("listVoieId",listVoieId);
+
+        String rSQL = "SELECT v.* FROM voie v" +
+                " WHERE v.cotation IN (:listDifficultes) " +
+                " AND v.id IN (:listVoieId);";
+        return jdbcTemplate.query(rSQL, params, seRM);
+    }
 }

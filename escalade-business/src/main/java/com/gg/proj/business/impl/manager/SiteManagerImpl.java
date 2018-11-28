@@ -6,8 +6,8 @@ import com.gg.proj.consumer.contract.dao.CommentaireSurSiteDao;
 import com.gg.proj.consumer.contract.dao.SiteDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurSite;
-import com.gg.proj.model.bean.Coordonnees;
 import com.gg.proj.model.bean.Site;
+import com.gg.proj.technical.GenerateurDeDifficulte;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Named
@@ -152,5 +154,30 @@ public class SiteManagerImpl implements SiteManager {
     public Site getLinkedSiteBySecteurId(Integer secteurId) {
         logger.debug("Entrée dans la méthode getLinkedSiteBySecteurId() avec le secteurId " + secteurId );
         return siteDao.getSiteBySecteurId(secteurId);
+    }
+
+    /**
+     * Cette fonction reçoit deux difficultés de grimpe, elle génère une liste des difficultés intermédiaires et envoit
+     * la liste à la dao siteDao pour traitement.
+     *
+     * @param minDiff la difficulté minimale à rechercher
+     * @param maxDiff la difficulté maximale à rechercher
+     * @return un liste des sites.
+     */
+    @Override
+    @Transactional
+    public List<Site> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche) throws InputMismatchException {
+        logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
+
+        if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
+            List<Site> listRetrievedSite = siteDao.search(termeDeLaRecherche);
+            List<Integer> listSiteId = new ArrayList<>();
+            for (Site t : listRetrievedSite) {
+                listSiteId.add(t.getId());
+            }
+            return siteDao.listSiteByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSiteId);
+        } else {
+            throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
+        }
     }
 }

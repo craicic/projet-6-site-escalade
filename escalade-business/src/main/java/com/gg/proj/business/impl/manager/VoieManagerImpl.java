@@ -7,6 +7,7 @@ import com.gg.proj.consumer.contract.dao.VoieDao;
 import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.CommentaireSurVoie;
 import com.gg.proj.model.bean.Voie;
+import com.gg.proj.technical.GenerateurDeDifficulte;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.expression.ExpressionException;
@@ -16,6 +17,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Named
@@ -155,4 +158,28 @@ public class VoieManagerImpl implements VoieManager {
         return voieDao.listBySecteurId(secteurId);
     }
 
+    /**
+     * Cette fonction reçoit deux difficultés de grimpe, elle génère une liste des difficultés intermédiaires et envoit
+     * la liste à la dao voieDao pour traitement.
+     *
+     * @param minDiff la difficulté minimale à rechercher
+     * @param maxDiff la difficulté maximale à rechercher
+     * @return un liste des voies.
+     */
+    @Override
+    @Transactional
+    public List<Voie> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche) throws InputMismatchException {
+        logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
+
+        if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
+            List<Voie> listRetrievedVoie = voieDao.search(termeDeLaRecherche);
+            List<Integer> listVoieId = new ArrayList<>();
+            for (Voie t : listRetrievedVoie) {
+                listVoieId.add(t.getId());
+            }
+            return voieDao.listVoieByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listVoieId);
+        } else {
+            throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
+        }
+    }
 }

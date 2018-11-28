@@ -155,4 +155,21 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
         return jdbcTemplate.queryForObject(SQL ,params,siteRM);
     }
 
+    @Override
+    public List<Site> listSiteByDifficulty(List<String> listDifficultes, List<Integer> listSiteId) {
+        logger.debug("Entrée dans la méthode listSiteByDifficulty");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        // préparation des params
+        SiteRM sRM = new SiteRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("listDifficultes",listDifficultes);
+        params.addValue("listSiteId",listSiteId);
+
+        String rSQL = "SELECT s.* FROM site s" +
+                " INNER JOIN secteur se ON s.id = se.site_id" +
+                " INNER JOIN voie v ON se.id = v.secteur_id" +
+                " WHERE v.cotation IN (:listDifficultes) " +
+                " AND s.id IN (:listSiteId);";
+        return jdbcTemplate.query(rSQL, params, sRM);
+    }
 }

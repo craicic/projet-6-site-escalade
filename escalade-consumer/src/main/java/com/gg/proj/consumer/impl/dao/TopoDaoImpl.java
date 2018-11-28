@@ -189,7 +189,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("siteId", siteId, Types.INTEGER);
 
-        String rSQL = "SELECT t.* FROM topo t INNER JOIN composition_site_topo c on t.id = c.topo_id INNER JOIN site s on c.site_id = s.id WHERE site_id = :siteId;";
+        String rSQL = "SELECT t.* FROM topo t" +
+                " INNER JOIN composition_site_topo c on t.id = c.topo_id" +
+                " INNER JOIN site s on c.site_id = s.id" +
+                " WHERE site_id = :siteId;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 

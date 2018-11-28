@@ -118,4 +118,21 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         String SQL = "SELECT * FROM secteur JOIN  voie ON secteur.id = voie.secteur_id WHERE voie.id = :voieId;";
         return jdbcTemplate.queryForObject(SQL, params, secteurRM);
     }
+
+    @Override
+    public List<Secteur> listSecteurByDifficulty(List<String> listDifficultes, List<Integer> listSecteurId) {
+        logger.debug("Entrée dans la méthode listSecteurByDifficulty");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        // préparation des params
+        SecteurRM seRM = new SecteurRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("listDifficultes",listDifficultes);
+        params.addValue("listSecteurId",listSecteurId);
+
+        String rSQL = "SELECT se.* FROM secteur se" +
+                " INNER JOIN voie v ON se.id = v.secteur_id" +
+                " WHERE v.cotation IN (:listDifficultes) " +
+                " AND se.id IN (:listSecteurId);";
+        return jdbcTemplate.query(rSQL, params, seRM);
+    }
 }

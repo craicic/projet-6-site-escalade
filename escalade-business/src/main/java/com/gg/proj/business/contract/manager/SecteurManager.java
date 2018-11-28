@@ -13,4 +13,6 @@ public interface SecteurManager extends CrudDao<Secteur> {
     void create(Secteur secteur, Integer siteId);
 
     List<Secteur> listLinkedSecteurBySiteId(Integer siteId);
+
+    List<Secteur> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche);
 }

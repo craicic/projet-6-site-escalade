@@ -3,6 +3,7 @@ package com.gg.proj.business.impl.manager;
 import com.gg.proj.business.contract.manager.SecteurManager;
 import com.gg.proj.consumer.contract.dao.SecteurDao;
 import com.gg.proj.model.bean.Secteur;
+import com.gg.proj.technical.GenerateurDeDifficulte;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Named
@@ -119,5 +121,30 @@ public class SecteurManagerImpl implements SecteurManager {
     public Secteur getLinkedSecteurByVoieId(Integer voieId) {
         logger.debug("Entrée dans la méthode getLinkedSecteurByVoieId avec le secteurId " + voieId);
         return secteurDao.getSecteurByVoieId(voieId);
+    }
+
+    /**
+     * Cette fonction reçoit deux difficultés de grimpe, elle génère une liste des difficultés intermédiaires et envoit
+     * la liste à la dao secteurDao pour traitement.
+     *
+     * @param minDiff la difficulté minimale à rechercher
+     * @param maxDiff la difficulté maximale à rechercher
+     * @return un liste des secteurs.
+     */
+    @Override
+    @Transactional
+    public List<Secteur> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche) throws InputMismatchException {
+        logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
+
+        if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
+            List<Secteur> listRetrievedSecteur = secteurDao.search(termeDeLaRecherche);
+            List<Integer> listSecteurId = new ArrayList<>();
+            for (Secteur t : listRetrievedSecteur) {
+                listSecteurId.add(t.getId());
+            }
+            return secteurDao.listSecteurByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSecteurId);
+        } else {
+            throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
+        }
     }
 }

@@ -13,4 +13,7 @@ public interface SiteDao extends CrudDao<Site> {
     List<Site> getListByTopoIdReverse(Integer topoId);
 
     Site getSiteBySecteurId(Integer secteurId);
+
+    List<Site> listSiteByDifficulty(List<String> listDifficultes, List<Integer> listSiteId);
+
 }

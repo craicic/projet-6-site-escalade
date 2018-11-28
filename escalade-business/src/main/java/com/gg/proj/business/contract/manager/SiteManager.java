@@ -17,4 +17,6 @@ public interface SiteManager extends CrudManager<Site> {
     List<Site> listSiteNotLinked(Integer topoId);
 
     Site getLinkedSiteBySecteurId(Integer secteurId);
+
+    List<Site> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche);
 }
