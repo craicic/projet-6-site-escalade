@@ -92,6 +92,10 @@ public class GestionSecteurAction extends ActionSupport {
         } else
             // On rempli listSite afin de remplir la combobox de la page create
             listSite = managerFactory.getSiteManager().list();
+        if (listSite.isEmpty()) {
+            addActionError("Veuillez d'abord créer un nouveau secteur");
+            result = ActionSupport.ERROR;
+        }
         return result;
     }
 

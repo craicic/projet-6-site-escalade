@@ -1,5 +1,7 @@
 package com.gg.proj.model.bean;
 
+import org.springframework.ui.context.support.UiApplicationContextUtils;
+
 public class Topo implements Model {
 
     // propriétés
@@ -8,6 +10,8 @@ public class Topo implements Model {
     private String auteur;
     private String titre;
     private String description;
+    private Utilisateur emprunteur;
+    private Emprunt emprunt;
 
     private boolean empreintable;
 
@@ -67,5 +71,21 @@ public class Topo implements Model {
 
     public void setEmpreintable(boolean empreintable) {
         this.empreintable = empreintable;
+    }
+
+    public Utilisateur getEmprunteur() {
+        return emprunteur;
+    }
+
+    public void setEmprunteur(Utilisateur emprunteur) {
+        this.emprunteur = emprunteur;
+    }
+
+    public Emprunt getEmprunt() {
+        return emprunt;
+    }
+
+    public void setEmprunt(Emprunt emprunt) {
+        this.emprunt = emprunt;
     }
 }

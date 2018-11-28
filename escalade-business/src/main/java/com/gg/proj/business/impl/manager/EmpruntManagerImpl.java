@@ -95,19 +95,19 @@ public class EmpruntManagerImpl implements EmpruntManager {
      */
     @Override
     @Transactional
-    public List<Topo> listAvailableTopo(Integer utilisateurId) {
+    public List<Topo> listAvailableTopo(Integer utilisateurId, boolean displayMyOwn) {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         List<Topo> listTopo = topoDao.listAvailableTopo();
-        List<Topo> listTopoWithoutExcluded = new ArrayList<Topo>();
+        List<Topo> listTopoReworked = new ArrayList<Topo>();
         for (Topo topo : listTopo) {
             // On raccourci la description à 50 caractère...
             topo.setDescription(shortenDescription(topo.getDescription()));
             // ... et on exclus les topos dont le propriétaire est identique à l'utilisateur qui fait la requête
-            if (!topo.getProprietaireId().equals(utilisateurId)) {
-                listTopoWithoutExcluded.add(topo);
+            if (!topo.getProprietaireId().equals(utilisateurId) || displayMyOwn) {
+                listTopoReworked.add(topo);
             }
         }
-        return listTopoWithoutExcluded;
+        return listTopoReworked;
     }
 
     //todo javadoc

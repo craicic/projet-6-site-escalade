@@ -5,6 +5,7 @@ import com.gg.proj.model.bean.Commentaire;
 import com.gg.proj.model.bean.Secteur;
 import com.gg.proj.model.bean.Utilisateur;
 import com.gg.proj.model.bean.Voie;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -101,6 +102,10 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
         } else {
             // On rempli listSecteur pour le menu Select
             listSecteur = managerFactory.getSecteurManager().list();
+            if (listSecteur.isEmpty()){
+                addActionError("Veuillez d'abord créer un nouveau secteur");
+                resultat = ActionSupport.ERROR;
+            }
         }
         return resultat;
     }

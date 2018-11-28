@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.TopoDao;
+import com.gg.proj.consumer.impl.rowmapper.TopoFullRM;
 import com.gg.proj.consumer.impl.rowmapper.TopoRM;
 import com.gg.proj.model.bean.Topo;
 import org.apache.logging.log4j.LogManager;
@@ -171,12 +172,16 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public List<Topo> listTopoByLoanerId(Integer loanerId) {
         logger.debug("Entrée dans la méthode getTopoByBorrowerId");
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-        TopoRM tRM = new TopoRM();
+        TopoFullRM tRM = new TopoFullRM();
         // préparation des params
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("loanerId", loanerId, Types.INTEGER);
 
-        String rSQL = "SELECT * FROM topo WHERE proprietaire_id = :loanerId;";
+        String rSQL = "SELECT t.*, e.date_emprunt, e.date_retour, u.id as emprunteur_id, u.pseudo as emprunteur_pseudo FROM topo t" +
+                " INNER JOIN emprunt e on t.id = e.topo_id" +
+                " INNER JOIN utilisateur u on e.utilisateur_id = u.id" +
+                " WHERE t.proprietaire_id = :loanerId" +
+                " AND e.date_retour > CURRENT_DATE;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 

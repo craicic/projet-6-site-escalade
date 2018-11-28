@@ -110,6 +110,9 @@ public class RechercheAction extends ActionSupport {
         String result = ActionSupport.SUCCESS;
         try {
             listTopo = managerFactory.getTopoManager().advancedSearchByDifficulty(difficulteMin, difficulteMax, termeDeLaRecherche);
+            listSite = managerFactory.getSiteManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,termeDeLaRecherche);
+            listSecteur = managerFactory.getSecteurManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,termeDeLaRecherche);
+            listVoie = managerFactory.getVoieManager().advancedSearchByDifficulty(difficulteMin,difficulteMax,termeDeLaRecherche);
         } catch (InputMismatchException e) {
             addActionError(e.getMessage());
             result = ActionSupport.ERROR;

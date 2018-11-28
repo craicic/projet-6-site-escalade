@@ -24,47 +24,48 @@
             <%--</li>--%>
 
             <%-- Dropdown--%>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    CRUD
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <s:a class="dropdown-item" action="list_topo">
-                        Liste des topos
-                    </s:a>
-                    <s:a class="dropdown-item" action="topo_new">
-                        Nouveau topo
-                    </s:a>
-                    <s:a class="dropdown-item" action="list_utilisateur">
-                        Liste des utilisateurs
-                    </s:a>
-                    <s:a class="dropdown-item" action="utilisateur_new">
-                        Nouvel utilisateur
-                    </s:a>
-                    <s:a class="dropdown-item" action="list_site">
-                        Liste des sites
-                    </s:a>
-                    <s:a class="dropdown-item" action="site_new">
-                        Nouveau site
-                    </s:a>
-                    <s:a class="dropdown-item" action="list_secteur">
-                        Liste des secteurs
-                    </s:a>
-                    <s:a class="dropdown-item" action="secteur_new">
-                        Nouveau secteur
-                    </s:a>
-                    <s:a class="dropdown-item" action="list_voie">
-                        Liste des voies
-                    </s:a>
-                    <s:a class="dropdown-item" action="voie_new">
-                        Nouvelle voie
-                    </s:a>
-                </div>
-            </li>
+
 
 
             <s:if test="#session.utilisateur">
+                <%-- Menu d'édition des topo / site / secteur / voie --%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Poster un site de grimpe
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <s:a class="dropdown-item" action="topo_new">
+                            Nouveau topo
+                        </s:a>
+                        <s:a class="dropdown-item" action="site_new">
+                            Nouveau site
+                        </s:a>
+                        <s:a class="dropdown-item" action="secteur_new">
+                            Nouveau secteur
+                        </s:a>
+                        <s:a class="dropdown-item" action="voie_new">
+                            Nouvelle voie
+                        </s:a>
+                        <div class="dropdown-divider"></div>
+                        <s:a class="dropdown-item" action="list_utilisateur">
+                            Liste des utilisateurs
+                        </s:a>
+                        <div class="dropdown-divider"></div>
+                        <s:a class="dropdown-item" action="list_topo">
+                            Liste des topos
+                        </s:a>
+                        <s:a class="dropdown-item" action="list_site">
+                            Liste des sites
+                        </s:a>
+                        <s:a class="dropdown-item" action="list_secteur">
+                            Liste des secteurs
+                        </s:a>
+                        <s:a class="dropdown-item" action="list_voie">
+                            Liste des voies
+                        </s:a>
+                    </div>
+                </li>
                 <%--Liste des topos disponibles --%>
                 <li class="nav-item">
                     <s:a class="nav-link" action="list_available_topo">Topos disponibles</s:a>

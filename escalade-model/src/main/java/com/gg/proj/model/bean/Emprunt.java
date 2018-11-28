@@ -20,6 +20,11 @@ public class Emprunt implements Model{
         this.id = id;
     }
 
+    public Emprunt(LocalDate dateEmprunt, LocalDate dateRetour){
+        this.dateEmprunt = dateEmprunt;
+        this.dateRetour = dateRetour;
+    }
+
     // setters & getters
     @Override
     public Integer getId() {

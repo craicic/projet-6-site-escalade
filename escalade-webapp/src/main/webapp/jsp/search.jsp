@@ -15,7 +15,10 @@
 
     <p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
 
-    <s:if test="%{actionName eq search}">
+    <s:if test="%{listTopo.isEmpty() and listSite.isEmpty() and listSecteur.isEmpty() and listVoie.isEmpty()}">
+        <div>Aucun résultat trouvé</div>
+    </s:if>
+    <s:else>
     <s:form action="filter" method="GET">
 
         <s:select name="difficulteMin" Label="Difficulte minimum"
@@ -30,7 +33,7 @@
 
         <s:submit value="Filtrer"/>
     </s:form>
-    </s:if>
+    </s:else>
 
     <ul class="list-group">
         <h5>Topos trouvés : <s:property value="listTopo.size()"/></h5>
