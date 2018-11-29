@@ -147,4 +147,11 @@ public class SecteurManagerImpl implements SecteurManager {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }
     }
+
+    // todo Javadoc
+    @Override
+    @Transactional
+    public Integer getId(Secteur secteur) {
+        return secteurDao.getId(secteur);
+    }
 }

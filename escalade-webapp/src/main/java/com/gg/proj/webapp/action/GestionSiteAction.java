@@ -86,9 +86,17 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
+
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if(site != null) {
             try {
                 managerFactory.getSiteManager().create(site);
+                // On récupère l'id pour le passage a la page suivante
+                site.setId(managerFactory.getSiteManager().getId(this.site));
                 this.addActionMessage("Site ajouté : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
@@ -118,11 +126,16 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
 
     public String doUpdate() {
         String resultat = ActionSupport.INPUT;
+
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if(site != null) {
             try {
                 // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Site temporaire
                 // Ainsi l'id est non modifiable.
-                logger.info("hey");
                 Site tmpSite = managerFactory.getSiteManager().get(site.getId());
                 tmpSite.setNom(site.getNom());
                 tmpSite.setDescription(site.getDescription());
@@ -135,13 +148,12 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
                 this.addActionMessage("Site modifié : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {
-                logger.info("exception " + e.getMessage());
                 this.addActionError(e.getMessage());
+                resultat = ActionSupport.ERROR;
             }
         } else {
             // Si site est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur site afin de pré-rempir les champs de la page web
             site = managerFactory.getSiteManager().get(id);
-            logger.info("site.description : " + site.getDescription());
         }
         return resultat;
     }

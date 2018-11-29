@@ -90,9 +90,16 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
 
     public String doCreate() {
         String resultat = ActionSupport.INPUT;
+
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if(voie != null) {
                 try {
                     managerFactory.getVoieManager().create(voie, secteurId);
+                    voie.setId(managerFactory.getVoieManager().getId(voie));
                     this.addActionMessage("Voie créée : " + voie.getNom());
                     resultat = ActionSupport.SUCCESS;
                 } catch (ExpressionException e){
@@ -111,6 +118,12 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
     }
 
     public String doDetail() {
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
+
         if (id == null) {
         this.addActionError("Vous devez indiquer un id de voie");
     } else {

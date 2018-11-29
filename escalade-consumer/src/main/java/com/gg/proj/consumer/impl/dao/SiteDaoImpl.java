@@ -172,4 +172,16 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
                 " AND s.id IN (:listSiteId);";
         return jdbcTemplate.query(rSQL, params, sRM);
     }
+
+    @Override
+    public Integer getIdBySiteNom(String nomDuSite) {
+        // todo mettre le nom a unique dans le mpd
+        logger.debug("Entrée dans la méthode getIdBySite");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SiteRM siteRM = new SiteRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("nom", nomDuSite);
+        String rSQL = "SELECT id FROM site WHERE nom = :nom;";
+        return jdbcTemplate.queryForObject(rSQL, params, (rs, rowNum) -> rs.getInt("id"));
+    }
 }

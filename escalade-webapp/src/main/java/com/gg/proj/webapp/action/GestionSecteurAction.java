@@ -8,13 +8,15 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class GestionSecteurAction extends ActionSupport {
+public class GestionSecteurAction extends ActionSupport implements SessionAware {
     private final static Logger logger = LogManager.getLogger();
 
     @Inject
@@ -27,7 +29,12 @@ public class GestionSecteurAction extends ActionSupport {
     private List<Secteur> listSecteur;
     private List<Site> listSite;
     private List<Voie> listVoie;
+    private Map<String, Object> session;
 
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
     public Integer getId() {
         return id;
     }
@@ -86,20 +93,32 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doCreate() {
         String result = ActionSupport.INPUT;
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if (secteur != null) {
             managerFactory.getSecteurManager().create(secteur, siteId);
+            secteur.setId(managerFactory.getSecteurManager().getId(secteur));
             result = ActionSupport.SUCCESS;
-        } else
+        } else {
             // On rempli listSite afin de remplir la combobox de la page create
             listSite = managerFactory.getSiteManager().list();
-        if (listSite.isEmpty()) {
-            addActionError("Veuillez d'abord créer un nouveau secteur");
-            result = ActionSupport.ERROR;
+            if (listSite.isEmpty()) {
+                addActionError("Veuillez d'abord créer un nouveau secteur");
+                result = ActionSupport.ERROR;
+            }
         }
         return result;
     }
 
     public String doDetail() {
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if (id == null) {
             this.addActionError("Vous devez indiquer un id de secteur");
         } else {
@@ -107,6 +126,7 @@ public class GestionSecteurAction extends ActionSupport {
                 secteur = managerFactory.getSecteurManager().get(id);
                 site = managerFactory.getSiteManager().getLinkedSiteBySecteurId(id);
                 listVoie = managerFactory.getVoieManager().listLinkedVoie(id);
+
             } catch (NoSuchElementException e) {
                 logger.error(e.getMessage());
                 this.addActionError("Secteur non trouvé. ID = " + id);
@@ -123,6 +143,12 @@ public class GestionSecteurAction extends ActionSupport {
 
     public String doUpdate() {
         String resultat = ActionSupport.INPUT;
+
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
+
         if (secteur != null) {
             try {
                 // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie un Site temporaire

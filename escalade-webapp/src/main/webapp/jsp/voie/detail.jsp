@@ -33,6 +33,12 @@
 </s:a>
 
 <s:if test="#session.utilisateur">
+    <div><s:a action="update_voie">
+        <s:param name="id" value="%{id}"/>
+        Éditer cette voie
+    </s:a>
+    </div>
+
     <s:form action="add_comment_voie">
         <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
         <s:hidden name="id" value="%{id}"/>

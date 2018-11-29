@@ -39,9 +39,9 @@ public class SiteManagerImpl implements SiteManager {
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");
         if (!model.getNom().isEmpty()) {
-            // todo retirer ce fix de coordonnéesGPS
-            model.setCoordonneeX(1.0);
-            model.setCoordonneeY(1.0);
+//            // todo retirer ce fix de coordonnéesGPS
+//            model.setCoordonneeX(1.0);
+//            model.setCoordonneeY(1.0);
             siteDao.create(model);
         } else
             logger.warn("Le champ nom doit être renseigné");
@@ -179,5 +179,17 @@ public class SiteManagerImpl implements SiteManager {
         } else {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }
+    }
+
+    /**
+     * Recherche l'id d'un site via appel à la dao
+     *
+     * @param site bean du site recherche
+     * @return l'id du site
+     */
+    @Override
+    @Transactional
+    public Integer getId(Site site) {
+        return siteDao.getIdBySiteNom(site.getNom());
     }
 }

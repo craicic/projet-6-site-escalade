@@ -17,7 +17,7 @@ import java.util.List;
 public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 
     private static final Logger logger = LogManager.getLogger();
-    
+
     // TODO gestion des coordonnées
     @Override
     public void create(Secteur model) {
@@ -90,7 +90,7 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
      */
     @Override
     public List<Secteur> search(String termeDeLaRecherche) {
-        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" + termeDeLaRecherche);
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         SecteurRM secteurRM = new SecteurRM();
         // Préparation des paramètres
@@ -102,7 +102,6 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
     }
 
     /**
-     *
      * @param voieId
      * @return
      */
@@ -126,13 +125,26 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         // préparation des params
         SecteurRM seRM = new SecteurRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("listDifficultes",listDifficultes);
-        params.addValue("listSecteurId",listSecteurId);
+        params.addValue("listDifficultes", listDifficultes);
+        params.addValue("listSecteurId", listSecteurId);
 
         String rSQL = "SELECT DISTINCT se.* FROM secteur se" +
                 " INNER JOIN voie v ON se.id = v.secteur_id" +
                 " WHERE v.cotation IN (:listDifficultes) " +
                 " AND se.id IN (:listSecteurId);";
         return jdbcTemplate.query(rSQL, params, seRM);
+    }
+
+    @Override
+    public Integer getId(Secteur secteur) {
+        logger.debug("Entrée dans la méthode getId");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        SecteurRM secteurRM = new SecteurRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("nom", secteur.getNom());
+        params.addValue("siteId", secteur.getSiteId());
+
+        String rSQL = "SELECT id FROM secteur WHERE (nom, site_id) = (:nom, :siteId);";
+        return jdbcTemplate.queryForObject(rSQL, params, (rs, rowNum) -> rs.getInt("id"));
     }
 }

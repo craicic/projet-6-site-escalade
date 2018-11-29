@@ -19,10 +19,11 @@
 <s:form action="site_new">
     <s:textfield  name="site.nom" label="Nom" requiredLabel="true"/>
     <s:textarea name="site.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
-    <s:textfield name="site.profil" label="Profil" requiredLabel="false"/>
-    <s:textfield name="site.roche" label="Roche" requiredLabel="false"/>
-    <s:textfield name="site.type" label="Type" requiredLabel="false"/>
-    <!-- todo coordonnees GPS dans JSP -->
+    <s:textfield name="site.profil" label="Profil" requiredLabel="true"/>
+    <s:textfield name="site.roche" label="Roche" requiredLabel="true"/>
+    <s:textfield name="site.type" label="Type" requiredLabel="true"/>
+    <s:textfield name="site.coordonneeX" label="GPS X" requiredLabel="false"/>
+    <s:textfield name="site.coordonneeY" label="GPS X" requiredLabel="false"/>
 
     <s:submit value="Ok"/>
 </s:form>

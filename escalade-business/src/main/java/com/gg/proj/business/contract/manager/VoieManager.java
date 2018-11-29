@@ -18,4 +18,6 @@ public interface VoieManager extends CrudDao<Voie> {
     void create(Voie voie, Integer secteurId);
 
     List<Voie> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche);
+
+    Integer getId(Voie voie);
 }

@@ -68,10 +68,15 @@
                 class="com.gg.proj.webapp.action.GestionTopoAction"
                 method="doUpdate">
 
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/topo/update.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">list_topo</param>
-                <!--<param name="id">${topo.id}</param>-->
+                <param name="actionName">detail_topo</param>
+                <param name="id">${topo.id}</param>
             </result>
         </action>
 
@@ -160,25 +165,53 @@
             <result name="success" type="redirectAction">list_utilisateur</result>
         </action>
         <!-- ============================ SITE ============================ -->
+        <!-- Nouveau site -->
         <action name="site_new"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doCreate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/site/new.jsp</result>
-            <result name="success" type="redirectAction">list_site</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_site</param>
+                <param name="id">${site.id}</param>
+            </result>
         </action>
+
+        <!-- Liste des sites -->
         <action name="list_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doList">
             <result name="success">/jsp/site/list.jsp</result>
         </action>
+
+        <!-- Détail d'un site -->
         <action name="detail_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doDetail">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="success">/jsp/site/detail.jsp</result>
         </action>
+
+        <!-- Mise à jour d'un site -->
         <action name="update_site"
                 class="com.gg.proj.webapp.action.GestionSiteAction"
                 method="doUpdate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/site/update.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_site</param>
@@ -201,66 +234,128 @@
         </action>
 
         <!-- ============================ SECTEUR ============================ -->
+        <!-- Nouveau secteur -->
         <action name="secteur_new"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doCreate">
-            <!-- todo afficher le detail du site associé -->
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/secteur/new.jsp</result>
-            <result name="success" type="redirectAction">list_secteur</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_secteur</param>
+                <param name="id">${secteur.id}</param>
+            </result>
         </action>
+
+        <!-- Liste des secteur -->
         <action name="list_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doList">
             <result name="success">/jsp/secteur/list.jsp</result>
         </action>
+
+        <!-- Detail des secteurs -->
         <action name="detail_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doDetail">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="success">/jsp/secteur/detail.jsp</result>
         </action>
+
+        <!-- Mise à jour des secteurs -->
         <action name="update_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doUpdate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/secteur/update.jsp</result>
-            <result name="success" type="redirectAction">list_secteur</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_secteur</param>
+                <param name="id">${secteur.id}</param>
+            </result>
         </action>
+
+        <!-- Delete -->
         <action name="delete_secteur"
                 class="com.gg.proj.webapp.action.GestionSecteurAction"
                 method="doDelete">
             <result name="success" type="redirectAction">list_secteur</result>
         </action>
         <!-- ============================ VOIE ============================ -->
+        <!-- Nouvelle voie -->
         <action name="voie_new"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doCreate">
-            <!-- todo afficher le detail du site associé -->
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/voie/new.jsp</result>
-            <result name="success" type="redirectAction">list_voie</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">detail_voie</param>
+                <param name="id">${voie.id}</param>
+            </result>
         </action>
+
+        <!--Liste des voies -->
         <action name="list_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doList">
             <result name="success">/jsp/voie/list.jsp</result>
         </action>
+
+        <!-- Détail des voies -->
         <action name="detail_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doDetail">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="success">/jsp/voie/detail.jsp</result>
         </action>
+
+        <!-- Mise à jour des voies -->
         <action name="update_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doUpdate">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/voie/update.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_voie</param>
                 <param name="id">${voie.id}</param>
             </result>
         </action>
+
+        <!-- Suppression des voies -->
         <action name="delete_voie"
                 class="com.gg.proj.webapp.action.GestionVoieAction"
                 method="doDelete">
             <result name="success" type="redirectAction">list_voie</result>
         </action>
+
         <!-- Gestion des commentaires -->
         <!-- Ajout d'un commentaire -->
         <action name="add_comment_voie"
@@ -288,6 +383,12 @@
         <action name="update_my_comment_topo"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doUpdateMyComment">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_topo</param>
@@ -297,6 +398,12 @@
         <action name="update_my_comment_site"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doUpdateMyComment">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_site</param>
@@ -306,12 +413,19 @@
         <action name="update_my_comment_voie"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doUpdateMyComment">
+
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+
             <result name="input">/jsp/commentaire/update_my_comment.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">detail_voie</param>
                 <param name="id">${voie.id}</param>
             </result>
         </action>
+
         <!-- Méthode obsolète -->
         <action name="delete_commentaire"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"

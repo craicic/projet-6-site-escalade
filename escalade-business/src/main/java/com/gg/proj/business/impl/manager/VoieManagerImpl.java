@@ -182,4 +182,10 @@ public class VoieManagerImpl implements VoieManager {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }
     }
+
+    @Override
+    @Transactional
+    public Integer getId(Voie voie) {
+        return voieDao.getId(voie);
+    }
 }

@@ -16,4 +16,5 @@ public interface SiteDao extends CrudDao<Site> {
 
     List<Site> listSiteByDifficulty(List<String> listDifficultes, List<Integer> listSiteId);
 
+    Integer getIdBySiteNom(String nomDuSite);
 }

@@ -176,9 +176,10 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 } catch (NoSuchElementException e) {
                     ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
+                this.addActionMessage("Topo modifié.");
                 resultat = ActionSupport.SUCCESS;
             } else {
-                this.addActionError("Id doit être défini");
+                this.addActionError("Id doit être défini.");
                 resultat = ActionSupport.ERROR;
             }
         } else {

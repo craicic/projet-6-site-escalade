@@ -130,4 +130,17 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
                 " AND v.id IN (:listVoieId);";
         return jdbcTemplate.query(rSQL, params, seRM);
     }
+
+    @Override
+    public Integer getId(Voie voie) {
+        logger.debug("Entrée dans la méthode getId");
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        VoieRM voieRM = new VoieRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("nom", voie.getNom());
+        params.addValue("secteurId", voie.getSecteurId());
+
+        String rSQL = "SELECT id FROM voie WHERE (nom, secteur_id) = (:nom, :secteurId);";
+        return jdbcTemplate.queryForObject(rSQL, params, (rs, rowNum) -> rs.getInt("id"));
+    }
 }
