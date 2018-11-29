@@ -10,35 +10,24 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 <div class="container-fluid">
-<h2>Liste des topos</h2>
+    <h2>Liste des topos</h2>
 
-<ul class="list-group">
-    <s:iterator value="listTopo">
-        <li class="list-group-item">
-            <div>ID : <s:property value="id"/></div>
-            <div>Titre : <s:property value="titre"/></div>
-            <div>Auteur : <s:property value="auteur"/></div>
-            <div>Description : <s:property value="description"/></div>
-            <div>Dispo à l'emprunt : <s:property value="empreintable"/></div>
-            <div><s:a action="detail_topo">
-                <s:param name="id" value="id"/>
-                détail du topo
-            </s:a></div>
-            <div><s:a action="update_topo">
-                <s:param name="id" value="id"/>
-                modifier
-            </s:a></div>
-            <div><s:a action="delete_topo">
-                <s:param name="id" value="id"/>
-                supprimer
-            </s:a></div>
-        </li>
-    </s:iterator>
-</ul>
+    <ul class="list-group">
+        <s:iterator value="listTopo">
+            <li class="list-group-item">
+                <div><s:property value="titre"/></div>
+                <div>Description : <s:property value="description"/></div>
+                <div><s:a action="detail_topo">
+                    <s:param name="id" value="id"/>
+                    détail du topo
+                </s:a></div>
+            </li>
+        </s:iterator>
+    </ul>
 </div>
 </body>
 </html>

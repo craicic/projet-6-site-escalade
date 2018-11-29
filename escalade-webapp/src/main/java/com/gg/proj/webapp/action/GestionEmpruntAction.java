@@ -6,13 +6,11 @@ import com.gg.proj.model.bean.Topo;
 import com.gg.proj.model.bean.Utilisateur;
 import com.gg.proj.technical.exceptions.DateInputException;
 import com.opensymphony.xwork2.ActionSupport;
-import freemarker.template.utility.DateUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.SessionAware;
 
 import javax.inject.Inject;
-import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +25,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     private Topo topo;
     private boolean post;
     private Date date;
-    private Map<String,Object> session;
+    private Map<String, Object> session;
     private List<Topo> listAvailableTopo;
     private List<Topo> listLoanedTopo;
     private List<Topo> listBorrowedTopo;
@@ -35,8 +33,8 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
     // Getters & Setters
     @Override
-    public void setSession(Map<String, Object> session){
-      this.session = session;
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 
     public Integer getId() {
@@ -126,7 +124,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     public String doListAvailable() {
         Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
 
-        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo(utilisateurEnSession.getId(),false);
+        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo(utilisateurEnSession.getId(), false);
         return ActionSupport.SUCCESS;
     }
 
@@ -145,7 +143,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
                 managerFactory.getEmpruntManager().create(emprunt, date);
 
                 result = ActionSupport.SUCCESS;
-            } catch (DateInputException dIE){
+            } catch (DateInputException dIE) {
                 addActionError(dIE.getMessage());
                 result = ActionSupport.ERROR;
             }

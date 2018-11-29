@@ -10,22 +10,27 @@
     <%@include file="../_include/head.jsp" %>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 
 <body>
 <div class="container-fluid">
-<h2>Modifier un secteur</h2>
+    <h2>Modifier un secteur</h2>
 
-<s:form action="update_secteur">
-    <s:textfield  name="secteur.nom" label="Nom" requiredLabel="true"/>
-    <s:textarea name="secteur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
-    <s:select name="secteur.siteId" Label="Site"
-              list="listSite" listKey="id" listValue="nom"
-              emptyOption="false"
-              requiredLabel="true"/>
-    <s:hidden name="secteur.id" value="%{id}"/>
-    <s:submit value="Ok"/>
-</s:form>
+    <s:form action="update_secteur">
+        <s:textfield name="secteur.nom" label="Nom" requiredLabel="true"/>
+        <s:textarea name="secteur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
+        <s:select name="secteur.siteId" Label="Site"
+                  list="listSite" listKey="id" listValue="nom"
+                  emptyOption="false"
+                  requiredLabel="true"/>
+        <s:hidden name="secteur.id" value="%{id}"/>
+        <s:submit value="Ok"/>
+    </s:form>
+
+    <div><s:a action="delete_secteur">
+        <s:param name="id" value="%{id}"/>
+        Supprimer
+    </s:a></div>
 </div>
 </body>
 </html>

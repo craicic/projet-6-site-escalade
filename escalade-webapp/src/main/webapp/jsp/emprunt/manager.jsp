@@ -15,21 +15,25 @@
 
 <body>
 <div class="container-fluid">
-    <h3>Mes emprunts</h3>
+    <h3>Mes emprunts <span class="badge badge-primary badge-pill">${listBorrowedTopo.size()}</span></h3>
     <ul class="list-group">
         <s:iterator value="listBorrowedTopo">
             <li class="list-group-item">
-                <div>Titre du topo : <s:property value="titre"/></div>
+                <div><s:a action="detail_topo"><s:property value="titre"/>
+                    <s:param name="id" value="id"/>
+                </s:a></div>
                 <div>Description : <s:property value="description"/></div>
             </li>
         </s:iterator>
     </ul>
 
-    <h3>Mes prêts en cours</h3>
+    <h3>Mes prêts en cours <span class="badge badge-primary badge-pill">${listLoanedTopo.size()}</span></h3>
     <ul class="list-group">
         <s:iterator value="listLoanedTopo">
             <li class="list-group-item">
-                <div>Titre du topo : <s:property value="titre"/></div>
+                <div><s:a action="detail_topo"><s:property value="titre"/>
+                    <s:param name="id" value="id"/>
+                </s:a></div>
                 <div>Description : <s:property value="description"/></div>
                 <s:if test="%{true}">
                     <div>Emprunté du <s:property value="emprunt.dateEmprunt"/> au <s:property
@@ -43,11 +47,13 @@
         </s:iterator>
     </ul>
 
-    <h3>En attente d'emprunt</h3>
+    <h3>En attente d'emprunt <span class="badge badge-primary badge-pill">${listAvailableTopo.size()}</span></h3>
     <ul class="list-group">
         <s:iterator value="listAvailableTopo">
             <li class="list-group-item">
-                <div>Titre du topo : <s:property value="titre"/></div>
+                <div><s:a action="detail_topo"><s:property value="titre"/>
+                    <s:param name="id" value="id"/>
+                </s:a></div>
                 <div>Description : <s:property value="description"/></div>
             </li>
         </s:iterator>
