@@ -110,6 +110,24 @@ public class EmpruntManagerImpl implements EmpruntManager {
         return listTopoReworked;
     }
 
+    /**
+     * Cette méthode solicite la dao pour récupérer les topo qui n'ont pas encore été emprunter et qui appartiennent a l'
+     * utilisateur d'id utilisateurId
+     * @param utilisateurId l'id de l'utilisateur concerné
+     * @return une liste de topos qui sont disponibles à l'emprunt
+     */
+    @Override
+    @Transactional
+    public List<Topo> listMyAvailableTopo(Integer utilisateurId){
+        logger.debug("Entrée dans la méthode listMyAvailableTopo avec l'utilisateurId : " + utilisateurId);
+        List<Topo> listTopo = topoDao.listAvailableTopoByUtilisateurId(utilisateurId);
+        for (Topo topo : listTopo) {
+            // On raccourci la description à 50 caractère...
+            topo.setDescription(shortenDescription(topo.getDescription()));
+        }
+        return listTopo;
+    }
+
     //todo javadoc
     @Override
     @Transactional

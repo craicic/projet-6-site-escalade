@@ -160,7 +160,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
         listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());
         listLoanedTopo = managerFactory.getEmpruntManager().listLoanedTopo(utilisateurEnSession.getId());
-        listAvailableTopo = managerFactory.getEmpruntManager().listAvailableTopo(utilisateurEnSession.getId(), true);
+        listAvailableTopo = managerFactory.getEmpruntManager().listMyAvailableTopo(utilisateurEnSession.getId());
         return ActionSupport.SUCCESS;
     }
 }

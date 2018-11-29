@@ -125,7 +125,7 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         params.addValue("listDifficultes",listDifficultes);
         params.addValue("listVoieId",listVoieId);
 
-        String rSQL = "SELECT v.* FROM voie v" +
+        String rSQL = "SELECT DISTINCT v.* FROM voie v" +
                 " WHERE v.cotation IN (:listDifficultes) " +
                 " AND v.id IN (:listVoieId);";
         return jdbcTemplate.query(rSQL, params, seRM);

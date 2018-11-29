@@ -142,6 +142,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         return jdbcTemplate.query(rSQL, tRM);
     }
 
+
     /**
      * Récupère les topos qui ont été empruntés par l'utilisateur d'id borrowerId
      *
@@ -157,7 +158,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("borrowerId", borrowerId, Types.INTEGER);
 
-        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description, t.empreintable FROM topo t INNER JOIN emprunt e ON t.id = e.topo_id " +
+        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description, t.empreintable FROM topo t" +
+                " INNER JOIN emprunt e ON t.id = e.topo_id " +
                 "WHERE e.utilisateur_id = :borrowerId;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
@@ -208,15 +210,38 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         // préparation des params
         TopoRM tRM = new TopoRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
-            params.addValue("listDifficultes",listDifficultes);
-            params.addValue("listTopoId",listTopoId);
+        params.addValue("listDifficultes", listDifficultes);
+        params.addValue("listTopoId", listTopoId);
 
-        String rSQL = "SELECT t.* FROM topo t INNER JOIN composition_site_topo c on t.id = c.topo_id" +
+        String rSQL = "SELECT DISTINCT t.* FROM topo t " +
+                " INNER JOIN composition_site_topo c on t.id = c.topo_id" +
                 " INNER JOIN site s ON c.site_id = s.id" +
                 " INNER JOIN secteur se ON s.id = se.site_id" +
                 " INNER JOIN voie v ON se.id = v.secteur_id" +
                 " WHERE v.cotation IN (:listDifficultes) " +
                 " AND t.id IN (:listTopoId);";
+        return jdbcTemplate.query(rSQL, params, tRM);
+    }
+
+    /**
+     * Cette méthode solicite la dao pour récupérer les topo qui n'ont pas encore été emprunter et qui appartiennent a l'
+     * utilisateur d'id utilisateurId
+     *
+     * @param utilisateurId l'id de l'utilisateur concerné
+     * @return une liste de topos qui sont disponibles à l'emprunt
+     */
+    @Override
+    public List<Topo> listAvailableTopoByUtilisateurId(Integer utilisateurId) {
+        logger.debug("Entrée dans la méthode listAvailableTopoByUtilisateurId avec l'utilisateurId : " + utilisateurId);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        TopoRM tRM = new TopoRM();
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("utilisateurId", utilisateurId);
+
+        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id, t.empreintable FROM topo t" +
+                " LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
+                " WHERE t.proprietaire_id = :utilisateurId" +
+                " AND (emprunt.topo_id IS NULL OR emprunt.date_retour < CURRENT_DATE);";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 

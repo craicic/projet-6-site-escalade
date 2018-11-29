@@ -49,6 +49,8 @@ public class TopoManagerImpl implements TopoManager {
 //                 Si le titre à été rempli, la transaction est effectuée
         logger.debug("Entrée dans la méthode create");
         if (!model.getTitre().isEmpty()) {
+            // todo fix en attendant de retirer empreintable du mpd
+            model.setEmpreintable(true);
             topoDao.create(model);
         } else {
             logger.warn("Le titre doit être non null.");
@@ -72,6 +74,7 @@ public class TopoManagerImpl implements TopoManager {
     @Transactional
     public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
+        model.setEmpreintable(true);
         topoDao.update(model);
 
     }

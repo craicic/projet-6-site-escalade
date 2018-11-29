@@ -129,7 +129,7 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         params.addValue("listDifficultes",listDifficultes);
         params.addValue("listSecteurId",listSecteurId);
 
-        String rSQL = "SELECT se.* FROM secteur se" +
+        String rSQL = "SELECT DISTINCT se.* FROM secteur se" +
                 " INNER JOIN voie v ON se.id = v.secteur_id" +
                 " WHERE v.cotation IN (:listDifficultes) " +
                 " AND se.id IN (:listSecteurId);";

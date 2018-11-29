@@ -165,7 +165,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
         params.addValue("listDifficultes",listDifficultes);
         params.addValue("listSiteId",listSiteId);
 
-        String rSQL = "SELECT s.* FROM site s" +
+        String rSQL = "SELECT DISTINCT s.* FROM site s" +
                 " INNER JOIN secteur se ON s.id = se.site_id" +
                 " INNER JOIN voie v ON se.id = v.secteur_id" +
                 " WHERE v.cotation IN (:listDifficultes) " +

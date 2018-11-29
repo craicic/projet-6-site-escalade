@@ -17,6 +17,8 @@ public interface EmpruntManager extends CrudDao<Emprunt> {
 
     List<Topo> listAvailableTopo(Integer utilisateurId, boolean displayMyOwn);
 
+    List<Topo> listMyAvailableTopo(Integer utilisateurId);
+
     List<Topo> listBorrowedTopo(Integer borrowerId);
 
     List<Topo> listLoanedTopo(Integer loanerId);
