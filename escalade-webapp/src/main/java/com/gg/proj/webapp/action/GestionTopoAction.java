@@ -114,6 +114,11 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 this.addActionError(e.getMessage());
                 resultat = ActionSupport.ERROR;
             }
+        } else {
+            if (session.isEmpty()) {
+                this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+                resultat = ActionSupport.ERROR;
+            }
         }
         return resultat;
     }
@@ -151,6 +156,11 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
     public String doUpdate() {
         String resultat = ActionSupport.INPUT;
 
+        if(session.isEmpty()){
+                this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+                return ActionSupport.ERROR;
+        }
+
         if (this.topo != null) {
             if (this.topo.getId() != null) {
                 try {
@@ -160,6 +170,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                     tmpTopo.setTitre(topo.getTitre());
                     tmpTopo.setAuteur(topo.getAuteur());
                     tmpTopo.setDescription(topo.getDescription());
+                    tmpTopo.setProprietaireId(topo.getProprietaireId());
                     tmpTopo.setEmpreintable(topo.isEmpreintable());
                     managerFactory.getTopoManager().update(tmpTopo);
                 } catch (NoSuchElementException e) {

@@ -71,8 +71,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
                 model.getTitre(),
                 model.getDescription(),
                 model.isEmpreintable(),
-                model.getId(),
-                model.getProprietaireId()
+                model.getProprietaireId(),
+                model.getId()
         );
 
     }

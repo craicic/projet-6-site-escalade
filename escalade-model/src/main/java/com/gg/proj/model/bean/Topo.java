@@ -1,7 +1,5 @@
 package com.gg.proj.model.bean;
 
-import org.springframework.ui.context.support.UiApplicationContextUtils;
-
 public class Topo implements Model {
 
     // propriétés

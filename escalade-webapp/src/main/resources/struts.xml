@@ -18,7 +18,6 @@
             <result>/jsp/index.jsp</result>
         </action>
 
-        <!-- todo gérer les actionMessage -->
         <!-- ============================ TOPOS ============================ -->
         <!-- Affichage de la liste des topo -->
         <action name="list_topo"
@@ -70,7 +69,10 @@
                 method="doUpdate">
 
             <result name="input">/jsp/topo/update.jsp</result>
-            <result name="success" type="redirectAction">list_topo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">list_topo</param>
+                <!--<param name="id">${topo.id}</param>-->
+            </result>
         </action>
 
         <!-- Ajout d'un commentaire -->
