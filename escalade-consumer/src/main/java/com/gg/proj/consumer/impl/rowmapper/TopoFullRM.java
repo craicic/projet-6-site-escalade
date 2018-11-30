@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 public class TopoFullRM implements RowMapper<Topo> {
 
-
     @Override
     public Topo mapRow(ResultSet rs, int rowNum) throws SQLException {
         Topo topo = new Topo();

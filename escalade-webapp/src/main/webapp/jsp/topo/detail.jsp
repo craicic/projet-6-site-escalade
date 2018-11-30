@@ -14,15 +14,28 @@
 
 <body>
 <div class="container-fluid">
-    <h2>Détail d'un topo</h2>
 
-    <ul>
-        <li>ID : <s:property value="topo.id"/></li>
-        <li>Titre : <s:property value="topo.titre"/></li>
-        <li>Auteur : <s:property value="topo.auteur"/></li>
-        </li>
-        <li>Description : <s:property value="topo.description"/></li>
-    </ul>
+    <h2>Détail de <s:property value="topo.titre"/></h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Aueur</th>
+            <th>Proprietaire</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><s:property value="topo.titre"/></td>
+            <td><s:property value="topo.auteur"/></td>
+            <td><s:property value="proprietaire.pseudo"/></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>Description : <s:property value="topo.description"/></div>
+
 
     <%-- Liste des sites associés --%>
     <s:if test="%{listSite.isEmpty()}">

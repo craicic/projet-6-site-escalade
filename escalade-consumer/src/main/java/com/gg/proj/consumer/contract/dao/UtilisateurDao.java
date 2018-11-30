@@ -12,4 +12,6 @@ public interface UtilisateurDao extends CrudDao<Utilisateur> {
     public void updatePassword(String identifiant, String motDePasse);
 
     public Utilisateur getByUserMailAdress(String adresseEmail);
+
+    Utilisateur getById(Integer id);
 }

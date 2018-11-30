@@ -6,7 +6,7 @@
 </header>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Menu</a>
+    <a class="navbar-brand" href="index.action">Escalade</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -14,9 +14,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <s:a class="nav-link" action="index">Index <span class="sr-only">(current)</span></s:a>
-            </li>
+            <%--<li class="nav-item">--%>
+                <%--<s:a class="nav-link" action="index">Index <span class="sr-only">(current)</span></s:a>--%>
+            <%--</li>--%>
 
             <%-- NavLink --%>
             <%--<li class="nav-item">--%>
@@ -25,14 +25,39 @@
 
             <%-- Dropdown--%>
 
-
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Consulter
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <s:if test="#session.utilisateur">
+                    <s:a class="dropdown-item" action="list_utilisateur">
+                        Liste des utilisateurs
+                    </s:a>
+                    <div class="dropdown-divider"></div>
+                    </s:if>
+                    <s:a class="dropdown-item" action="list_topo">
+                        Liste des topos
+                    </s:a>
+                    <s:a class="dropdown-item" action="list_site">
+                        Liste des sites
+                    </s:a>
+                    <s:a class="dropdown-item" action="list_secteur">
+                        Liste des secteurs
+                    </s:a>
+                    <s:a class="dropdown-item" action="list_voie">
+                        Liste des voies
+                    </s:a>
+                </div>
+            </li>
 
             <s:if test="#session.utilisateur">
                 <%-- Menu d'édition des topo / site / secteur / voie --%>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        Poster un site de grimpe
+                        Poster
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <s:a class="dropdown-item" action="topo_new">
@@ -47,25 +72,9 @@
                         <s:a class="dropdown-item" action="voie_new">
                             Nouvelle voie
                         </s:a>
-                        <div class="dropdown-divider"></div>
-                        <s:a class="dropdown-item" action="list_utilisateur">
-                            Liste des utilisateurs
-                        </s:a>
-                        <div class="dropdown-divider"></div>
-                        <s:a class="dropdown-item" action="list_topo">
-                            Liste des topos
-                        </s:a>
-                        <s:a class="dropdown-item" action="list_site">
-                            Liste des sites
-                        </s:a>
-                        <s:a class="dropdown-item" action="list_secteur">
-                            Liste des secteurs
-                        </s:a>
-                        <s:a class="dropdown-item" action="list_voie">
-                            Liste des voies
-                        </s:a>
                     </div>
                 </li>
+
                 <%--Liste des topos disponibles --%>
                 <li class="nav-item">
                     <s:a class="nav-link" action="list_available_topo">Topos disponibles</s:a>

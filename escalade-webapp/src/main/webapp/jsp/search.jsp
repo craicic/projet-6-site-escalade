@@ -36,7 +36,7 @@
     </s:else>
 
     <ul class="list-group">
-        <h5>Topos trouvés : <s:property value="listTopo.size()"/></h5>
+        <h5>Topos <span class="badge badge-primary badge-pill"><s:property value="listTopo.size()"/></span></h5>
         <s:iterator value="listTopo">
             <li class="list-group-item">
                 <div>Titre : <s:property value="titre"/></div>
@@ -49,7 +49,7 @@
     </ul>
 
     <ul class="list-group">
-        <h5>Sites trouvés : ${listSite.size()}</h5>
+        <h5>Sites <span class="badge badge-primary badge-pill"><s:property value="listSite.size()"/></span></h5>
         <s:iterator value="listSite">
             <li class="list-group-item">
                 <div>Nom : <s:property value="nom"/></div>
@@ -62,7 +62,7 @@
     </ul>
 
     <ul class="list-group">
-        <h5>Secteurs trouvés : ${listSecteur.size()}</h5>
+        <h5>Secteurs <span class="badge badge-primary badge-pill"><s:property value="listSecteur.size()"/></span></h5>
         <s:iterator value="listSecteur">
             <li class="list-group-item">
                 <div>Nom : <s:property value="nom"/></div>
@@ -75,7 +75,7 @@
     </ul>
 
     <ul class="list-group">
-        <h5>Voies trouvés : ${listVoie.size()}</h5>
+        <h5>Voies <span class="badge badge-primary badge-pill"><s:property value="listVoie.size()"/></span></h5>
         <s:iterator value="listVoie">
             <li class="list-group-item">
                 <div>Nom : <s:property value="nom"/></div>

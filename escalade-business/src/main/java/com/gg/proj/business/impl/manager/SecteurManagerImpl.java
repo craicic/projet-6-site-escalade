@@ -30,9 +30,6 @@ public class SecteurManagerImpl implements SecteurManager {
         if (model.getSiteId() != null) {
             // puis on vérifie que getNom soit non null
             if (model.getNom() != null) {
-                // todo retirer ce fix de coordonnéesGPS
-                model.setCoordonneeX(1.0);
-                model.setCoordonneeY(1.0);
                 secteurDao.create(model);
             } else
                 logger.warn("Secteur doit posséder un nom");
@@ -64,8 +61,6 @@ public class SecteurManagerImpl implements SecteurManager {
     @Transactional
     public void update(Secteur model) {
         logger.debug("Entrée dans la méthode update");
-        model.setCoordonneeX(1.0);
-        model.setCoordonneeY(1.0);
         secteurDao.update(model);
     }
 
@@ -103,7 +98,7 @@ public class SecteurManagerImpl implements SecteurManager {
         List<Secteur> listSecteur = secteurDao.list();
         List<Secteur> listSecteurLinked = new ArrayList<Secteur>();
         for (Secteur s : listSecteur) {
-            if(s.getSiteId().equals(siteId)){
+            if (s.getSiteId().equals(siteId)) {
                 listSecteurLinked.add(s);
             }
         }
@@ -138,11 +133,14 @@ public class SecteurManagerImpl implements SecteurManager {
 
         if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
             List<Secteur> listRetrievedSecteur = secteurDao.search(termeDeLaRecherche);
-            List<Integer> listSecteurId = new ArrayList<>();
-            for (Secteur t : listRetrievedSecteur) {
-                listSecteurId.add(t.getId());
+            if (!listRetrievedSecteur.isEmpty()) {
+                List<Integer> listSecteurId = new ArrayList<>();
+                for (Secteur t : listRetrievedSecteur) {
+                    listSecteurId.add(t.getId());
+                }
+                listRetrievedSecteur = secteurDao.listSecteurByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSecteurId);
             }
-            return secteurDao.listSecteurByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSecteurId);
+            return listRetrievedSecteur;
         } else {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }

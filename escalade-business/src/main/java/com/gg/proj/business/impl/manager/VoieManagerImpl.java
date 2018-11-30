@@ -173,11 +173,14 @@ public class VoieManagerImpl implements VoieManager {
 
         if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
             List<Voie> listRetrievedVoie = voieDao.search(termeDeLaRecherche);
-            List<Integer> listVoieId = new ArrayList<>();
-            for (Voie t : listRetrievedVoie) {
-                listVoieId.add(t.getId());
+            if (!listRetrievedVoie.isEmpty()) {
+                List<Integer> listVoieId = new ArrayList<>();
+                for (Voie t : listRetrievedVoie) {
+                    listVoieId.add(t.getId());
+                }
+                listRetrievedVoie = voieDao.listVoieByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listVoieId);
             }
-            return voieDao.listVoieByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listVoieId);
+            return listRetrievedVoie;
         } else {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }

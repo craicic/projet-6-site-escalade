@@ -114,10 +114,6 @@ public class GestionSecteurAction extends ActionSupport implements SessionAware 
     }
 
     public String doDetail() {
-        if(session.isEmpty()){
-            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
-            return ActionSupport.ERROR;
-        }
 
         if (id == null) {
             this.addActionError("Vous devez indiquer un id de secteur");

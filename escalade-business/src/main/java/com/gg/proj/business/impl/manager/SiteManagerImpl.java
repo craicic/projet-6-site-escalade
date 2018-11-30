@@ -39,9 +39,6 @@ public class SiteManagerImpl implements SiteManager {
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");
         if (!model.getNom().isEmpty()) {
-//            // todo retirer ce fix de coordonnéesGPS
-//            model.setCoordonneeX(1.0);
-//            model.setCoordonneeY(1.0);
             siteDao.create(model);
         } else
             logger.warn("Le champ nom doit être renseigné");
@@ -63,9 +60,6 @@ public class SiteManagerImpl implements SiteManager {
     @Transactional
     public void update(Site model) {
         logger.debug("Entrée dans la méthode update");
-        // todo retirer ce fix de coordonnéesGPS
-        model.setCoordonneeX(1.0);
-        model.setCoordonneeY(1.0);
         siteDao.update(model);
     }
 
@@ -126,7 +120,7 @@ public class SiteManagerImpl implements SiteManager {
     @Override
     @Transactional
     public List<Site> search(String termeDeLaRecherche) {
-        logger.debug("Entrée dans la méthode search avec le terme de recherche :" +termeDeLaRecherche);
+        logger.debug("Entrée dans la méthode search avec le terme de recherche :" + termeDeLaRecherche);
         return siteDao.search(termeDeLaRecherche);
     }
 
@@ -139,7 +133,7 @@ public class SiteManagerImpl implements SiteManager {
     @Override
     @Transactional
     public List<Site> listSiteNotLinked(Integer topoId) {
-        logger.debug("Entrée dans la méthode listSiteNotLinked avec le topoId :" +topoId);
+        logger.debug("Entrée dans la méthode listSiteNotLinked avec le topoId :" + topoId);
         List<Site> listSite = siteDao.getListByTopoIdReverse(topoId);
         return listSite;
     }
@@ -152,7 +146,7 @@ public class SiteManagerImpl implements SiteManager {
      */
     @Override
     public Site getLinkedSiteBySecteurId(Integer secteurId) {
-        logger.debug("Entrée dans la méthode getLinkedSiteBySecteurId() avec le secteurId " + secteurId );
+        logger.debug("Entrée dans la méthode getLinkedSiteBySecteurId() avec le secteurId " + secteurId);
         return siteDao.getSiteBySecteurId(secteurId);
     }
 
@@ -171,11 +165,14 @@ public class SiteManagerImpl implements SiteManager {
 
         if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
             List<Site> listRetrievedSite = siteDao.search(termeDeLaRecherche);
-            List<Integer> listSiteId = new ArrayList<>();
-            for (Site t : listRetrievedSite) {
-                listSiteId.add(t.getId());
+            if (!listRetrievedSite.isEmpty()) {
+                List<Integer> listSiteId = new ArrayList<>();
+                for (Site s : listRetrievedSite) {
+                    listSiteId.add(s.getId());
+                }
+                listRetrievedSite = siteDao.listSiteByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSiteId);
             }
-            return siteDao.listSiteByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listSiteId);
+            return listRetrievedSite;
         } else {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }

@@ -13,12 +13,19 @@
 <div class="container-fluid">
 <h2>Connexion</h2>
 
-<s:form action="login">
-    <s:textfield name="identifiant" label="Identifiant" requiredLabel="true" />
-    <s:password name="motDePasse" label="Mot de passe" requiredLabel="true" />
-    <s:submit value="Connexion"/>
-</s:form>
+    <%--<s:form action="login">--%>
+        <%--<s:textfield name="identifiant" label="Identifiant" requiredLabel="true"/>--%>
+        <%--<s:password name="motDePasse" label="Mot de passe" requiredLabel="true"/>--%>
+        <%--<s:submit value="Connexion"/>--%>
+    <%--</s:form>--%>
+    <s:form action="login">
+        <s:textfield name="identifiant" label="Identifiant" requiredLabel="true" />
+        <s:password name="motDePasse" label="Mot de passe" requiredLabel="true" />
+        <s:submit value="Connexion"/>
+    </s:form>
+
+    <s:a action="utilisateur_new">S'inscrire</s:a>
+
 </div>
 </body>
-
 </html>

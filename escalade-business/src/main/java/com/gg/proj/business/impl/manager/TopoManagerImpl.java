@@ -172,13 +172,16 @@ public class TopoManagerImpl implements TopoManager {
     public List<Topo> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche) throws InputMismatchException {
         logger.debug("Entrée dans la méthode advancedSearchByDifficulty avec minDiff : " + minDiff + " et maxDiff : " + maxDiff);
 
-        if (GenerateurDeDifficulte.isOrdinate(minDiff,maxDiff)) {
+        if (GenerateurDeDifficulte.isOrdinate(minDiff, maxDiff)) {
             List<Topo> listRetrievedTopo = topoDao.search(termeDeLaRecherche);
-            List<Integer> listTopoId = new ArrayList<>();
-            for (Topo t : listRetrievedTopo) {
-                listTopoId.add(t.getId());
+            if (!listRetrievedTopo.isEmpty()) {
+                List<Integer> listTopoId = new ArrayList<>();
+                for (Topo t : listRetrievedTopo) {
+                    listTopoId.add(t.getId());
+                }
+                listRetrievedTopo = topoDao.listTopoByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listTopoId);
             }
-            return topoDao.listTopoByDifficulty(GenerateurDeDifficulte.Generateur(minDiff, maxDiff), listTopoId);
+            return listRetrievedTopo;
         } else {
             throw new InputMismatchException("La cotation max doit être supérieur à la cotation min");
         }

@@ -104,4 +104,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
         String hashDuMotDePasse = ManagerDeMotDePasse.hashPassword(motDePasse);
         utilisateurDao.updatePassword(identifiant, hashDuMotDePasse);
     }
+
+    @Override
+    @Transactional
+    public Utilisateur getById(Integer id) {
+        logger.debug("Entrée dans la méthode getById avec l'id : " + id);
+        return utilisateurDao.getById(id);
+    }
 }

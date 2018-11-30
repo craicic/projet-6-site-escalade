@@ -6,6 +6,8 @@ import com.gg.proj.model.bean.Utilisateur;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.inject.Named;
 import java.util.List;
@@ -119,5 +121,16 @@ public class UtilisateurDaoImpl extends AbstractDaoImpl implements UtilisateurDa
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         UtilisateurRM utilisateurRM = new UtilisateurRM();
         return jdbcTemplate.queryForObject("SELECT * FROM utilisateur WHERE adresse_mail = ?;", utilisateurRM, adresseEmail);
+    }
+
+    @Override
+    public Utilisateur getById(Integer id) {
+        logger.debug("Entrée dans la méthode getById avec l'id : " + id);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+        UtilisateurRM utilisateurRM = new UtilisateurRM();
+        String rSQL = "SELECT u.* FROM utilisateur u WHERE id = :id;";
+        return jdbcTemplate.queryForObject(rSQL, params, utilisateurRM);
     }
 }

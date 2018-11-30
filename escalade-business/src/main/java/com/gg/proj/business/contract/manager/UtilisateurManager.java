@@ -10,4 +10,6 @@ public interface UtilisateurManager extends CrudManager<Utilisateur> {
     public boolean isCorrectPassword(String identifiant, String motDePasse);
 
     public void updatePassword(String identifiant, String motDePasse);
+
+    Utilisateur getById(Integer id);
 }

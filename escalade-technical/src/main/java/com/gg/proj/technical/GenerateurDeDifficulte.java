@@ -37,7 +37,7 @@ public class GenerateurDeDifficulte {
         int l = 0;
         for (int k = j; !difficultes[k].equals(difficulteMax); k++) {
             listDifficultes.add(difficultes[k]);
-            logger.debug("valeur ajoutée : " + difficultes[k + 1]);
+            logger.debug("valeur ajoutée : " + difficultes[k]);
             l = k;
         }
 

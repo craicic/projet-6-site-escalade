@@ -49,7 +49,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 //                    t.setEmpreintable(rs.getBoolean("empreintable"));
 //                    return t;
 //                },
-        return jdbcTemplate.queryForObject("SELECT * FROM topo WHERE id = ?;", topoRM, id /* Paramètre '?' de la requête */);
+        return jdbcTemplate.queryForObject("SELECT t.* FROM topo t WHERE t.id = ?;", topoRM, id /* Paramètre '?' de la requête */);
     }
 
     @Override

@@ -148,6 +148,11 @@ public class GestionVoieAction extends ActionSupport implements SessionAware {
 
     public String doUpdate() {
         String resultat = ActionSupport.INPUT;
+
+        if(session.isEmpty()){
+            this.addActionError("Vous devez être identifié pour éditer cette ressource.");
+            return ActionSupport.ERROR;
+        }
         if(voie != null) {
             try {
                 // Le formulaire a été envoyé, afin d'éviter la manipulation des données via le navigateur, on instancie une voie temporaire
