@@ -49,8 +49,6 @@ public class TopoManagerImpl implements TopoManager {
 //                 Si le titre à été rempli, la transaction est effectuée
         logger.debug("Entrée dans la méthode create");
         if (!model.getTitre().isEmpty()) {
-            // todo fix en attendant de retirer empreintable du mpd
-            model.setEmpreintable(true);
             topoDao.create(model);
         } else {
             logger.warn("Le titre doit être non null.");
@@ -74,7 +72,6 @@ public class TopoManagerImpl implements TopoManager {
     @Transactional
     public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
-        model.setEmpreintable(true);
         topoDao.update(model);
 
     }
@@ -125,15 +122,16 @@ public class TopoManagerImpl implements TopoManager {
     }
 
     /**
-     * Cette méthode solicite la Dao pour en récupéré l'id du topo associé au topo en paramètre
+     * Cette méthode solicite la Dao pour en récupéré l'id du topo associé au titre de topo en paramètre
      *
-     * @param topo
-     * @return l'id d'un topo.
+     * @param titreTopo le titre du topo dont on recherche l'ID
+     * @return l'id du topo recherché.
      */
     @Override
     @Transactional
-    public Integer getId(Topo topo) {
-        return topoDao.getId(topo);
+    public Integer getIdByTitre(String titreTopo) {
+        logger.debug("Entrée dans la méthode getIdByTitre avec le titre titreTppo : " + titreTopo);
+        return topoDao.getIdByTitre(titreTopo);
     }
 
     /**

@@ -5,7 +5,8 @@ import com.gg.proj.model.bean.Topo;
 import java.util.List;
 
 public interface TopoDao extends CrudDao<Topo> {
-    public Integer getId(Topo topo);
+
+    Integer getIdByTitre(String titreTopo);
 
     List<Topo> search(String termeDeLaRecherche);
 

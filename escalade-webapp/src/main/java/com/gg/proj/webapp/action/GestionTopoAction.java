@@ -115,7 +115,7 @@ public class GestionTopoAction extends ActionSupport implements SessionAware {
                 topo.setProprietaireId(utilisateurEnSession.getId());
                 managerFactory.getTopoManager().create(this.topo);
                 // Il nous faut récupéré l'id
-                topo.setId(managerFactory.getTopoManager().getId(this.topo));
+                topo.setId(managerFactory.getTopoManager().getIdByTitre(this.topo.getTitre()));
                 this.addActionMessage("Topo ajouté.");
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {

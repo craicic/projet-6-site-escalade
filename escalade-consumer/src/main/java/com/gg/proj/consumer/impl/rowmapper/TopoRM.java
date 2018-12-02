@@ -16,7 +16,6 @@ public class TopoRM implements RowMapper<Topo> {
         topo.setTitre(rs.getString("titre"));
         topo.setAuteur(rs.getString("auteur"));
         topo.setDescription(rs.getString("description"));
-        topo.setEmpreintable(rs.getBoolean("empreintable"));
         topo.setProprietaireId(rs.getInt("proprietaire_id"));
         return topo;
     }

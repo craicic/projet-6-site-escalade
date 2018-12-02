@@ -41,7 +41,7 @@ public class EmpruntManagerImpl implements EmpruntManager {
             emprunt.setDateRetour(date.plusWeeks(3));
             empruntDao.create(emprunt);
         } else
-            logger.warn("Un empreint doit être lié a un utilisateur par utilisateur_id");
+            logger.warn("Un emprunt doit être lié a un utilisateur par utilisateur_id");
     }
 
     @Override

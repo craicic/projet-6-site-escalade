@@ -18,7 +18,6 @@ public class TopoFullRM implements RowMapper<Topo> {
         topo.setTitre(rs.getString("titre"));
         topo.setAuteur(rs.getString("auteur"));
         topo.setDescription(rs.getString("description"));
-        topo.setEmpreintable(rs.getBoolean("empreintable"));
         topo.setProprietaireId(rs.getInt("proprietaire_id"));
         topo.setEmprunteur(new Utilisateur(rs.getInt("emprunteur_id"),rs.getString("emprunteur_pseudo")));
         topo.setEmprunt(new Emprunt(rs.getObject("date_emprunt", LocalDate.class), rs.getObject("date_retour", LocalDate.class)));

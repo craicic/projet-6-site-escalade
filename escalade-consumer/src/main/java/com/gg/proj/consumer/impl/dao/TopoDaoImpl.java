@@ -25,11 +25,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void create(Topo model) {
         logger.debug("Entrée dans la méthode create");
         JdbcTemplate jdbcTempplate = new JdbcTemplate(getDataSource());
-        jdbcTempplate.update("INSERT INTO topo (auteur, titre, description, empreintable, proprietaire_id) VALUES(?, ?, ?, ?, ?);",
+        jdbcTempplate.update("INSERT INTO topo (auteur, titre, description, proprietaire_id) VALUES(?, ?, ?, ?);",
                 model.getAuteur(),
                 model.getTitre(),
                 model.getDescription(),
-                model.isEmpreintable(),
                 model.getProprietaireId()
         );
     }
@@ -46,7 +45,6 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 //                    t.setTitre(rs.getString("titre"));
 //                    t.setAuteur(rs.getString("auteur"));
 //                    t.setDescription(rs.getString("description"));
-//                    t.setEmpreintable(rs.getBoolean("empreintable"));
 //                    return t;
 //                },
         return jdbcTemplate.queryForObject("SELECT t.* FROM topo t WHERE t.id = ?;", topoRM, id /* Paramètre '?' de la requête */);
@@ -66,11 +64,10 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     public void update(Topo model) {
         logger.debug("Entrée dans la méthode update");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.update("UPDATE topo SET (auteur, titre, description, empreintable, proprietaire_id) = (?,?,?,?,?) WHERE id = ? ;",
+        jdbcTemplate.update("UPDATE topo SET (auteur, titre, description, proprietaire_id) = (?,?,?,?) WHERE id = ? ;",
                 model.getAuteur(),
                 model.getTitre(),
                 model.getDescription(),
-                model.isEmpreintable(),
                 model.getProprietaireId(),
                 model.getId()
         );
@@ -85,29 +82,30 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
     }
 
     /**
-     * @param topo
-     * @return L'id du topo
+     * Méthode qui recherche l'id du topo associé au titre
+     *
+     * @param titreTopo le titre du topo recherché
+     * @return L'id du topo recherché
      */
     @Override
-    public Integer getId(Topo topo) {
-        logger.debug("Entrée dans la méthode getId avec le titre topo : " + topo.getTitre());
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre,description,auteur,empreintable, proprietaire_id) = (?,?,?,?,?);",
-                /* RowMapper : */
-                (rs, rowNum) -> rs.getInt("id"),
+    public Integer getIdByTitre(String titreTopo) {
+        logger.debug("Entrée dans la méthode getIdByTitre avec le titre titreTppo : " + titreTopo);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        MapSqlParameterSource param = new MapSqlParameterSource();
+        param.addValue("titre", titreTopo);
+        return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre) = (?);",
                 /* Params '?' */
-                topo.getTitre(),
-                topo.getDescription(),
-                topo.getAuteur(),
-                topo.isEmpreintable(),
-                topo.getProprietaireId()
+                param,
+                /* RowMapper : */
+                (rs, rowNum) -> rs.getInt("id")
         );
     }
 
     /**
-     * Fonction qui va accéder à la BDD avec une requête LIKE
+     * Fonction qui va accéder à la BDD avec une requête LIKE, elle permet une recheche des topo comportant l'expression
+     * termeDeLaRecherche.
      *
-     * @param termeDeLaRecherche
+     * @param termeDeLaRecherche l'expression à rechercher
      * @return les topos qui correspondent
      */
     @Override
@@ -135,7 +133,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         TopoRM tRM = new TopoRM();
-        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id, t.empreintable FROM topo t" +
+        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
                 "   LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
                 "   WHERE emprunt.topo_id IS NULL" +
                 "   OR emprunt.date_retour < CURRENT_DATE ;";
@@ -158,7 +156,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("borrowerId", borrowerId, Types.INTEGER);
 
-        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description, t.empreintable FROM topo t" +
+        String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description FROM topo t" +
                 " INNER JOIN emprunt e ON t.id = e.topo_id " +
                 "WHERE e.utilisateur_id = :borrowerId;";
         return jdbcTemplate.query(rSQL, params, tRM);
@@ -238,7 +236,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("utilisateurId", utilisateurId);
 
-        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id, t.empreintable FROM topo t" +
+        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
                 " LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
                 " WHERE t.proprietaire_id = :utilisateurId" +
                 " AND (emprunt.topo_id IS NULL OR emprunt.date_retour < CURRENT_DATE);";
