@@ -186,9 +186,16 @@ public class VoieManagerImpl implements VoieManager {
         }
     }
 
+    /**
+     * Cette méthode extrait le nom et le secteurId du bean voie reçu en paramètre et solicite la dao pour retourner l'id
+     * associée.
+     *
+     * @param voie le bean de la voie dont on veut l'Id
+     * @return l'id de la voie recherchée
+     */
     @Override
     @Transactional
     public Integer getId(Voie voie) {
-        return voieDao.getId(voie);
+        return voieDao.getId(voie.getNom(), voie.getSecteurId());
     }
 }

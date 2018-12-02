@@ -179,14 +179,14 @@ public class SiteManagerImpl implements SiteManager {
     }
 
     /**
-     * Recherche l'id d'un site via appel à la dao
+     * Recherche l'id d'un site via appel à la dao, en passant nomSite en paramètre
      *
-     * @param site bean du site recherche
+     * @param nomSite nom du site recherché
      * @return l'id du site
      */
     @Override
     @Transactional
-    public Integer getId(Site site) {
-        return siteDao.getIdBySiteNom(site.getNom());
+    public Integer getId(String nomSite) {
+        return siteDao.getIdBySiteNom(nomSite);
     }
 }

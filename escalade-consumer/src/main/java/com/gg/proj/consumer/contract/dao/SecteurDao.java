@@ -15,5 +15,5 @@ public interface SecteurDao extends CrudDao<Secteur> {
 
     List<Secteur> listSecteurByDifficulty(List<String> listDifficultes, List<Integer> listSecteurId);
 
-    Integer getId(Secteur secteur);
+    Integer getId(String nom, Integer siteId);
 }

@@ -20,5 +20,5 @@ public interface SiteManager extends CrudManager<Site> {
 
     List<Site> advancedSearchByDifficulty(String minDiff, String maxDiff, String termeDeLaRecherche);
 
-    Integer getId(Site site);
+    Integer getId(String nomSite);
 }

@@ -146,10 +146,16 @@ public class SecteurManagerImpl implements SecteurManager {
         }
     }
 
-    // todo Javadoc
+    /**
+     * Cette méthode extrait le nom et le siteId du bean secteur reçu en paramètre et solicite la dao pour retourner l'id
+     * associée.
+     *
+     * @param secteur le bean du secteur dont on veut l'Id
+     * @return l'id du secteur recherché
+     */
     @Override
     @Transactional
     public Integer getId(Secteur secteur) {
-        return secteurDao.getId(secteur);
+        return secteurDao.getId(secteur.getNom(), secteur.getSiteId());
     }
 }

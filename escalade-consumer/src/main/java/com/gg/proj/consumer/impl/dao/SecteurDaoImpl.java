@@ -135,14 +135,21 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
         return jdbcTemplate.query(rSQL, params, seRM);
     }
 
+    /**
+     * Cette méthode revoit l'id d'un secteur en cherchant par nom et siteId
+     *
+     * @param nom le nom du secteur recherché
+     * @param siteId le siteId associé au secteur
+     * @return l'Id du secteur recherché
+     */
     @Override
-    public Integer getId(Secteur secteur) {
-        logger.debug("Entrée dans la méthode getId");
+    public Integer getId(String nom, Integer siteId) {
+        logger.debug("Entrée dans la méthode getId avec nom : " + nom + " et siteId : " + siteId);
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         SecteurRM secteurRM = new SecteurRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("nom", secteur.getNom());
-        params.addValue("siteId", secteur.getSiteId());
+        params.addValue("nom", nom);
+        params.addValue("siteId", siteId);
 
         String rSQL = "SELECT id FROM secteur WHERE (nom, site_id) = (:nom, :siteId);";
         return jdbcTemplate.queryForObject(rSQL, params, (rs, rowNum) -> rs.getInt("id"));

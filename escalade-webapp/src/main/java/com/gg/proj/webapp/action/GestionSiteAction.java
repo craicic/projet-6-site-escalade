@@ -96,7 +96,7 @@ public class GestionSiteAction extends ActionSupport implements SessionAware {
             try {
                 managerFactory.getSiteManager().create(site);
                 // On récupère l'id pour le passage a la page suivante
-                site.setId(managerFactory.getSiteManager().getId(this.site));
+                site.setId(managerFactory.getSiteManager().getId(this.site.getNom()));
                 this.addActionMessage("Site ajouté : " + site.getNom());
                 resultat = ActionSupport.SUCCESS;
             } catch (Exception e) {

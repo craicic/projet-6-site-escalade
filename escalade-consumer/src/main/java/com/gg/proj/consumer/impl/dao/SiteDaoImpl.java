@@ -175,8 +175,7 @@ public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
 
     @Override
     public Integer getIdBySiteNom(String nomDuSite) {
-        // todo mettre le nom a unique dans le mpd
-        logger.debug("Entrée dans la méthode getIdBySite");
+        logger.debug("Entrée dans la méthode getIdBySite avec nomDuSite : " + nomDuSite);
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         SiteRM siteRM = new SiteRM();
         MapSqlParameterSource params = new MapSqlParameterSource();

@@ -131,14 +131,21 @@ public class VoieDaoImpl extends AbstractDaoImpl implements VoieDao {
         return jdbcTemplate.query(rSQL, params, seRM);
     }
 
+    /**
+     * Cette méthode revoit l'id d'une voie en cherchant par nom et secteurId
+     *
+     * @param nom le nom de la voie recherché
+     * @param secteurId le secteurId associé à la voie
+     * @return l'Id de la voie recherchée
+     */
     @Override
-    public Integer getId(Voie voie) {
-        logger.debug("Entrée dans la méthode getId");
+    public Integer getId(String nom, Integer secteurId) {
+        logger.debug("Entrée dans la méthode getId avec nom : " + nom + " et secteurId : " + secteurId);
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         VoieRM voieRM = new VoieRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("nom", voie.getNom());
-        params.addValue("secteurId", voie.getSecteurId());
+        params.addValue("nom", nom);
+        params.addValue("secteurId", secteurId);
 
         String rSQL = "SELECT id FROM voie WHERE (nom, secteur_id) = (:nom, :secteurId);";
         return jdbcTemplate.queryForObject(rSQL, params, (rs, rowNum) -> rs.getInt("id"));

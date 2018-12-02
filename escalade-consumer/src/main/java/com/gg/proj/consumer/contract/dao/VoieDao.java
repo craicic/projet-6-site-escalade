@@ -12,5 +12,5 @@ public interface VoieDao extends CrudDao<Voie> {
 
     List<Voie> listVoieByDifficulty(List<String> listDifficultes, List<Integer> listVoieId);
 
-    Integer getId(Voie voie);
+    Integer getId(String nom, Integer secteurId);
 }
