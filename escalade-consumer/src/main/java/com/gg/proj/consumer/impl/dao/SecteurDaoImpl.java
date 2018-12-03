@@ -18,7 +18,6 @@ public class SecteurDaoImpl extends AbstractDaoImpl implements SecteurDao {
 
     private static final Logger logger = LogManager.getLogger();
 
-    // TODO gestion des coordonnées
     @Override
     public void create(Secteur model) {
         logger.debug("Entrée dans la méthode create");

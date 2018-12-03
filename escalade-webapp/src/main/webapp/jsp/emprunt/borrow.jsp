@@ -9,24 +9,34 @@
 
 <head>
     <%@include file="../_include/head.jsp" %>
-    <sx:head />
+    <sx:head/>
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 <body>
 
 <div class="container-fluid">
-<h5>Historique de réservation</h5>
-<%-- todo lister les date de réservation sur ce topo --%>
+    <h5>Historique de réservation</h5>
+    <%-- todo lister les date de réservation sur ce topo --%>
 
-<h5>Choisissez une date de retour :</h5>
-<s:form action="borrow">
+    <ul>
+        <s:iterator value="listEmprunt">
+            <li>
+                <div><s:property value="dateEmprunt"/></div>
+                <div><s:property value="dateRetour"/></div>
+                <div><s:property value="emprunteur.pseudo"/></div>
+            </li>
+        </s:iterator>
 
-    <sx:datetimepicker name="date" label="Format (dd-MMM-yyyy)"
-                       displayFormat="dd-MMM-yyyy" value="todayDate" />
-    <s:hidden name="topo.id" value="%{topo.id}"/>
-    <s:submit value="Ok"/>
-</s:form>
+    </ul>
+    <h5>Choisissez une date de retour :</h5>
+    <s:form action="borrow">
+
+        <sx:datetimepicker name="date" label="Format (dd-MMM-yyyy)"
+                           displayFormat="dd-MMM-yyyy" value="todayDate"/>
+        <s:hidden name="topo.id" value="%{topo.id}"/>
+        <s:submit value="Ok"/>
+    </s:form>
 </div>
 
 </body>

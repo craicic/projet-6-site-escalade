@@ -19,7 +19,8 @@
 <s:form action="secteur_new">
     <s:textfield name="secteur.nom" label="Nom" requiredLabel="true"/>
     <s:textarea name="secteur.description" label="Description" requiredLabel="false" cols="32" rows="9"/>
-    <!-- todo coordonnees GPS dans JSP -->
+    <s:textfield name="secteur.coordonneeX" label="GPS X" requiredLabel="false"/>
+    <s:textfield name="secteur.coordonneeY" label="GPS X" requiredLabel="false"/>
     <s:select name="siteId" Label="Site"
               list="listSite" listKey="id" listValue="nom"
               emptyOption="false"

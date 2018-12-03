@@ -76,9 +76,15 @@
             <div>Réservé jusqu'au <s:property value="emprunt.dateRetour"/></div>
         </s:if>
         <s:else>
-            <div><s:a action="borrow">
-                <s:param name="topo.id" value="%{id}"/>
-                Réserver ce topo</s:a></div>
+            <%-- Le propriétaire ne peut emprunter son topo --%>
+            <s:if test="%{!(#session.utilisateur.pseudo eq proprietaire.pseudo)}">
+                <div><s:a action="borrow">
+                    <s:param name="topo.id" value="%{id}"/>
+                    Réserver ce topo</s:a></div>
+            </s:if>
+            <s:else>
+                <div>Ce topo vous appartient</div>
+            </s:else>
         </s:else>
 
         <%-- Poster un commantaire --%>

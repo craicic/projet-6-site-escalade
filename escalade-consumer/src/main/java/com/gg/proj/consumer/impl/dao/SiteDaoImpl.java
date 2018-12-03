@@ -17,7 +17,6 @@ import java.util.List;
 public class SiteDaoImpl extends AbstractDaoImpl implements SiteDao {
     private static final Logger logger = LogManager.getLogger();
 
-    // TODO gestion des coordonnées
     @Override
     public void create(Site model) {
         logger.debug("Entrée dans la méthode create");

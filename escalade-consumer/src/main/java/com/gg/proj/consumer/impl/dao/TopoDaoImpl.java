@@ -93,7 +93,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         MapSqlParameterSource param = new MapSqlParameterSource();
         param.addValue("titre", titreTopo);
-        return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre) = (?);",
+        return jdbcTemplate.queryForObject("SELECT id FROM topo WHERE (titre) = (:titre);",
                 /* Params '?' */
                 param,
                 /* RowMapper : */

@@ -154,6 +154,7 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
     }
 
     public String doManageMyLoan() {
+
         Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
 
         listBorrowedTopo = managerFactory.getEmpruntManager().listBorrowedTopo(utilisateurEnSession.getId());

@@ -123,7 +123,7 @@
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
                 method="doCreate">
             <result name="input">/jsp/utilisateur/new.jsp</result>
-            <result name="success" type="redirectAction">list_utilisateur</result>
+            <result name="success" type="redirectAction">index</result>
         </action>
         <action name="list_utilisateur"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
@@ -138,7 +138,7 @@
         <action name="delete_utilisateur"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
                 method="doDelete">
-            <result name="success" type="redirectAction">list_utilisateur</result>
+            <result name="success" type="redirectAction">index</result>
         </action>
         <action name="update_utilisateur"
                 class="com.gg.proj.webapp.action.GestionUtilisateurAction"
@@ -367,7 +367,6 @@
             </result>
         </action>
         <!-- ============================ COMMENTAIRE ============================ -->
-        <!-- todo cette action est obsolete ( a supprimer lorsque l'impl des commentaire sera complete -->
         <action name="commentaire_new"
                 class="com.gg.proj.webapp.action.GestionCommentaireAction"
                 method="doCreate">
