@@ -136,7 +136,11 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         String rSQL = "SELECT DISTINCT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
                 "   LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
                 "   WHERE emprunt.topo_id IS NULL" +
-                "   OR emprunt.date_retour < CURRENT_DATE ;";
+                "   OR emprunt.date_retour < CURRENT_DATE " +
+                " AND t.id NOT IN " +
+                "(SELECT t1.id FROM topo t1 JOIN emprunt e1 on t1.id = e1.topo_id " +
+                " GROUP BY t1.id " +
+                " HAVING max(e1.date_retour) > CURRENT_DATE);";
         return jdbcTemplate.query(rSQL, tRM);
     }
 
