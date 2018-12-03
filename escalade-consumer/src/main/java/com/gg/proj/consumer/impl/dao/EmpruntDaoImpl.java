@@ -1,6 +1,7 @@
 package com.gg.proj.consumer.impl.dao;
 
 import com.gg.proj.consumer.contract.dao.EmpruntDao;
+import com.gg.proj.consumer.impl.rowmapper.EmpruntFullRM;
 import com.gg.proj.consumer.impl.rowmapper.EmpruntRM;
 import com.gg.proj.model.bean.Emprunt;
 import com.gg.proj.model.bean.Topo;
@@ -82,10 +83,10 @@ public class EmpruntDaoImpl extends AbstractDaoImpl implements EmpruntDao {
     public List<Emprunt> getFullEmpruntByTopoId(Integer topoId) {
         logger.debug("Entrée dans la méthode getFullEmpruntByTopoId avec le topoId " + topoId);
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-        EmpruntRM eRM = new EmpruntRM();
+        EmpruntFullRM eRM = new EmpruntFullRM();
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("topoId", topoId, Types.INTEGER);
-        String rSQL = "SELECT e.date_emprunt, e.date_retour, e.utilisateur_id, u1.pseudo as emprunteur_pseudo, u2.pseudo as proprietaire_pseudo " +
+        String rSQL = "SELECT e.*, u1.pseudo as emprunteur_pseudo, u2.pseudo as proprietaire_pseudo, t.proprietaire_id " +
                 " FROM emprunt e " +
                 "INNER JOIN utilisateur u1 ON e.utilisateur_id = u1.id " +
                 "INNER JOIN topo t ON e.topo_id = t.id" +

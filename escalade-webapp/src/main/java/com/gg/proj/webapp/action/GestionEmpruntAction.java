@@ -133,10 +133,8 @@ public class GestionEmpruntAction extends ActionSupport implements SessionAware 
 
         if (date != null) {
             Utilisateur utilisateurEnSession = (Utilisateur) this.session.get("utilisateur");
-
             Emprunt emprunt = new Emprunt();
             emprunt.setUtilisateurId(utilisateurEnSession.getId());
-
             emprunt.setTopoId(topo.getId());
 
             try {

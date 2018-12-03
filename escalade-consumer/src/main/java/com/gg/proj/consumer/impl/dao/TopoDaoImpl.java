@@ -133,7 +133,7 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         logger.debug("Entrée dans la méthode listAvailableTopo");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         TopoRM tRM = new TopoRM();
-        String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
+        String rSQL = "SELECT DISTINCT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
                 "   LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
                 "   WHERE emprunt.topo_id IS NULL" +
                 "   OR emprunt.date_retour < CURRENT_DATE ;";
@@ -158,7 +158,8 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
 
         String rSQL = "SELECT t.id, t.titre, t.proprietaire_id, t.auteur, t.description FROM topo t" +
                 " INNER JOIN emprunt e ON t.id = e.topo_id " +
-                "WHERE e.utilisateur_id = :borrowerId;";
+                "WHERE e.utilisateur_id = :borrowerId" +
+                " AND e.date_retour > CURRENT_DATE;";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 
@@ -237,9 +238,13 @@ public class TopoDaoImpl extends AbstractDaoImpl implements TopoDao {
         params.addValue("utilisateurId", utilisateurId);
 
         String rSQL = "SELECT t.id, t.titre, t.auteur, t.description, t.proprietaire_id FROM topo t" +
-                " LEFT OUTER JOIN emprunt ON t.id = emprunt.topo_id" +
+                " LEFT OUTER JOIN emprunt e ON t.id = e.topo_id" +
                 " WHERE t.proprietaire_id = :utilisateurId" +
-                " AND (emprunt.topo_id IS NULL OR emprunt.date_retour < CURRENT_DATE);";
+                " AND ((e.topo_id IS NULL) OR (e.date_retour < CURRENT_DATE))" +
+                " AND t.id NOT IN " +
+                "(SELECT t1.id FROM topo t1 JOIN emprunt e1 on t1.id = e1.topo_id " +
+                " GROUP BY t1.id " +
+                " HAVING max(e1.date_retour) > CURRENT_DATE);";
         return jdbcTemplate.query(rSQL, params, tRM);
     }
 
