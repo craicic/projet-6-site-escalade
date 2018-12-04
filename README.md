@@ -15,8 +15,8 @@ Elle est packagée grâce à Maven. Le modèle MVC est réalisé via le framwork
 
 ## Contenu
 En plus de l'application, le dépôt contient un dossier documents, celui contient trois script des créations / remplissage de base de données :
-|projet-6-script-creation-bdd-02-12.sql|projet-6-script-on-delete-escalade.sql | projet-6-script-jeu-donnees.sql |
+| projet-6-script-creation-bdd-02-12.sql | projet-6-script-on-delete-escalade.sql | projet-6-script-jeu-donnees.sql |
 |--|--|--|
-| 1ère étape : création des tables | 2ème étape : ajout de règles on delete  | 3ème étape : remplissage des tables par jeu de données |
+| création des tables | ajout de règles on delete | remplissage des tables par jeu de données |
  
 Enfin ce dossier comporte des représentations du domaine fonctionnel et du modèle de données.
