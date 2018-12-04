@@ -41,7 +41,7 @@
             <p>Description : <s:property value="voie.description"/></p>
         </div>
         <div class="col-lg-4">
-            <h5>Secteur associé :</h5>
+            <h5>Secteur associé</h5>
             <s:a action="detail_secteur">
                 <div><s:property value="secteur.nom"/></div>
                 <s:param name="id" value="secteur.id"/>

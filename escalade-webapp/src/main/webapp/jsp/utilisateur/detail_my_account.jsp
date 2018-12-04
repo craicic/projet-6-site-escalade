@@ -15,15 +15,29 @@
 <div class="container-fluid">
     <h2>Détail de mon compte</h2>
 
-    <ul>
-        <li>Nom : <s:property value="utilisateur.nom"/></li>
-        <li>Prenom : <s:property value="utilisateur.prenom"/></li>
-        <li>Pseudo : <s:property value="utilisateur.pseudo"/></li>
-        <li>Adresse : <s:property value="utilisateur.adresse"/></li>
-        <li>Description : <s:property value="utilisateur.description"/></li>
-        <li>Adresse mail : <s:property value="utilisateur.adresseMail"/></li>
-        <li>Date d'inscription : <s:property value="utilisateur.dateInscription"/></li>
-    </ul>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Adresse mail</th>
+            <th scope="col">Date d'inscription</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row"><s:property value="utilisateur.nom"/></td>
+            <td><s:property value="utilisateur.prenom"/></td>
+            <td><s:property value="utilisateur.pseudo"/></td>
+            <td><s:property value="utilisateur.adresse"/></td>
+            <td><s:property value="utilisateur.adresseMail"/></td>
+            <td><s:property value="utilisateur.dateInscription"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Description : <s:property value="utilisateur.description"/></p>
 </div>
 </body>
 </html>

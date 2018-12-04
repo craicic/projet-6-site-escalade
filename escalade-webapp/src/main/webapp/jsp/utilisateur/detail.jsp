@@ -14,13 +14,23 @@
 <body>
 <div class="container-fluid">
     <h2>Détail d'un utilisateur</h2>
-
-    <ul>
-        <li>Pseudo : <s:property value="utilisateur.pseudo"/></li>
-        <li>Description : <s:property value="utilisateur.description"/></li>
-        <li>Date d'inscription : <s:property value="utilisateur.dateInscription"/></li>
-        <li>Adresse : <s:property value="utilisateur.adresse"/></li>
-    </ul>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Date d'inscription</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row"><s:property value="utilisateur.pseudo"/></td>
+            <td><s:property value="utilisateur.adresse"/></td>
+            <td><s:property value="utilisateur.dateInscription"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Description : <s:property value="utilisateur.description"/></p>
 </div>
 </body>
 </html>

@@ -14,7 +14,7 @@
 
 <body>
 <div class="container-fluid">
-    <h2>Liste des Secteur</h2>
+    <h2>Liste des Secteurs</h2>
 
     <ul class="list-group">
         <s:iterator value="listSecteur">

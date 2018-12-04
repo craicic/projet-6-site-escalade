@@ -11,11 +11,11 @@
 
 </head>
 
-<%@ include file="../_include/header.jsp"%>
+<%@ include file="../_include/header.jsp" %>
 <body>
 <div class="container-fluid">
-<p>Votre réservation a été enregistrée</p>
-<p>Vous avez emprunter ce topo jusqu'au <b>TODO</b></p>
+    <h5>Votre réservation a été enregistrée</h5>
+    <s:a action="index">Retour à l'index</s:a>
 </div>
 </body>
 </html>

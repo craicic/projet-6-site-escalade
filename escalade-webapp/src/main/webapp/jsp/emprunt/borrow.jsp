@@ -16,20 +16,21 @@
 <body>
 
 <div class="container-fluid">
-    <h5>Historique de réservation</h5>
-    <%-- todo lister les date de réservation sur ce topo --%>
 
-    <ul>
+    <s:if test="%{!listEmprunt.isEmpty()}">
+        <h5>Historique de réservation</h5>
+    </s:if>
+    <ul class="list-group">
         <s:iterator value="listEmprunt">
-            <li>
-                <div><s:property value="dateEmprunt"/></div>
-                <div><s:property value="dateRetour"/></div>
-                <div><s:property value="emprunteur.pseudo"/></div>
+            <li class="list-group-item">
+                <div>Date d'emprunt : <s:property value="dateEmprunt"/></div>
+                <div>Date de retour : <s:property value="dateRetour"/></div>
+                <div>Emprunteur : <s:property value="emprunteur.pseudo"/></div>
             </li>
         </s:iterator>
 
     </ul>
-    <h5>Choisissez une date de retour :</h5>
+    <h5>Choisissez une date de retour</h5>
     <s:form action="borrow">
 
         <sx:datetimepicker name="date" label="Format (dd-MMM-yyyy)"
