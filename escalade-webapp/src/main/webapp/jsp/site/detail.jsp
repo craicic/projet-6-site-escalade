@@ -22,94 +22,118 @@
 
 <body>
 <div class="container-fluid">
-    <h2>Détail d'un site</h2>
+    <div class="row">
+        <div class="col-lg-8">
+            <h2><s:property value="site.nom"/></h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Profil</th>
+                    <th scope="col">Roche</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Coordonnée GPS X</th>
+                    <th scope="col">Coordonnée GPS Y</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td scope="row"><s:property value="site.nom"/></td>
+                    <td><s:property value="site.profil"/></td>
+                    <td><s:property value="site.roche"/></td>
+                    <td><s:property value="site.type"/></td>
+                    <td><s:property value="site.coordonneeX"/></td>
+                    <td><s:property value="site.coordonneeY"/></td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Description : <s:property value="site.description"/></p>
+        </div>
 
-    <ul>
-        <li>ID : <s:property value="site.id"/></li>
-        <li>Nom : <s:property value="site.nom"/></li>
-        <li>Description : <s:property value="site.description"/></li>
-        <li>Profil : <s:property value="site.profil"/></li>
-        <li>Roche : <s:property value="site.roche"/></li>
-        <li>Type : <s:property value="site.type"/></li>
-        <li>Coordonnée GPS X : <s:property value="site.coordonneeX"/></li>
-        <li>Coordonnée GPS Y : <s:property value="site.coordonneeY"/></li>
-    </ul>
+        <div class="col-lg-4">
+            <h5>Topos associés</h5>
+            <s:if test="%{!listTopo.isEmpty()}">
+                <s:iterator value="listTopo">
+                    <div><s:a action="detail_topo">
+                        <s:param name="id" value="id"/>
+                        <s:property value="titre"/>
+                    </s:a>
+                    </div>
 
-    <s:if test="%{!listSecteur.isEmpty()}">
-        <div>Secteurs associés</div>
-        <s:iterator value="listSecteur">
-            <div><s:a action="detail_secteur">
-                <s:param name="id" value="id"/>
-                <s:property value="nom"/>
-            </s:a></div>
-        </s:iterator>
-    </s:if>
-    <s:else>Aucun secteur associé</s:else>
+                </s:iterator>
+            </s:if>
+            <s:else>
+                <div>Aucun topo n'est lié à ce site
+                </div>
+            </s:else>
 
-    <div>
-        <s:a action="secteur_new">Nouveau secteur associé
-            <s:param name="siteId" value="id"/>
-        </s:a>
+            <h5>Secteurs associés</h5>
+            <s:if test="%{!listSecteur.isEmpty()}">
+
+                <s:iterator value="listSecteur">
+                    <div><s:a action="detail_secteur">
+                        <s:param name="id" value="id"/>
+                        <s:property value="nom"/>
+                    </s:a></div>
+                </s:iterator>
+            </s:if>
+            <s:else>Aucun secteur associé</s:else>
+
+            <s:if test="#session.utilisateur">
+                <div><s:a action="secteur_new">Nouveau secteur associé
+                        <s:param name="siteId" value="id"/>
+                    </s:a></div>
+            </s:if>
+
+            <s:if test="#session.utilisateur">
+                <h5>Édition du site</h5>
+                <div><s:a action="update_site">
+                    <s:param name="id" value="%{id}"/>
+                    Éditer ce site
+                </s:a>
+                </div>
+                <div><s:a action="delete_site">
+                    <s:param name="id" value="%{id}"/>
+                    Supprimer ce site
+                </s:a></div>
+            </s:if>
+        </div>
     </div>
 
-    <s:if test="%{!listTopo.isEmpty()}">
-        <div>Topos relatant ce site :</div>
-        <s:iterator value="listTopo">
-            <div><s:a action="detail_topo">
-                <s:param name="id" value="id"/>
-                <s:property value="titre"/>
-            </s:a>
-            </div>
+    <div class="row">
+        <s:if test="#session.utilisateur">
+            <s:form action="add_comment_site">
+                <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
+                <s:hidden name="id" value="%{id}"/>
+                <s:submit value="Ok"/>
+            </s:form>
+        </s:if>
+        <s:else>
+            <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
+        </s:else>
 
-        </s:iterator>
-    </s:if>
-    <s:else>
-        <%-- todo un lien pour faire correspondre site / topo --%>
-        <div>Aucun topo ne comporte ce site
-        </div>
-    </s:else>
-
-
-    <s:if test="#session.utilisateur">
-
-        <div><s:a action="update_site">
-            <s:param name="id" value="%{id}"/>
-            Éditer ce site
-        </s:a>
-        </div>
-
-        <s:form action="add_comment_site">
-            <s:textarea name="commentaire.contenuTexte" label="Votre commentaire"/>
-            <s:hidden name="id" value="%{id}"/>
-            <s:submit value="Ok"/>
-        </s:form>
-    </s:if>
-    <s:else>
-        <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
-    </s:else>
-
-    <ul>
-        <s:iterator value="listCommentaire">
-            <li>
-                <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
-                <div>Posté à <s:property value="dateCreation"/></div>
-                <div><s:property value="contenuTexte"/></div>
-                <s:if test="%{utilisateurId == #session.utilisateur.id}">
-                    <s:a action="delete_commentaire_site">
-                        <s:param name="id" value="id"/>
-                        <s:param name="site.id" value="%{site.id}"/>
-                        Supprimer
-                    </s:a>
-                    <s:a action="update_my_comment_site">
-                        <s:param name="id" value="id"/>
-                        <s:param name="site.id" value="%{site.id}"/>
-                        Éditer
-                    </s:a>
-                </s:if>
-            </li>
-        </s:iterator>
-    </ul>
-
+        <ul class="list-group">
+            <s:iterator value="listCommentaire">
+                <li class="list-group-item">
+                    <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
+                    <div>Posté à <s:property value="dateCreation"/></div>
+                    <div><s:property value="contenuTexte"/></div>
+                    <s:if test="%{utilisateurId == #session.utilisateur.id}">
+                        <s:a action="delete_commentaire_site">
+                            <s:param name="id" value="id"/>
+                            <s:param name="site.id" value="%{site.id}"/>
+                            Supprimer
+                        </s:a>
+                        <s:a action="update_my_comment_site">
+                            <s:param name="id" value="id"/>
+                            <s:param name="site.id" value="%{site.id}"/>
+                            Éditer
+                        </s:a>
+                    </s:if>
+                </li>
+            </s:iterator>
+        </ul>
+    </div>
     <%--<h3>My Google Maps Demo</h3>--%>
     <%--<!--The div element for the map -->--%>
     <%--<div id="map"></div>--%>

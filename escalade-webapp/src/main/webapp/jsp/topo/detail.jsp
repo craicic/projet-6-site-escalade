@@ -44,7 +44,7 @@
                 Ce topo n'est lié a aucun site.
             </s:if>
             <s:else>
-                <div>Sites liés à ce topo :</div>
+                <div><h5>Sites liés à ce topo</h5></div>
                 <s:iterator value="listSite">
                     <div>
                         <s:a action="detail_site">
@@ -65,11 +65,18 @@
             <%-- ==== Commentaires & Reservation ==== --%>
             <s:if test="#session.utilisateur">
                 <%-- Édition du topo --%>
+                <h5>Edition du topo</h5>
                 <div><s:a action="update_topo">
                     <s:param name="id" value="%{id}"/>
                     Éditer ce topo
                 </s:a></div>
+                <%-- lié un site à ce topo --%>
+                <div><s:a action="link_site_topo">
+                    <s:param name="id" value="id"/>
+                    Lier ce topo à un site existant
+                </s:a></div>
                 <%-- Réservation --%>
+                <h5>Réservation du topo</h5>
                 <s:if test="%{reservedFlag eq true}">
                     <div>Réservé jusqu'au <s:property value="emprunt.dateRetour"/></div>
                 </s:if>
@@ -85,11 +92,7 @@
                     </s:else>
                 </s:else>
 
-                <%-- lié un site à ce topo --%>
-                <div><s:a action="link_site_topo">
-                    <s:param name="id" value="id"/>
-                    Lier ce topo à un site existant
-                </s:a></div>
+
             </s:if>
         </div>
     </div>

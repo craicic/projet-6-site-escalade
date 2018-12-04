@@ -21,48 +21,70 @@
 
 <body>
 <div class="container-fluid">
-    <h2>Détail d'un secteur</h2>
+    <div class="row">
+        <div class="col-lg-8">
+            <h2><s:property value="secteur.nom"/></h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Coordonnée GPS X</th>
+                    <th scope="col">Coordonnée GPS Y</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td scope="row"><s:property value="secteur.nom"/></td>
+                    <td><s:property value="secteur.coordonneeX"/></td>
+                    <td><s:property value="secteur.coordonneeY"/></td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Description : <s:property value="secteur.description"/></p>
+        </div>
 
-    <ul>
-        <li>ID : <s:property value="secteur.id"/></li>
-        <li>Nom : <s:property value="secteur.nom"/></li>
-        <li>Description : <s:property value="secteur.description"/></li>
-        <li>Coordonnée GPS X : <s:property value="secteur.coordonneeX"/></li>
-        <li>Coordonnée GPS Y : <s:property value="secteur.coordonneeY"/></li>
-    </ul>
+        <div class="col-lg-4">
+            <h5>Site associé</h5>
+            <s:a action="detail_site">
+                <s:property value="site.nom"/>
+                <s:param name="id" value="site.id"/>
+            </s:a>
 
-    <s:a action="detail_site">
-        Site associé : <s:property value="site.nom"/>
-        <s:param name="id" value="site.id"/>
-    </s:a>
+            <h5>Voies associées</h5>
+            <s:if test="%{!listVoie.isEmpty()}">
+                <s:iterator value="listVoie">
+                    <%--<s:if test="%{secteurId eq secteur.id}"/>--%>
+                    <div><s:a action="detail_voie">
+                        <s:param name="id" value="id"/>
+                        <s:property value="nom"/>
+                    </s:a></div>
+                </s:iterator>
+            </s:if>
+            <s:else>
+                <div>Aucune voie associée.</div>
+            </s:else>
 
-    <s:if test="%{!listVoie.isEmpty()}">
-        <div>Liste des voies associées :</div>
-        <s:iterator value="listVoie">
-            <%--<s:if test="%{secteurId eq secteur.id}"/>--%>
-            <div><s:a action="detail_voie">
-                <s:param name="id" value="id"/>
-                <s:property value="nom"/>
-            </s:a></div>
-        </s:iterator>
-    </s:if>
-    <s:else>
-        <div>Aucune voie associée.</div>
-    </s:else>
+            <s:if test="#session.utilisateur">
+                <div>
+                    <s:a action="voie_new">Nouvelle voie associée
+                        <s:param name="secteurId" value="id"/>
+                    </s:a>
+                </div>
 
-    <div>
-        <s:a action="voie_new">Nouvelle voie associée
-            <s:param name="secteurId" value="id"/>
-        </s:a>
+                <h5>Édition du secteur</h5>
+                <div><s:a action="update_secteur">
+                    <s:param name="id" value="%{id}"/>
+                    Éditer ce Secteur
+                </s:a>
+                </div>
+                <div><s:a action="delete_secteur">
+                    <s:param name="id" value="%{id}"/>
+                    Supprimer ce secteur
+                </s:a></div>
+            </s:if>
+        </div>
     </div>
 
-    <s:if test="#session.utilisateur">
-        <div><s:a action="update_secteur">
-            <s:param name="id" value="%{id}"/>
-            Éditer ce Secteur
-        </s:a>
-        </div>
-    </s:if>
     <%--<h3>My Google Maps Demo</h3>--%>
     <%--<!--The div element for the map -->--%>
     <%--&lt;%&ndash;<div id="map"></div>&ndash;%&gt;--%>
