@@ -71,7 +71,8 @@
         <s:else>
             <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
         </s:else>
-
+    </div>
+    <div class="row">
         <ul class="list-group">
             <s:iterator value="listCommentaire">
                 <li class="list-group-item">

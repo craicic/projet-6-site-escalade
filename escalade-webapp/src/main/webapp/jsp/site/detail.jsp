@@ -81,8 +81,8 @@
 
             <s:if test="#session.utilisateur">
                 <div><s:a action="secteur_new">Nouveau secteur associé
-                        <s:param name="siteId" value="id"/>
-                    </s:a></div>
+                    <s:param name="siteId" value="id"/>
+                </s:a></div>
             </s:if>
 
             <s:if test="#session.utilisateur">
@@ -112,6 +112,8 @@
             <s:a action="login">Connectez vous pour écrire un commentaire.</s:a>
         </s:else>
 
+    </div>
+    <div class="row">
         <ul class="list-group">
             <s:iterator value="listCommentaire">
                 <li class="list-group-item">

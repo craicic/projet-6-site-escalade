@@ -10,7 +10,7 @@ public class GenerateurDeDifficulte {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public static final String[] difficultes = new String[]{
+    private static final String[] difficultes = new String[]{
             "1a-", "1a", "1a+", "1b-", "1b", "1b+", "1c-", "1c", "1c+",
             "2a-", "2a", "2a+", "2b-", "2b", "2b+", "2c-", "2c", "2c+",
             "3a-", "3a", "3a+", "3b-", "3b", "3b+", "3c-", "3c", "3c+",
@@ -23,9 +23,10 @@ public class GenerateurDeDifficulte {
     };
 
     public static List<String> Generateur(String difficulteMin, String difficulteMax) {
-        logger.debug("Entrée dans la méthode statique Generateur, avec difficulteMin = " + difficulteMin + " et difficulteMax = " + difficulteMax);
+        logger.debug("Entrée dans la méthode statique Generateur, avec difficulteMin = " + difficulteMin +
+                " et difficulteMax = " + difficulteMax);
         List<String> listDifficultes = new ArrayList<>();
-        logger.debug("list créé");
+        logger.debug("liste instanciée");
 
 
         int j = 0;
@@ -42,6 +43,7 @@ public class GenerateurDeDifficulte {
         }
 
         listDifficultes.add(difficultes[l + 1]);
+        logger.debug("valeur ajoutée : " + difficultes[l+1]);
 
         return listDifficultes;
     }
