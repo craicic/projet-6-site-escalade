@@ -13,8 +13,15 @@
 <div class="container-fluid">
     <h2>Resultat</h2>
 
-    <p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
-
+    <p>Mots recherchés :
+        <s:if test="%{!termeDeLaRecherche.isEmpty()}"> <s:property value="termeDeLaRecherche"/>
+        </s:if>
+        <s:else>
+            aucun
+        </s:else>
+    </p>
+    <div>Difficulté minimum : <s:property value="difficulteMin"/></div>
+    <div>Difficulté maximum : <s:property value="difficulteMax"/></div>
 
     <ul class="list-group">
         <h5>Topos <span class="badge badge-primary badge-pill"><s:property value="listTopo.size()"/></span></h5>

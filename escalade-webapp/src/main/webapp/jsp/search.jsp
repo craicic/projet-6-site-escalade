@@ -13,26 +13,33 @@
 <div class="container-fluid">
     <h2>Resultat</h2>
 
-    <p>Mots recherchés : <s:property value="termeDeLaRecherche"/></p>
 
+    <p>Mots recherchés :
+        <s:if test="%{!termeDeLaRecherche.isEmpty()}"> <s:property value="termeDeLaRecherche"/>
+        </s:if>
+        <s:else>
+        aucun
+        </s:else>
+    </p>
     <s:if test="%{listTopo.isEmpty() and listSite.isEmpty() and listSecteur.isEmpty() and listVoie.isEmpty()}">
         <div>Aucun résultat trouvé</div>
     </s:if>
     <s:else>
-    <s:form action="filter" method="GET">
+        <div>Filtre par difficulté</div>
+        <s:form action="filter" method="GET">
 
-        <s:select name="difficulteMin" Label="Difficulte minimum"
-                  list="listDifficulte"
-                  emptyOption="false"/>
+            <s:select name="difficulteMin" label="Difficulté minimum "
+                      list="listDifficulte"
+                      emptyOption="false"/>
 
-        <s:select name="difficulteMax" Label="Difficulte minimum"
-                  list="listDifficulte"
-                  emptyOption="false"/>
+            <s:select name="difficulteMax" label="Difficulté maximum "
+                      list="listDifficulte"
+                      emptyOption="false"/>
 
-        <s:hidden name="termeDeLaRecherche" value="%{termeDeLaRecherche}"/>
+            <s:hidden name="termeDeLaRecherche" value="%{termeDeLaRecherche}"/>
 
-        <s:submit value="Filtrer"/>
-    </s:form>
+            <s:submit value="Filtrer"/>
+        </s:form>
     </s:else>
 
     <ul class="list-group">
