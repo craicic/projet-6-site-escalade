@@ -76,7 +76,7 @@
             <s:iterator value="listCommentaire">
                 <li class="list-group-item">
                     <div>Auteur : <s:property value="utilisateur.pseudo"/></div>
-                    <div>Posté à <s:property value="dateCreation"/></div>
+                    <div>Posté le <s:date name="dateCreation" format="dd/MM/yyyy à HH:mm"/></div>
                     <div><s:property value="contenuTexte"/></div>
                     <s:if test="%{utilisateurId == #session.utilisateur.id}">
                         <s:a action="delete_commentaire_voie">
